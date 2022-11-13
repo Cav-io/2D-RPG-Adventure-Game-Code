@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url('https://allfreedesigns.com/wp-content/uploads/2015/06/black-patterns-11.jpg');
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.game {
+  position: relative;
+  background-image: url('https://allfreedesigns.com/wp-content/uploads/2015/06/black-patterns-11.jpg');
+  width: 1280px;
+  height: 720px;
+  margin: 0 auto;
+  margin-top: 20px;
+  outline: 1px solid red;
+}
+
+.game canvas {
+  image-rendering: pixelated;
+}
