@@ -3,22 +3,21 @@
 }
 
 body {
-  background-image: url('https://allfreedesigns.com/wp-content/uploads/2015/06/black-patterns-11.jpg');
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
+  background-image: url('https://allfreedesigns.com/wp-content/uploads/2015/06/black-patterns-11.jpg'); /*Declares the background image for the website*/
+  padding: 0; margin: 0;
+  overflow: hidden; /*Ignores scroll responses to arrow keys*/
 }
 
+
+
 .game {
-  position: relative;
-  background-image: url('https://allfreedesigns.com/wp-content/uploads/2015/06/black-patterns-11.jpg');
-  width: 1280px;
-  height: 720px;
-  margin: 0 auto;
-  margin-top: 20px;
-  outline: 1px solid red;
+  position: relative; /*Canvas is relative to the parent element*/
+  width: 1280px; height: 720px; /*Aspect ratio for the game canvas*/
+  margin: 0 auto; /*centers the canvas, the position is set automatically based on the browser*/
+  margin-top: 5%; /*Descends the canvas downward by a few pixels*/
+  outline: 1px solid red; /*Outline of the game canvas*/
 }
 
 .game canvas {
-  image-rendering: pixelated;
+  image-rendering: pixelated; /* the images inside the canvas is going to be rendered and scaled by multiplying pixels*/
 }
