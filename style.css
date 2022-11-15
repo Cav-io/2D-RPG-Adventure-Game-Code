@@ -3,7 +3,8 @@
 }
 
 body {
-  background-image: url('https://allfreedesigns.com/wp-content/uploads/2015/06/black-patterns-11.jpg'); /*Declares the background image for the website*/
+  /*Declares the background image for the website*/
+  background-image: url('https://allfreedesigns.com/wp-content/uploads/2015/06/black-patterns-11.jpg'); 
   padding: 0; margin: 0;
   overflow: hidden; /*Ignores scroll responses to arrow keys*/
 }
@@ -13,11 +14,14 @@ body {
 .game {
   position: relative; /*Canvas is relative to the parent element*/
   width: 1280px; height: 720px; /*Aspect ratio for the game canvas*/
-  margin: 0 auto; /*centers the canvas, the position is set automatically based on the browser*/
+  margin: 0 auto; /*centers the canvas, the position is set 
+  automatically based on the browser*/
   margin-top: 5%; /*Descends the canvas downward by a few pixels*/
   outline: 1px solid red; /*Outline of the game canvas*/
 }
 
 .game canvas {
-  image-rendering: pixelated; /* the images inside the canvas is going to be rendered and scaled by multiplying pixels*/
+   /* the images inside the canvas is going to be rendered and 
+      scaled by multiplying pixels*/
+  image-rendering: pixelated;
 }
