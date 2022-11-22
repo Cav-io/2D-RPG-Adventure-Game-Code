@@ -3,27 +3,33 @@
 class Game {
   constructor(config){
     this.element = config.element;
+    //HTML tag where it will display the game
     this.canvas = this.element.querySelector(".game canvas");
     //Reference to the HTMl canvas
     this.context = this.canvas.getContext("2d");
     //Will give us access to different drawing methods
   }
 
-  drawMap(imageInstance, posX, posY) { //function that draws images on the canvas
-    //The parameters is the image object, x and y position that will be 
-    
+  //function that draws images on the canvas
+  drawMap(imageInstance, posX, posY) { 
+  //The parameters is the image object, x and y position that will be 
     imageInstance.onload = () => {
-      this.context.drawImage(imageInstance,posX, posY)
+      //The onload method loads the image 
+      imageInstance.isLoaded = true;
     }
+    //Draws the image to the corresponding HTML tag which is the canvas.
+    imageInstance.isLoaded && this.context.drawImage(imageInstance,posX, posY);
+    setTimeout(() => {this.context.drawImage(imageInstance,posX, posY)}, 200)
   } 
+
   
   //The init method will start the game
   init() {
     
     //Lower layer
     const lowerLayer = new Image(); //creates a a new image 
-    lowerLayer.src = "/Maps/starting house/lower layer.png"; 
     //The source is the attribute of the instance  
+    lowerLayer.src = "/Maps/starting house/lower layer.png"; 
     this.drawMap(lowerLayer,0,0); //Calls the method for drawing the image
     
     //Collision Layer
@@ -35,6 +41,19 @@ class Game {
     const upperLayer = new Image();
     upperLayer.src = "/Maps/starting house/upper layer.png";
     this.drawMap(upperLayer,0,0);
+
+    // const player = new Image();
+    // player.src = "Characters/RedSamurai/redsamurai.png";
+    // this.drawMap(player, 0,0)
+
+    //GAME OBJECTS
+    const player = new Obj({
+      x: 5, y: 6, src: "Characters/RedSamurai/redsamurai.png"
+    })
+    
+    setTimeout(() => {player.sprite.drawObj(this.context)}, 200)
   }
+
+  
   
 }
