@@ -12,16 +12,13 @@ class Game {
 
   //function that draws images on the canvas
   drawMap(imageInstance, posX, posY) { 
-  //The parameters is the image object, x and y position that will be 
+    //The parameters is the image object, x and y position that will be 
     imageInstance.onload = () => {
       //The onload method loads the image 
-      imageInstance.isLoaded = true;
-    }
+      this.context.drawImage(imageInstance,posX, posY)
     //Draws the image to the corresponding HTML tag which is the canvas.
-    imageInstance.isLoaded && this.context.drawImage(imageInstance,posX, posY);
-    setTimeout(() => {this.context.drawImage(imageInstance,posX, posY)}, 200)
+    }
   } 
-
   
   //The init method will start the game
   init() {
