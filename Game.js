@@ -39,16 +39,16 @@ class Game {
     upperLayer.src = "/Maps/starting house/upper layer.png";
     this.drawMap(upperLayer,0,0);
 
-    // const player = new Image();
-    // player.src = "Characters/RedSamurai/redsamurai.png";
-    // this.drawMap(player, 0,0)
 
-    //GAME OBJECTS
-    const player = new Obj({
-      x: 5, y: 6, src: "Characters/RedSamurai/redsamurai.png"
+    //Defining entities
+    const player = new Obj({ //Creates a 'player' instance
+      x: 5, y: 4, //Initial player position
+      src: "Characters/RedSamurai/redsamurai.png" //Player image source
     })
+
+    //Drawing entities
+    player.sprite.drawObj(this.context) //Uses the sprite class draw method
     
-    setTimeout(() => {player.sprite.drawObj(this.context)}, 200)
   }
 
   

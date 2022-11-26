@@ -1,14 +1,10 @@
 class Sprite{
   constructor(config){
-
-    // //Sprite Attributes
-    // this.widthCut = config.widthCut;
-    // this.heightCut = config.heightCut;
     
-    this.skin = new Image();
-    this.skin.src = config.src;
-    this.skin.onload = () => {
-      this.isLoaded = true; 
+    this.skin = new Image(); //Creates a new image attribute for the sprite
+    this.skin.src = config.src; //Sets the source of the image
+    this.skin.onload = () => {//When the skin is loaded
+      this.isLoaded = true; //Mark as loaded
     }
 
     //Player movement animation
@@ -22,21 +18,20 @@ class Sprite{
       "walk-left"  : [ [2,1], [2,0], [2,3], [2,0] ],
       "walk-right" : [ [3,1], [3,0], [3,3], [3,0] ]  
     }
-
-    //the default stance and animation of the character
-    this.currentAnimation = config.currentanimation || "idle-down";
-    this.currentAnimationFrame = 0;
-
+    
     //Obj Class
     this.Obj = config.Obj;
     
   }
 
   //Sprite Methods
-  drawObj(context){
-    const x = this.Obj.x * 16;
+  drawObj(context){ 
+    const x = this.Obj.x * 16; 
     const y = this.Obj.y * 16;
-    this.isLoaded && context.drawImage(this.skin, 0, 0, 16, 16, x, y, 16, 16)    
+    if (this.isLoaded == true){//If the sprite is loaded
+      context.drawImage(this.skin, 0, 0, 16, 16, x, y, 16, 16) 
+      //then draw the sprite on the game canvas 
+    }
   }
   
 }
@@ -49,6 +44,7 @@ class Obj { //A blueprint for an object in the game
     this.x = config.x;
     this.y = config.y;
     this.sprite = new Sprite({Obj: this, src: config.src});
+    //Creates an attribute for the sprite or skin of the game object
     
   }
   
