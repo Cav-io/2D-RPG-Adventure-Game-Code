@@ -23,31 +23,33 @@ class Game {
   //The init method will start the game
   init() {
     
-    //Lower layer
-    const lowerLayer = new Image(); //creates a a new image 
-    //The source is the attribute of the instance  
-    lowerLayer.src = "/Maps/starting house/lower layer.png"; 
-    this.drawMap(lowerLayer,0,0); //Calls the method for drawing the image
+    // //Lower layer
+    // const lowerLayer = new Image(); //creates a a new image 
+    // //The source is the attribute of the instance  
+    // lowerLayer.src = "/Maps/starting house/lower layer.png"; 
+    // this.drawMap(lowerLayer,0,0); //Calls the method for drawing the image
     
-    //Collision Layer
-    const collisionLayer = new Image();
-    collisionLayer.src = "/Maps/starting house/collision layer.png";
-    this.drawMap(collisionLayer,0,0);
+    // //Collision Layer
+    // const collisionLayer = new Image();
+    // collisionLayer.src = "/Maps/starting house/collision layer.png";
+    // this.drawMap(collisionLayer,0,0);
     
-    //Upper Layer
-    const upperLayer = new Image();
-    upperLayer.src = "/Maps/starting house/upper layer.png";
-    this.drawMap(upperLayer,0,0);
+    // //Upper Layer
+    // const upperLayer = new Image();
+    // upperLayer.src = "/Maps/starting house/upper layer.png";
+    // this.drawMap(upperLayer,0,0);
 
 
     //Defining entities
     const player = new Obj({ //Creates a 'player' instance
       x: 5, y: 4, //Initial player position
-      src: "Characters/RedSamurai/redsamurai.png" //Player image source
+      src: "Characters/RedSamurai/SpriteSheet.png" //Player image source
     })
 
+
     //Drawing entities
-    player.sprite.drawObj(this.context) //Uses the sprite class draw method
+    setTimeout(() => {player.sprite.drawObj(this.context)}, 250)
+    //Uses the sprite class draw method
     
   }
 
