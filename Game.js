@@ -8,24 +8,23 @@ class Game {
     //Reference to the HTMl canvas
     this.context = this.canvas.getContext("2d");
     //Will give us access to different drawing methods
-    this.map = null;
-    //The current map that the user is playing on
   }
 
   //Game Loop
-  Loop() {
-    const gameLoop = () => {
-      requestAnimationFrame(() => {
-          gameLoop()
+  Loop() { //Loop method for the game
+    const gameLoop = () => { //Declares a game loop  function  
+      requestAnimationFrame(() => { 
+      //Calls a function before going repainting the next frame
+
+          gameLoop() //Re-iterates the function
       })
     }
-    gameLoop();
+    gameLoop(); //Initiates the game loop
   }
   
   //The init method will start the game
   init() {
-    this.map = new Map(window.Maps.StartingHouse)
-    this.startGameLoop();
+    this.Loop();
   
   }
 }
