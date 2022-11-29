@@ -8,8 +8,6 @@ class Game {
     //Reference to the HTMl canvas
     this.context = this.canvas.getContext("2d");
     //Will give us access to different drawing methods
-    this.map = null;
-    //The current map that the user is playing on
   }
 
   //Game Loop
@@ -17,16 +15,6 @@ class Game {
     const gameLoop = () => { //Declares a game loop  function  
       requestAnimationFrame(() => { 
       //Calls a function before going repainting the next frame
-
-        //Drawing Layers
-        this.map.drawLower(this.context);
-        this.map.drawCollision(this.context);
-        this.map.drawUpper(this.context);
-
-        //Draws every single entity 
-        Object.values(this.map.entities).every(obj => {
-          obj.sprite.drawObj(this.context);
-        })
 
          gameLoop(); //Re-iterates the function
       })
@@ -36,7 +24,6 @@ class Game {
   
   //The init method will start the game
   init() {
-    this.map = new Map(window.Maps.StartingHouse)
     this.Loop();
   
   }
