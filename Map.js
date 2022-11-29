@@ -29,11 +29,14 @@ class Map {
   }
 }
 
-window.Map = {
+window.Maps = {
   StartingHouse: {
     lowerLayerSrc: "/Maps/starting house/lower layer.png",
     collisionLayerSrc: "/Maps/starting house/collision layer.png",
     upperLayerSrc: "/Maps/starting house/upper layer.png",
-    entities: {player: new Obj({x: 5, y: 4})}
+    entities: {player: new Obj({
+      x: 5, y: 4, 
+      src: "Characters/RedSamurai/SpriteSheet.png"}
+    )}
   }
 }
