@@ -23,6 +23,11 @@ class Game {
         this.map.drawCollision(this.context);
         this.map.drawUpper(this.context);
 
+        //Draws every single entity 
+        Object.values(this.map.entities).forEach(obj => {
+          obj.sprite.drawObj(this.context);
+        })
+
          gameLoop(); //Re-iterates the function
       })
     }

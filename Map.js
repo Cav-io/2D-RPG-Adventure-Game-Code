@@ -34,13 +34,5 @@ window.Maps = {
     lowerLayerSrc: "/Maps/starting house/lower layer.png",
     collisionLayerSrc: "/Maps/starting house/collision layer.png",
     upperLayerSrc: "/Maps/starting house/upper layer.png",
-    entities: {
-      player: new Obj({
-        x: 5, y: 4, 
-        src: "Characters/RedSamurai/SpriteSheet.png"}),
-      monster: new Obj({
-        x: 7, y: 4, 
-        src: "Monsters/Dragon.png"}),
-      }
   }
 }
