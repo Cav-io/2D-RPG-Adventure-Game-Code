@@ -25,6 +25,7 @@ class Game {
 
         //Draws every single entity 
         Object.values(this.map.entities).forEach(obj => {
+          obj.update()
           obj.sprite.drawObj(this.context);
         })
 
