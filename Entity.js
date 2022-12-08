@@ -33,7 +33,6 @@ class Sprite{
       //then draw the sprite on the game canvas 
     }
   }
-  
 }
 
 
@@ -52,21 +51,21 @@ class Obj { //A blueprint for an object in the game
   
   //The Update method will commit changes to the object 
   update() {} 
-
 }
 
-class Person extends Obj{ //GameObj that can be controlled by the user
+
+
+class Player extends Obj{ //GameObj that can be controlled by the user
   constructor(config) {
     super(config); //Inherits methods and attributes from Obj
     
-    this.movementLeft = config.movementLeft*16 || 0; 
+    this.TilesLeft = config.TilesLeft*16 || 4*16; 
     //How many grids the player has left to travel
 
     this.directionDict = {
       "up"   :   ["y",-1], "down" :   ["y", 1],
       "right":   ["x", 1], "left" :   ["x",-1]
     } //Assigns the axis and the value for the correspoding direction
-    
   }
 
   //The update method will commit changes to the player
@@ -75,15 +74,30 @@ class Person extends Obj{ //GameObj that can be controlled by the user
   }
 
   updatePos() {
-    if (this.movementLeft > 0) { //If the player has to move
+    if (this.TilesLeft > 0) { //If the player has to move
       const [axis, value] = this.directionDict[this.direction] 
       //Checks which direction it needs to move to
       this[axis] += value;
       //Changes their position value on the correct axis
-      this.movementLeft -= 1 
-      // If this method continues to run, the method will stop when the movementLeft is 0
-    }
-    
+      this.TilesLeft -= 1 
+      // If this method continues to run, the method will stop when the TilesLeft is 0
+    }  
   }
 }
+
+class KeyInput{
+  constructor(){
+    this.heldDirections = [];
+  }
+
+  init(){
+    document.addEventListener("keydown", e =>{
+      console.log(e.code);
+    });
+  }
+  
+}
+
+
+
 

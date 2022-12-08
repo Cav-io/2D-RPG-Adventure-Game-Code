@@ -38,6 +38,10 @@ class Game {
   //The init method will start the game
   init() {
     this.map = new Map(window.Maps.StartingHouse)
+    document.addEventListener("keydown", key =>{
+    //Checks for inputted keys
+    });
+    
     this.Loop();
   
   }
