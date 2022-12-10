@@ -1,31 +1,24 @@
 class Map {
-  constructor(config){
-    //Lower Layer
-    this.lowerLayer = new Image();
-    this.lowerLayer.src = config.lowerLayerSrc;
-    
-    //Collision Layer
-    this.collisionLayer = new Image();
-    this.collisionLayer.src = config.collisionLayerSrc;
-
-    //Upper Layer
-    this.upperLayer = new Image();
-    this.upperLayer.src = config.upperLayerSrc;
-    
-    
+  constructor(config) {
+    this.lowerLayerSrc = config.lowerLayerSrc;
+    this.collisionLayerSrc = config.collisionLayerSrc;
+    this.upperLayerSrc = config.upperLayerSrc;
     this.entities = config.entities;
   }
 
-  drawLower(context){
-    context.drawImage(this.lowerLayer, 0, 0)
-  }
+  drawLayers(context) {
+    const lowerLayer = new Image();
+    lowerLayer.src = this.lowerLayerSrc;
 
-  drawCollision(context){
-    context.drawImage(this.collisionLayer, 0, 0)
-  }
+    const collisionLayer = new Image();
+    collisionLayer.src = this.collisionLayerSrc;
 
-  drawUpper(context){
-    context.drawImage(this.upperLayer, 0, 0)
+    const upperLayer = new Image();
+    upperLayer.src = this.upperLayerSrc;
+
+    context.drawImage(lowerLayer, 0, 0);
+    context.drawImage(collisionLayer, 0, 0);
+    context.drawImage(upperLayer, 0, 0);
   }
 }
 

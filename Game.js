@@ -19,9 +19,7 @@ class Game {
       //Calls a function before going repainting the next frame
 
         //Drawing Layers
-        this.map.drawLower(this.context);
-        this.map.drawCollision(this.context);
-        this.map.drawUpper(this.context);
+        this.map.drawLayers(this.context);
 
         //Draws every single entity 
         Object.values(this.map.entities).forEach(obj => {
