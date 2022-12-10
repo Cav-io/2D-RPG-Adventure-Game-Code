@@ -59,7 +59,7 @@ class Player extends Obj{ //GameObj that can be controlled by the user
   constructor(config) {
     super(config); //Inherits methods and attributes from Obj
     
-    this.TilesLeft = config.TilesLeft*16 || 0*16; 
+    this.TilesLeft = config.TilesLeft || 0; 
     //How many grids the player has left to travel
 
     this.directionDict = {
