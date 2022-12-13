@@ -85,5 +85,36 @@ class Player extends Obj{ //GameObj that can be controlled by the user
   }
 }
 
+class keyInput{
+  constructor(){
+      
+    this.keysHeld = [];
+   
+    this.keyDirectionMap = {
+      "ArrowUp": "up",
+      "ArrowDown": "down",
+      "ArrowLeft": "left",
+      "ArrowRight": "right"
+    };    
+  }
+
+  init(){
+    document.addEventListener('keydown', this.handleKey.bind(this));
+    document.addEventListener('keyup', this.handleKey.bind(this));
+  }
+  
+  handleKey(event){
+    const direction = this.keyDirectionMap[event.key];
+    const index = this.keysHeld.indexOf(direction);
+  
+    if (event.type === 'keydown' && !this.keysHeld.includes(direction)) {
+      this.keysHeld.unshift(direction);
+    } else if (event.type === 'keyup' && index > -1) {
+      this.keysHeld.splice(index, 1);
+    }
+    // console.log(this.keysHeld)
+  }
+
+}
 
 

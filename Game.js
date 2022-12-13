@@ -27,6 +27,8 @@ class Game {
           obj.sprite.drawObj(this.context);
         })
 
+        
+
          gameLoop(); //Re-iterates the function
       })
     }
@@ -35,11 +37,9 @@ class Game {
   
   //The init method will start the game
   init() {
-    this.map = new Map(window.Maps.StartingHouse)
-    document.addEventListener("keydown", key =>{
-    //Checks for inputted keys
-    });
-    
+    this.map = new Map(window.Maps.StartingHouse)    
+    this.directions = new keyInput()
+    this.directions.init()
     this.Loop();
   
   }
