@@ -87,34 +87,47 @@ class Player extends Obj{ //GameObj that can be controlled by the user
 
 class keyInput{
   constructor(){
-      
+
+    // Initialize an empty array to track held keys
     this.keysHeld = [];
-   
+
+    // Define a map that associates key codes with directions
     this.keyDirectionMap = {
       "ArrowUp": "up",
       "ArrowDown": "down",
       "ArrowLeft": "left",
-      "ArrowRight": "right"
+      "ArrowRight": "right",
+
+      "KeyW": "up",
+      "KeyS": "down",
+      "KeyA": "left",
+      "KeyD": "right"
     };    
   }
 
   init(){
+    //The function triggers when the user presses and releases a key, respectively
     document.addEventListener('keydown', this.handleKey.bind(this));
     document.addEventListener('keyup', this.handleKey.bind(this));
   }
   
   handleKey(event){
-    const direction = this.keyDirectionMap[event.key];
+    //Gets the direction value from input key
+    const direction = this.keyDirectionMap[event.code];
+    //Gets the index of the direction in the keysHeld array
     const index = this.keysHeld.indexOf(direction);
-  
+
+    //If the held key is not in the keysHeld array...
     if (event.type === 'keydown' && !this.keysHeld.includes(direction)) {
+      //...Then add the direction to the front of the keysHeld array
       this.keysHeld.unshift(direction);
+    //If the released key is in the keysHeld array...
     } else if (event.type === 'keyup' && index > -1) {
+      //...Then remove the direction of the corresponding key 
       this.keysHeld.splice(index, 1);
     }
-    // console.log(this.keysHeld)
   }
-
+  
 }
 
 
