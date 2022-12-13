@@ -40,8 +40,8 @@ class Sprite{
 
 class Obj { //A blueprint for an object in the game
   constructor(config){
-    this.x = config.x;
-    this.y = config.y;
+    this.x = config.x*16;
+    this.y = config.y*16;
     this.sprite = new Sprite({Obj: this, src: config.src});
     //Creates an attribute for the sprite or skin of the game object   
 
@@ -59,7 +59,7 @@ class Player extends Obj{ //GameObj that can be controlled by the user
   constructor(config) {
     super(config); //Inherits methods and attributes from Obj
     
-    this.TilesLeft = config.TilesLeft || 0; 
+    this.TilesLeft = config.TilesLeft*16 || 0; 
     //How many grids the player has left to travel
 
     this.directionDict = {
@@ -84,20 +84,6 @@ class Player extends Obj{ //GameObj that can be controlled by the user
     }  
   }
 }
-
-class KeyInput{
-  constructor(){
-    this.heldDirections = [];
-  }
-
-  init(){
-    document.addEventListener("keydown", e =>{
-      console.log(e.code);
-    });
-  }
-  
-}
-
 
 
 

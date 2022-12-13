@@ -29,11 +29,8 @@ window.Maps = {
     upperLayerSrc: "/Maps/starting house/upper layer.png",
     entities: {
       player: new Player({
-        x: 5*16, y: 4*16, direction: "right",
+        x: 5, y: 4, direction: "right",
         src: "Characters/RedSamurai/SpriteSheet.png"}),
-      // monster: new Obj({
-      //   x: 7*16, y: 4*16, 
-      //   src: "Monsters/Dragon.png"}),
       }
   }
 }
