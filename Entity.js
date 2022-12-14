@@ -28,9 +28,9 @@ class Sprite{
   drawObj(context){ 
     const x = this.Obj.x; 
     const y = this.Obj.y;
-    if (this.isLoaded == true){//If the sprite is loaded
-      context.drawImage(this.skin, 0, 0, 16, 16, x, y, 16, 16) 
+    if (this.isLoaded == true){  //If the sprite is loaded
       //then draw the sprite on the game canvas 
+      context.drawImage(this.skin, 0, 0, 16, 16, x, y, 16, 16) 
     }
   }
 }
@@ -42,8 +42,9 @@ class Obj { //A blueprint for an object in the game
   constructor(config){
     this.x = config.x*16;
     this.y = config.y*16;
-    this.sprite = new Sprite({Obj: this, src: config.src});
+    
     //Creates an attribute for the sprite or skin of the game object   
+    this.sprite = new Sprite({Obj: this, src: config.src});
 
     //The direction that the object faces
     this.direction = config.direction || "down";
@@ -59,13 +60,14 @@ class Player extends Obj{ //GameObj that can be controlled by the user
   constructor(config) {
     super(config); //Inherits methods and attributes from Obj
     
-    this.TilesLeft = config.TilesLeft*16 || 0; 
     //How many grids the player has left to travel
+    this.TilesLeft = config.TilesLeft*16 || 0; 
 
+    //Assigns the axis and the value for the correspoding direction
     this.directionDict = {
       "up"   :   ["y",-1], "down" :   ["y", 1],
       "right":   ["x", 1], "left" :   ["x",-1]
-    } //Assigns the axis and the value for the correspoding direction
+    } 
   }
 
   //The update method will commit changes to the player

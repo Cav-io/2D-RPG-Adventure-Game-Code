@@ -15,8 +15,8 @@ class Game {
   //Game Loop
   Loop() { //Loop method for the game
     const gameLoop = () => { //Declares a game loop  function  
-      requestAnimationFrame(() => { 
       //Calls a function before going repainting the next frame
+      requestAnimationFrame(() => { 
 
         //Drawing Layers
         this.map.drawLayers(this.context);
