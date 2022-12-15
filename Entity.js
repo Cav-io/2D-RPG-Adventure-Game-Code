@@ -26,9 +26,8 @@ class Sprite{
 
   //Sprite Methods
   drawObj(context){ 
-    const x = this.Obj.x; 
-    const y = this.Obj.y;
-    if (this.isLoaded == true){  //If the sprite is loaded
+    const {x, y} = this.Obj; //Destructuring
+    if (this.isLoaded) {  //If the sprite is loaded
       //then draw the sprite on the game canvas 
       context.drawImage(this.skin, 0, 0, 16, 16, x, y, 16, 16) 
     }

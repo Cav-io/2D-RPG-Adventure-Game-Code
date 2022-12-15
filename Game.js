@@ -19,25 +19,20 @@ class Game {
       requestAnimationFrame(() => { 
 
         //Drawing Layers
-
-        
         this.map.drawLower(this.context);
         this.map.drawCollision(this.context);
 
         //Draws every single entity 
-        Object.values(this.map.entities).forEach(obj => {
-          obj.update({
+        Object.values(this.map.entities).forEach(entity => {
+          entity.update({
             arrow: this.directions.direction
           })
-          obj.sprite.drawObj(this.context);
+          entity.sprite.drawObj(this.context);
         })
 
         this.map.drawUpper(this.context);
-
-
         
-
-         gameLoop(); //Re-iterates the function
+        gameLoop(); //Re-iterates the function
       })
     }
     gameLoop(); //Initiates the game loop
