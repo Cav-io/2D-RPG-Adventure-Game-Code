@@ -11,21 +11,22 @@ class Map {
     this.entities = config.entities; 
   }
 
-  drawLayers(context) { //draw layers on canvas context 
-
-    //Creates images and assigns the sources for all three layers
+  drawLower(context){
     const lowerLayer = new Image(); 
     lowerLayer.src = this.lowerLayerSrc; 
+    context.drawImage(lowerLayer, 0, 0); //draw lower layer image 
+  }
 
+  drawCollision(context){
     const collisionLayer = new Image(); 
     collisionLayer.src = this.collisionLayerSrc; 
+    context.drawImage(collisionLayer, 0, 0); //draw lower layer image 
+  }
 
+  drawUpper(context){
     const upperLayer = new Image(); 
     upperLayer.src = this.upperLayerSrc; 
-
-    context.drawImage(lowerLayer, 0, 0); //draw lower layer image 
-    context.drawImage(collisionLayer, 0, 0); //draw collision layer image
-    context.drawImage(upperLayer, 0, 0); //draw upper layer image 
+    context.drawImage(upperLayer, 0, 0); //draw lower layer image 
   }
 }
 

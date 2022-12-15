@@ -19,7 +19,10 @@ class Game {
       requestAnimationFrame(() => { 
 
         //Drawing Layers
-        this.map.drawLayers(this.context);
+
+        
+        this.map.drawLower(this.context);
+        this.map.drawCollision(this.context);
 
         //Draws every single entity 
         Object.values(this.map.entities).forEach(obj => {
@@ -28,6 +31,9 @@ class Game {
           })
           obj.sprite.drawObj(this.context);
         })
+
+        this.map.drawUpper(this.context);
+
 
         
 
