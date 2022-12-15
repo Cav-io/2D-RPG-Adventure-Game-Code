@@ -71,8 +71,13 @@ class Player extends Obj{ //GameObj that can be controlled by the user
   }
 
   //The update method will commit changes to the player
-  update() {
+  update(state) {
     this.updatePos();
+
+    if (this.TilesLeft === 0 && state.arrow){
+      this.direction = state.arrow;
+      this.TilesLeft = 1*16;
+    }
   }
 
   updatePos() {
@@ -129,7 +134,8 @@ class keyInput{
       this.keysHeld.splice(index, 1);
     }
   }
-  
+
+  get direction(){
+    return this.keysHeld[0];
+  }
 }
-
-

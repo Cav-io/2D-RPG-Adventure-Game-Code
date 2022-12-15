@@ -1,4 +1,3 @@
-
 //declare class Map with constructor and drawLayers method 
 class Map {
   constructor(config) { 
