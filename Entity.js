@@ -61,7 +61,7 @@ class Player extends Obj{ //GameObj that can be controlled by the user
     
     //How many grids the player has left to travel
     this.TilesLeft = config.TilesLeft*16 || 0; 
-
+    this.speed = 2
     //Assigns the axis and the value for the correspoding direction
     this.directionDict = {
       "up"   :   ["y",-1], "down" :   ["y", 1],
@@ -75,18 +75,18 @@ class Player extends Obj{ //GameObj that can be controlled by the user
 
     if (this.TilesLeft === 0 && state.arrow){
       this.direction = state.arrow;
-      this.TilesLeft = 1*16;
+      this.TilesLeft = this.speed*16;
     }
   }
 
   updatePos() {
     if (this.TilesLeft > 0) { //If the player has to move
-      const [axis, value] = this.directionDict[this.direction] 
       //Checks which direction it needs to move to
-      this[axis] += value;
+      const [axis, value] = this.directionDict[this.direction] 
       //Changes their position value on the correct axis
-      this.TilesLeft -= 1 
+      this[axis] += value*this.speed
       // If this method continues to run, the method will stop when the TilesLeft is 0
+      this.TilesLeft -= 2*this.speed
     }  
   }
 }
@@ -96,6 +96,8 @@ class keyInput{
 
     // Initialize an empty array to track held keys
     this.keysHeld = [];
+
+    this.speedBoolean = false;
 
     // Define a map that associates key codes with directions
     this.keyDirectionMap = {
