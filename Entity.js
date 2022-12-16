@@ -61,7 +61,7 @@ class Player extends Obj{ //GameObj that can be controlled by the user
     
     //How many grids the player has left to travel
     this.TilesLeft = config.TilesLeft*16 || 0; 
-    this.speed = 2
+    this.speed = 1
     //Assigns the axis and the value for the correspoding direction
     this.directionDict = {
       "up"   :   ["y",-1], "down" :   ["y", 1],
@@ -72,6 +72,16 @@ class Player extends Obj{ //GameObj that can be controlled by the user
   //The update method will commit changes to the player
   update(state) {
     this.updatePos();
+
+    if(this.TilesLeft === 0){
+      if (state.speedBoost && this.speed === 1){
+        this.speed = 2;
+        console.log('RUNNING');
+      } else if (state.speedBoost === false && this.speed === 2){ 
+        this.speed = 1;
+        console.log('not running')
+      }
+    }
 
     if (this.TilesLeft === 0 && state.arrow){
       this.direction = state.arrow;
@@ -86,7 +96,7 @@ class Player extends Obj{ //GameObj that can be controlled by the user
       //Changes their position value on the correct axis
       this[axis] += value*this.speed
       // If this method continues to run, the method will stop when the TilesLeft is 0
-      this.TilesLeft -= 2*this.speed
+      this.TilesLeft -= this.speed*this.speed;
     }  
   }
 }
@@ -117,6 +127,17 @@ class keyInput{
     //The function triggers when the user presses and releases a key, respectively
     document.addEventListener('keydown', this.handleKey.bind(this));
     document.addEventListener('keyup', this.handleKey.bind(this));
+
+   document.addEventListener('keydown', event =>{
+     if(event.code === 'ShiftLeft' && this.speedBoolean === false){
+       this.speedBoolean = true;
+    }});
+
+   document.addEventListener('keyup', event =>{
+     if(event.code === 'ShiftLeft' && this.speedBoolean === true){
+       this.speedBoolean = false;
+    }});
+    
   }
   
   handleKey(event){
@@ -142,4 +163,9 @@ class keyInput{
   get direction(){
     return this.keysHeld[0];
   }
+
+  get speedBoost(){
+    return this.speedBoolean;
+  }
+  
 }
