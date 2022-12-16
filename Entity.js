@@ -123,14 +123,17 @@ class keyInput{
     //Gets the index of the direction in the keysHeld array
     const index = this.keysHeld.indexOf(direction);
 
-    //If the held key is not in the keysHeld array...
-    if (event.type === 'keydown' && !this.keysHeld.includes(direction)) {
-      //...Then add the direction to the front of the keysHeld array
-      this.keysHeld.unshift(direction);
-    //If the released key is in the keysHeld array...
-    } else if (event.type === 'keyup' && index > -1) {
-      //...Then remove the direction of the corresponding key 
-      this.keysHeld.splice(index, 1);
+    //Chekcs if the key is in the keyDirectionMap
+    if(direction){
+      //If the held key is not in the keysHeld array...
+      if (event.type === 'keydown' && !this.keysHeld.includes(direction)) {
+        //...Then add the direction to the front of the keysHeld array
+        this.keysHeld.unshift(direction);
+      //If the released key is in the keysHeld array...
+      } else if (event.type === 'keyup' && index > -1) {
+        //...Then remove the direction of the corresponding key 
+        this.keysHeld.splice(index, 1);
+      }
     }
   }
 
