@@ -25,7 +25,7 @@ class Game {
         //Draws every single entity 
         Object.values(this.map.entities).forEach(entity => {
           entity.update({
-            arrow: this.directions.direction,
+            direction: this.directions.direction,
             speedBoost: this.directions.speedBoost
           })
           entity.sprite.drawObj(this.context);

@@ -39,8 +39,8 @@ window.Maps = {
     upperLayerSrc: "/Maps/starting house/upper layer.png", 
     entities: { //Collection of entities of StartingHouse map
       player: new Player({ //creates new Player instance 
-        x: 5, y: 4, direction: "right", //sets player properties 
-        src: "Characters/RedSamurai/SpriteSheet.png"}), //set player source 
+        x: 5, y: 4, //sets player properties 
+        src: "Characters/BlueSamurai/SpriteSheet.png"}), //set player source 
       }
   }
 }
