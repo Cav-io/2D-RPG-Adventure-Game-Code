@@ -40,7 +40,7 @@ window.Maps = {
     entities: { //Collection of entities of StartingHouse map
       player: new Player({ //creates new Player instance 
         x: 5, y: 4, //sets player properties 
-        src: "Characters/BlueSamurai/SpriteSheet.png"}), //set player source 
+        src: "Characters/RedSamurai/SpriteSheet.png"}), //set player source 
       }
   }
 }

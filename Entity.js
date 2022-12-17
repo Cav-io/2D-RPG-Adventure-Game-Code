@@ -7,8 +7,8 @@ class Sprite{
       this.isLoaded = true; //Mark as loaded
     }
 
-    //Movement animation
-    this.animations = {
+    //Player movement animation
+    this.animations = config.animations || {
       "idle-down"  : [ [0,0] ],
       "idle-up"    : [ [1,0] ],
       "idle-left"  : [ [2,0] ],
@@ -18,82 +18,20 @@ class Sprite{
       "walk-left"  : [ [2,1], [2,0], [2,3], [2,0] ],
       "walk-right" : [ [3,1], [3,0], [3,3], [3,0] ]  
     }
-
-    //Gets access to entity's attributes and methods
+    
+    ////Gets access to entity's attributes and methods
     this.Obj = config.Obj;
-
-    //Current animation set
-    this.currentSpriteSet = config.currentAnimation || 'walk-left';
-    //Current sprite pose frame
-    this.currentPoseFrame = 0;
-
-    //Limits the amount of frames generated in a given time bracket
-    this.framesLimit = 16; //16 Frames to complete one set
-    //The lower limit, the faster the animation is
-    this.framesRunningLimit = 4; //4 Frames to complete one set
-    this.framesLeft = this.frameLimit;
-  
-  }
-
-  //returns the frame at the current sprite set and pose frame
-  get frame(){
-    return this.animations[this.currentSpriteSet][this.currentPoseFrame]
-  }
-
-  //Determines the animation based on the walking direction
-  updateSpriteSet(walkingDir){
-    //If the current sprite set is not set to the new walking animation
-    if (this.currentSpriteSet !== walkingDir){
-      //Restart the animation
-      this.currentPoseFrame = 0;
-      this.framesLeft = this.framesLimit;
-      //Set the current sprite set to the new walking animation
-      this.currentSpriteSet = walkingDir;
-    }
-  }
-
-  
-  updateFrameLeft(){
-
-    //If speed boost is toggled on...
-    if(this.Obj.speed === 2){
-      //...Set frames limit to frames running limit
-      this.framesLimit = this.framesRunningLimit;
-    } else{
-      // Otherwise, set to default
-      this.framesLimit = 16;
-    }
-
-    //If there are still frames left to be generated...
-    if (this.framesLeft > 0){
-      //... reduce the limit
-      this.framesLeft -= 1;
-      return;
-    }
-
-    this.framesLeft = this.framesLimit;
-    this.currentPoseFrame += 1;
-
-    //If the sprite frame is out of range...
-    if(this.frame === undefined){
-      //...Then reset the current animation
-      this.currentPoseFrame = 0
-    }
-
-
+    
   }
 
   //Sprite Methods
   drawObj(context){ 
     const {x, y} = this.Obj; //Destructuring
-    const [frameX, frameY] = this.frame;
     if (this.isLoaded) {  //If the sprite is loaded
       //then draw the sprite on the game canvas 
-      context.drawImage(this.skin, frameX*16, frameY*16, 16, 16, x, y, 16, 16) 
+      context.drawImage(this.skin, 0, 0, 16, 16, x, y, 16, 16) 
     }
-  this.updateFrameLeft();
   }
-
 }
 
 
@@ -103,7 +41,10 @@ class Obj { //A blueprint for an object in the game
   constructor(config){
     this.x = config.x*16;
     this.y = config.y*16;
-    this.speed = 1
+
+    //Character movement speed
+    this.speed = 3
+    
     //Creates an attribute for the sprite or skin of the game object   
     this.sprite = new Sprite({Obj: this, src: config.src});
 
@@ -131,58 +72,27 @@ class Player extends Obj{ //GameObj that can be controlled by the user
     } 
   }
 
-  //Updates the character in each loop
+  //The update method will commit changes to the player
   update(state) {
-    //Update player position
     this.updatePos();
-    //Update player sprite animation
-    this.updateSprite();
 
-    //If there are no more tiles left to travel...
-    if(this.TilesLeft === 0){
-      //if speedBoost is true and the player's speed is default
-      if (state.speedBoost && this.speed === 1){
-        //...Then give the player a speed boost
-        this.speed = 2;
-      //Otherwise, if speedBoost is false and the player's speed is boosted 
-      } else if (state.speedBoost === false && this.speed === 2){ 
-        //...Then return player speed to default
-        this.speed = 1;
-      }
+    if (this.TilesLeft === 0 && state.arrow){
+      this.direction = state.arrow;
+      this.TilesLeft = 16;
     }
-
-    //Updates player's direction when TilesLeft is 0
-    if (this.TilesLeft === 0 && state.direction){
-      this.direction = state.direction;
-      this.TilesLeft = this.speed*16;
-    }
-    
   }
 
-  //Updates the position of the player
   updatePos() {
     if (this.TilesLeft > 0) { //If the player has to move
       //Checks which direction it needs to move to
       const [axis, value] = this.directionDict[this.direction] 
       //Changes their position value on the correct axis
       this[axis] += value*this.speed
-      // Travel across until there are no more tiles left to travel 
-      this.TilesLeft -= this.speed*this.speed;
+      // If this method continues to run, the method will stop when the TilesLeft is 0
+      this.TilesLeft -= this.speed
+      console.log(this.TilesLeft)
     }  
   }
-
-  //Updates the player's sprite
-  updateSprite(state){
-    //If there are no tiles left to travel...
-    if(this.TilesLeft === 0){
-      //...Then set the player's sprite animation to 'idle' + direction
-      this.sprite.updateSpriteSet("idle-"+this.direction)
-    } else {
-      //...Otherwise, set the player's sprite animation to 'walk' + direction
-      this.sprite.updateSpriteSet("walk-"+this.direction)
-    }
-  }
-  
 }
 
 class keyInput{
@@ -190,8 +100,7 @@ class keyInput{
 
     // Initialize an empty array to track held keys
     this.keysHeld = [];
-    
-    //Checks whether the character is running or not
+
     this.speedBoolean = false;
 
     // Define a map that associates key codes with directions
@@ -211,7 +120,7 @@ class keyInput{
   init(){
     //The function triggers when the user presses and releases a key, respectively
     document.addEventListener('keydown', this.handleKey.bind(this));
-    document.addEventListener('keyup', this.handleKey.bind(this));    
+    document.addEventListener('keyup', this.handleKey.bind(this));
   }
   
   handleKey(event){
@@ -219,41 +128,22 @@ class keyInput{
     const direction = this.keyDirectionMap[event.code];
     //Gets the index of the direction in the keysHeld array
     const index = this.keysHeld.indexOf(direction);
-    //Checks if the user presses a key
-    if(event.type === 'keydown'){
+
+    //Chekcs if the key is in the keyDirectionMap
+    if(direction){
       //If the held key is not in the keysHeld array...
-      if(!this.keysHeld.includes(direction) && direction){
+      if (event.type === 'keydown' && !this.keysHeld.includes(direction)) {
         //...Then add the direction to the front of the keysHeld array
         this.keysHeld.unshift(direction);
+      //If the released key is in the keysHeld array...
+      } else if (event.type === 'keyup' && index > -1) {
+        //...Then remove the direction of the corresponding key 
+        this.keysHeld.splice(index, 1);
       }
-      //If the held key is a Shift button and the speedBoolean is false...
-      if(event.code === 'ShiftLeft' && this.speedBoolean === false){
-          //... Then set the speedBoolean as true
-          this.speedBoolean = true;
-        }
-    } 
-    //Checks if the user releases a key
-    else if (event.type === 'keyup'){
-        //If the released key is in the keysHeld array...
-        if(index > -1 && direction){
-          //...Then remove the direction of the corresponding key
-          this.keysHeld.splice(index, 1);
-        }
-        //If the released key is a Shift button and the speedBoolean is true...
-        if(event.code === 'ShiftLeft' && this.speedBoolean === true){
-          //... Then set the speedBoolean as false
-          this.speedBoolean = false;
-        }
     }
-}
-  //This function fetches the latest pressed key
+  }
+
   get direction(){
     return this.keysHeld[0];
   }
-
-  //This function fetches whether the player is running or not
-  get speedBoost(){
-    return this.speedBoolean;
-  }
-  
 }

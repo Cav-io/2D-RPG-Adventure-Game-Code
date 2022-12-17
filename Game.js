@@ -1,4 +1,3 @@
-
 // A game parent class which include every component of the game 
 class Game {
   constructor(config){
@@ -25,8 +24,7 @@ class Game {
         //Draws every single entity 
         Object.values(this.map.entities).forEach(entity => {
           entity.update({
-            direction: this.directions.direction,
-            speedBoost: this.directions.speedBoost
+            arrow: this.directions.direction
           })
           entity.sprite.drawObj(this.context);
         })
@@ -48,4 +46,3 @@ class Game {
   
   }
 }
-
