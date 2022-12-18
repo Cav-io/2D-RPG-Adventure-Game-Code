@@ -19,7 +19,7 @@ class Sprite{
       "walk-right" : [ [3,1], [3,0], [3,3], [3,0] ]  
     }
     
-    ////Gets access to entity's attributes and methods
+    //Obj Class
     this.Obj = config.Obj;
     
   }
@@ -41,9 +41,6 @@ class Obj { //A blueprint for an object in the game
   constructor(config){
     this.x = config.x*16;
     this.y = config.y*16;
-
-    //Character movement speed
-    this.speed = 3
     
     //Creates an attribute for the sprite or skin of the game object   
     this.sprite = new Sprite({Obj: this, src: config.src});
@@ -64,7 +61,7 @@ class Player extends Obj{ //GameObj that can be controlled by the user
     
     //How many grids the player has left to travel
     this.TilesLeft = config.TilesLeft*16 || 0; 
-    
+    this.speed = 1
     //Assigns the axis and the value for the correspoding direction
     this.directionDict = {
       "up"   :   ["y",-1], "down" :   ["y", 1],
@@ -72,13 +69,27 @@ class Player extends Obj{ //GameObj that can be controlled by the user
     } 
   }
 
-  //The update method will commit changes to the player
+  //Updates the character in each loop
   update(state) {
     this.updatePos();
 
-    if (this.TilesLeft === 0 && state.arrow){
-      this.direction = state.arrow;
-      this.TilesLeft = 16;
+    //If there are no more tiles left to travel...
+    if(this.TilesLeft === 0){
+      //if speedBoost is true and the player's speed is default
+      if (state.speedBoost && this.speed === 1){
+        //...Then give the player a speed boost
+        this.speed = 2;
+      //Otherwise, if speedBoost is false and the player's speed is boosted 
+      } else if (state.speedBoost === false && this.speed === 2){ 
+        //...Then return player speed to default
+        this.speed = 1;
+      }
+    }
+      
+    //Updates player's direction when TilesLeft is 0
+    if (this.TilesLeft === 0 && state.direction){
+      this.direction = state.direction;
+      this.TilesLeft = this.speed*16;
     }
   }
 
@@ -89,11 +100,11 @@ class Player extends Obj{ //GameObj that can be controlled by the user
       //Changes their position value on the correct axis
       this[axis] += value*this.speed
       // If this method continues to run, the method will stop when the TilesLeft is 0
-      this.TilesLeft -= this.speed
-      console.log(this.TilesLeft)
+      this.TilesLeft -= this.speed*this.speed;
     }  
   }
 }
+
 
 class keyInput{
   constructor(){
@@ -120,30 +131,48 @@ class keyInput{
   init(){
     //The function triggers when the user presses and releases a key, respectively
     document.addEventListener('keydown', this.handleKey.bind(this));
-    document.addEventListener('keyup', this.handleKey.bind(this));
+    document.addEventListener('keyup', this.handleKey.bind(this));    
   }
-  
+
   handleKey(event){
     //Gets the direction value from input key
     const direction = this.keyDirectionMap[event.code];
     //Gets the index of the direction in the keysHeld array
     const index = this.keysHeld.indexOf(direction);
-
-    //Chekcs if the key is in the keyDirectionMap
-    if(direction){
+    //Checks if the user presses a key
+    if(event.type === 'keydown'){
       //If the held key is not in the keysHeld array...
-      if (event.type === 'keydown' && !this.keysHeld.includes(direction)) {
+      if(!this.keysHeld.includes(direction) && direction){
         //...Then add the direction to the front of the keysHeld array
         this.keysHeld.unshift(direction);
-      //If the released key is in the keysHeld array...
-      } else if (event.type === 'keyup' && index > -1) {
-        //...Then remove the direction of the corresponding key 
-        this.keysHeld.splice(index, 1);
       }
+      //If the held key is a Shift button and the speedBoolean is false...
+      if(event.code === 'ShiftLeft' && this.speedBoolean === false){
+          //... Then set the speedBoolean as true
+          this.speedBoolean = true;
+        }
+    } 
+    //Checks if the user releases a key
+    else if (event.type === 'keyup'){
+        //If the released key is in the keysHeld array...
+        if(index > -1 && direction){
+          //...Then remove the direction of the corresponding key
+          this.keysHeld.splice(index, 1);
+        }
+        //If the released key is a Shift button and the speedBoolean is true...
+        if(event.code === 'ShiftLeft' && this.speedBoolean === true){
+          //... Then set the speedBoolean as false
+          this.speedBoolean = false;
+        }
     }
-  }
-
+}
+  //This function fetches the latest pressed key
   get direction(){
     return this.keysHeld[0];
+  }
+
+  //This function fetches whether the player is running or not
+  get speedBoost(){
+    return this.speedBoolean;
   }
 }
