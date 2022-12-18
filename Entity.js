@@ -73,18 +73,16 @@ class Player extends Obj{ //GameObj that can be controlled by the user
   update(state) {
     this.updatePos();
 
-    //If there are no more tiles left to travel...
-    if(this.TilesLeft === 0){
-      //if speedBoost is true and the player's speed is default
-      if (state.speedBoost && this.speed === 1){
-        //...Then give the player a speed boost
-        this.speed = 2;
-      //Otherwise, if speedBoost is false and the player's speed is boosted 
-      } else if (state.speedBoost === false && this.speed === 2){ 
-        //...Then return player speed to default
-        this.speed = 1;
-      }
+    //if speedBoost is true and the player's speed is default
+    if (state.speedBoost && this.speed === 1){
+      //...Then give the player a speed boost
+      this.speed = 2;
+    //Otherwise, if speedBoost is false and the player's speed is boosted 
+    } else if (state.speedBoost === false && this.speed === 2){ 
+      //...Then return player speed to default
+      this.speed = 1;
     }
+    
       
     //Updates player's direction when TilesLeft is 0
     if (this.TilesLeft === 0 && state.direction){
