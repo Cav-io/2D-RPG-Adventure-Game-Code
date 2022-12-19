@@ -22,14 +22,30 @@ class Sprite{
     //Obj Class
     this.Obj = config.Obj;
     
+    //Gives the character the sprite set based on their direction
+    this.currentSpriteSet = config.currentSpriteSet; //E.g. "idle-down"
+
   }
 
   //Sprite Methods
+
+  //updates the current sprite set if there is a change to their direction
+  updateSpriteSet(walkingDir){
+    this.currentSpriteSet = walkingDir
+  };
+
+
+  
   drawObj(context){ 
-    const {x, y} = this.Obj; //Destructuring
+    //Gets position coordinates from the object
+    const {x, y} = this.Obj;
+    //Gets the frame coordinates in the spritesheet subject to direction change
+    const fx = this.animations[this.currentSpriteSet][0][0]*16
+    const fy = this.animations[this.currentSpriteSet][0][1]*16
+    
     if (this.isLoaded) {  //If the sprite is loaded
       //then draw the sprite on the game canvas 
-      context.drawImage(this.skin, 0, 0, 16, 16, x, y, 16, 16) 
+      context.drawImage(this.skin, fx, fy, 16, 16, x, y, 16, 16) 
     }
   }
 }
@@ -72,18 +88,20 @@ class Player extends Obj{ //GameObj that can be controlled by the user
   //Updates the character in each loop
   update(state) {
     this.updatePos();
-
-    //if speedBoost is true and the player's speed is default
-    if (state.speedBoost && this.speed === 1){
-      //...Then give the player a speed boost
-      this.speed = 2;
-    //Otherwise, if speedBoost is false and the player's speed is boosted 
-    } else if (state.speedBoost === false && this.speed === 2){ 
-      //...Then return player speed to default
-      this.speed = 1;
-    }
+    this.updateSprite();
     
-      
+    if(this.TilesLeft === 0){  
+      //if speedBoost is true and the player's speed is default
+      if (state.speedBoost && this.speed === 1){
+        //...Then give the player a speed boost
+        this.speed = 2;
+      //Otherwise, if speedBoost is false and the player's speed is boosted 
+      } else if (state.speedBoost === false && this.speed === 2){ 
+        //...Then return player speed to default
+        this.speed = 1;
+      }
+    }
+       
     //Updates player's direction when TilesLeft is 0
     if (this.TilesLeft === 0 && state.direction){
       this.direction = state.direction;
@@ -99,7 +117,20 @@ class Player extends Obj{ //GameObj that can be controlled by the user
       this[axis] += value*this.speed
       // If this method continues to run, the method will stop when the TilesLeft is 0
       this.TilesLeft -= this.speed*this.speed;
+      
     }  
+  }
+
+  //Updates the player's sprite
+  updateSprite(){
+    //If there are no tiles left to travel...
+    if(this.TilesLeft === 0){
+      //...Then set the player's sprite animation to 'idle' + direction
+      this.sprite.updateSpriteSet("idle-"+this.direction)
+    } else {
+      //...Otherwise, set the player's sprite animation to 'walk' + direction
+      this.sprite.updateSpriteSet("walk-"+this.direction)
+    } 
   }
 }
 
