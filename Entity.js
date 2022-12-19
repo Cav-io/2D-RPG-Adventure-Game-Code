@@ -23,7 +23,13 @@ class Sprite{
     this.Obj = config.Obj;
     
     //Gives the character the sprite set based on their direction
-    this.currentSpriteSet = config.currentSpriteSet; //E.g. "idle-down"
+    this.currentSpriteSet =  config.currentSpriteSet; //E.g. "idle-down"
+    //Current sprite pose frame
+    this.currentSpriteFrame = 0;
+    //Limits the amount of frames generated in a given time bracket
+    this.framesLimit = 16; //16 Frames to complete one set
+    //How many frames left to generate
+    this.framesLeft = this.framesLimit;
 
   }
 
@@ -31,22 +37,48 @@ class Sprite{
 
   //updates the current sprite set if there is a change to their direction
   updateSpriteSet(walkingDir){
-    this.currentSpriteSet = walkingDir
+    this.currentSpriteSet = walkingDir;
+    //Resets frames left to generate
+    this.framesLeft = this.framesLimit;
   };
 
+  updateFramesLeft(){
 
+    //If speed boost is on...
+    if(this.Obj.speed === 2){
+      //...then set the frames limit to 4 (frames will generate faster)
+      this.framesLimit = 4;
+    } else {
+      //...or else set the frames limit to default
+      this.framesLimit = 16;
+    }
+
+    //If there are still frames left to generate...
+    if(this.framesLeft > 0){
+      //...then decrement until it is zero
+      this.framesLeft -= 1;
+      //Exits the if statement before this.framesLeft reaches 0
+      return;
+    }
+
+    //Resets frames left to generate
+    this.framesLeft = this.framesLimit;
+    //Goes to the next frame 
+    this.currentSpriteFrame += 1;
+    
+  }
   
   drawObj(context){ 
-    //Gets position coordinates from the object
-    const {x, y} = this.Obj;
-    //Gets the frame coordinates in the spritesheet subject to direction change
-    const fx = this.animations[this.currentSpriteSet][0][0]*16
-    const fy = this.animations[this.currentSpriteSet][0][1]*16
-    
-    if (this.isLoaded) {  //If the sprite is loaded
-      //then draw the sprite on the game canvas 
-      context.drawImage(this.skin, fx, fy, 16, 16, x, y, 16, 16) 
+      //Gets position coordinates from the object
+      const {x, y} = this.Obj;
+      //Gets the frame coordinates in the spritesheet subject to direction change
+      const fx = this.animations[this.currentSpriteSet][this.currentSpriteFrame][0]*16
+      const fy = this.animations[this.currentSpriteSet][this.currentSpriteFrame][1]*16
+      if (this.isLoaded) {  //If the sprite is loaded
+        //then draw the sprite on the game canvas 
+        context.drawImage(this.skin, fx, fy, 16, 16, x, y, 16, 16) 
     }
+      this.updateFramesLeft();
   }
 }
 
@@ -95,10 +127,12 @@ class Player extends Obj{ //GameObj that can be controlled by the user
       if (state.speedBoost && this.speed === 1){
         //...Then give the player a speed boost
         this.speed = 2;
+        console.log("%c Speed boost is on!","color:#bada55")
       //Otherwise, if speedBoost is false and the player's speed is boosted 
       } else if (state.speedBoost === false && this.speed === 2){ 
         //...Then return player speed to default
         this.speed = 1;
+        console.log("%c Speed boost is off!","color:red")
       }
     }
        
