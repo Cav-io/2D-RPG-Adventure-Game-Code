@@ -20,10 +20,6 @@ class Sprite{
     }
     
     this.animationSet = "walk-down";
-    this.animationIndex = 0;
-    
-    this.animationIndexLimit = 16;
-    this.animationFrameRemaning = this.animationIndexLimit;
     
     //Obj Class
     this.Obj = config.Obj;
@@ -32,40 +28,18 @@ class Sprite{
   //updates the current sprite set if there is a change to their direction
   updateSpriteSet(walkingDir){
     this.animationSet = walkingDir
-  };
-  
-  //This function updates the frames of the character animation
-  updateFrameRemaining(){
-    console.log(this.animationFrameRemaning);
-  //If the animation frame remaining is greater than 0... 
-    if(this.animationFrameRemaning > 0){
-      //then it decrement the animationframe remaining
-      this.animationFrameRemaning--;
-    }
-    //If the animation frame remaining is 0...
-    else{
-      //then set it back to the limit
-      this.animationFrameRemaning = this.animationIndexLimit;
-      this.animationIndex++;  
-
-      //If the current frame is out of bounds
-      if(this.animationsMap[this.animationSet][this.animationIndex] === undefined){
-        //Reset back to 0
-        this.animationIndex = 0;
-      }
-    }
   }
+
 
   //Sprite Methods
   drawObj(context){ 
     const {x, y} = this.Obj; //Destructuring
     if (this.isLoaded) {  //If the sprite is loaded
-      const fx = this.animationsMap[this.animationSet][this.animationIndex][0]*16; //Get the first frame
-      const fy = this.animationsMap[this.animationSet][this.animationIndex][1]*16; //Get the second frame]
+      const fx = this.animationsMap[this.animationSet][0][0]*16
+      const fy = this.animationsMap[this.animationSet][0][1]*16
       //then draw the sprite on the game canvas 
       context.drawImage(this.skin, fx, fy, 16, 16, x, y, 16, 16) 
     }
-    //this.updateFrameRemaining();
   }
 }
 
