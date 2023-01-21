@@ -24,8 +24,8 @@ class Game {
         //Draws every single entity 
         Object.values(this.map.entities).forEach(entity => {
           entity.update({
-            direction: this.directions.direction,
-            speedBoost: this.directions.speedBoost
+            direction: this.KeyInput.direction,
+            speedBoost: this.KeyInput.speedBoost
           })
           entity.sprite.drawObj(this.context);
         })
@@ -41,8 +41,8 @@ class Game {
   //The init method will start the game
   init() {
     this.map = new Map(window.Maps.StartingHouse)    
-    this.directions = new keyInput()
-    this.directions.init()
+    this.KeyInput = new keyInput()
+    this.KeyInput.init()
     this.Loop();
   
   }
