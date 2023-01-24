@@ -8,7 +8,7 @@ class Sprite{
     }
 
     //Player movement animation
-    this.animationsMap = config.animationsMap || {
+    this.animations = config.animations || {
       "idle-down"  : [ [0,0] ],
       "idle-up"    : [ [1,0] ],
       "idle-left"  : [ [2,0] ],
@@ -19,26 +19,17 @@ class Sprite{
       "walk-right" : [ [3,1], [3,0], [3,3], [3,0] ]  
     }
     
-    this.animationSet = "walk-down";
-    
     //Obj Class
     this.Obj = config.Obj;
+    
   }
-
-  //updates the current sprite set if there is a change to their direction
-  updateSpriteSet(walkingDir){
-    this.animationSet = walkingDir
-  }
-
 
   //Sprite Methods
   drawObj(context){ 
     const {x, y} = this.Obj; //Destructuring
     if (this.isLoaded) {  //If the sprite is loaded
-      const fx = this.animationsMap[this.animationSet][0][0]*16
-      const fy = this.animationsMap[this.animationSet][0][1]*16
       //then draw the sprite on the game canvas 
-      context.drawImage(this.skin, fx, fy, 16, 16, x, y, 16, 16) 
+      context.drawImage(this.skin, 0, 0, 16, 16, x, y, 16, 16) 
     }
   }
 }
@@ -81,8 +72,7 @@ class Player extends Obj{ //GameObj that can be controlled by the user
   //Updates the character in each loop
   update(state) {
     this.updatePos();
-    this.updateSprite()
-    
+
     //If there are no more tiles left to travel...
     if(this.TilesLeft === 0){
       //if speedBoost is true and the player's speed is default
@@ -115,19 +105,4 @@ class Player extends Obj{ //GameObj that can be controlled by the user
       this.TilesLeft -= this.speed*this.speed;
     }  
   }
-
-  //Updates the player's sprite
-  updateSprite(){
-    //If there are no tiles left to travel...
-    if(this.TilesLeft === 0){
-      //...Then set the player's sprite animation to 'idle' + direction
-      this.sprite.updateSpriteSet("idle-"+this.direction)
-    } else {
-      //...Otherwise, set the player's sprite animation to 'walk' + direction
-      this.sprite.updateSpriteSet("walk-"+this.direction)
-    } 
-  }
-
-
 }
-
