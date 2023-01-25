@@ -42,7 +42,7 @@ class Game {
   init() {
     this.map = new Map(window.Maps.StartingTown)    
     this.keyInput = new keyInput()
-    this.directions.init()
+    this.keyInput.init()
     this.Loop();
   }
 }
