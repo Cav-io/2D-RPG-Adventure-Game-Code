@@ -2,7 +2,8 @@ class Sprite{
   constructor(config){
     
     this.skin = new Image(); //Creates a new image attribute for the sprite
-    this.skin.src = config.src; //Sets the source of the image
+    this.name = config.name
+    this.skin.src = "Characters/"+config.name+"/SpriteSheet.png"
     this.skin.onload = () => {//When the skin is loaded
       this.isLoaded = true; //Mark as loaded
     }
@@ -13,46 +14,68 @@ class Sprite{
       "idle-up"    : [ [1,0] ],
       "idle-left"  : [ [2,0] ],
       "idle-right" : [ [3,0] ],
-      "walk-down"  : [ [0,1], [0,0], [0,3], [0,0] ],
-      "walk-up"    : [ [1,1], [1,0], [1,3], [1,0] ],
-      "walk-left"  : [ [2,1], [2,0], [2,3], [2,0] ],
-      "walk-right" : [ [3,1], [3,0], [3,3], [3,0] ]  
+      "walk-down"  : [ [0,1], [0,2], [0,3], [0,0] ],
+      "walk-up"    : [ [1,1], [1,2], [1,3], [1,0] ],
+      "walk-left"  : [ [2,1], [2,2], [2,3], [2,0] ],
+      "walk-right" : [ [3,1], [3,2], [3,3], [3,0] ]  
     }
     
-    this.animationSet = "walk-down";
+    this.animationSet = config.animationSet || "walk-down";
+    this.currentSpriteFrame = 0;
+    this.framesLimit = 16;
+    this.framesLeft =  this.framesLimit;
     
     //Obj Class
     this.Obj = config.Obj;
+
   }
 
   //updates the current sprite set if there is a change to their direction
   updateSpriteSet(walkingDir){
     this.animationSet = walkingDir
+    this.framesLeft = this.framesLimit;
   }
+
+  updateFramesLeft(){
+    if(this.framesLeft > 0){
+      this.framesLeft--;
+      return;
+    }
+
+    this.framesLeft = this.framesLimit;
+    this.currentSpriteFrame += 1;
+
+    if(this.animationsMap[this.animationSet][this.currentSpriteFrame] === undefined){
+      this.currentSpriteFrame = 0;
+    }
+  }
+
 
 
   //Sprite Methods
   drawObj(context){ 
     const {x, y} = this.Obj; //Destructuring
     if (this.isLoaded) {  //If the sprite is loaded
-      const fx = this.animationsMap[this.animationSet][0][0]*16
-      const fy = this.animationsMap[this.animationSet][0][1]*16
+      const fx = this.animationsMap[this.animationSet][this.currentSpriteFrame][0]*16
+      const fy = this.animationsMap[this.animationSet][this.currentSpriteFrame][1]*16
       //then draw the sprite on the game canvas 
       context.drawImage(this.skin, fx, fy, 16, 16, x, y, 16, 16) 
+      this.updateFramesLeft();
     }
   }
 }
 
 
 // OBJECT CLASS
-
 class Obj { //A blueprint for an object in the game
   constructor(config){
+
+    
     this.x = config.x*16;
     this.y = config.y*16;
     
     //Creates an attribute for the sprite or skin of the game object   
-    this.sprite = new Sprite({Obj: this, src: config.src});
+    this.sprite = new Sprite({Obj: this, name: config.name});
 
     //The direction that the object faces
     this.direction = config.direction || "down";
@@ -67,10 +90,12 @@ class Obj { //A blueprint for an object in the game
 class Player extends Obj{ //GameObj that can be controlled by the user
   constructor(config) {
     super(config); //Inherits methods and attributes from Obj
+
     
     //How many grids the player has left to travel
     this.TilesLeft = config.TilesLeft*16 || 0; 
     this.speed = 1
+    
     //Assigns the axis and the value for the correspoding direction
     this.directionDict = {
       "up"   :   ["y",-1], "down" :   ["y", 1],

@@ -39,19 +39,21 @@ window.Maps = {
     name: 'StartingHouse',
     entities: { //Collection of entities of StartingHouse map
       player: new Player({ //creates new Player instance 
+        name: "RedSamurai",
         x: 5, y: 4, //sets player properties 
-        src: "Characters/RedSamurai/SpriteSheet.png"}), //set player source 
+        }), //set player source 
       }
   },
   StartingTown: {
     name: "StartingTown",
     entities: { //Collection of entities of StartingHouse map
-      player: new Player({ //creates new Player instance 
+      player: new Player({ //creates new Player instance
+        name: "RedSamurai",
         x: 5, y: 4, //sets player properties 
-        src: "Characters/RedSamurai/SpriteSheet.png"}), //set player source 
+        }), //set player source 
       NPC1: new Obj({
+        name: "Boy",
         x: 7, y: 5, //sets NPC1 properties
-        src: "Characters/BlueSamurai/SpriteSheet.png",
         }),
     
       }

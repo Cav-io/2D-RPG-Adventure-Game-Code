@@ -1,14 +1,14 @@
 // A game parent class which include every component of the game 
 class Game {
   constructor(config){
-    this.element = config.element;
     //HTML tag where it will display the game
-    this.canvas = this.element.querySelector(".game canvas");
+    this.element = config.element;
     //Reference to the HTMl canvas
-    this.context = this.canvas.getContext("2d");
+    this.canvas = this.element.querySelector(".game canvas");
     //Will give us access to different drawing methods
-    this.map = null;
+    this.context = this.canvas.getContext("2d");
     //The current map that the user is playing on
+    this.map = null;
   }
 
   //Game Loop
@@ -25,11 +25,11 @@ class Game {
         Object.values(this.map.entities).forEach(entity => {
           entity.update({
             direction: this.directions.direction,
-            speedBoost: this.directions.speedBoost
+            speedBoost: this.directions.speedBoost,
           })
           entity.sprite.drawObj(this.context);
         })
-
+      
         this.map.drawUpper(this.context);
         
         gameLoop(); //Re-iterates the function
@@ -44,6 +44,5 @@ class Game {
     this.directions = new keyInput()
     this.directions.init()
     this.Loop();
-  
   }
 }
