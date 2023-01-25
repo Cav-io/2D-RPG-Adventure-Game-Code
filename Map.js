@@ -13,22 +13,22 @@ class Map {
     this.entities = config.entities; 
   }
 
-  drawLower(context){
+  drawLower(context, camera){
     const lowerLayer = new Image(); 
     lowerLayer.src = this.lowerLayerSrc; 
-    context.drawImage(lowerLayer, 0, 0); //draw lower layer image 
+    context.drawImage(lowerLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
   }
 
-  drawCollision(context){
+  drawCollision(context, camera){
     const collisionLayer = new Image(); 
     collisionLayer.src = this.collisionLayerSrc; 
-    context.drawImage(collisionLayer, 0, 0); //draw lower layer image 
+    context.drawImage(collisionLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
   }
 
-  drawUpper(context){
+  drawUpper(context, camera){
     const upperLayer = new Image(); 
     upperLayer.src = this.upperLayerSrc; 
-    context.drawImage(upperLayer, 0, 0); //draw lower layer image 
+    context.drawImage(upperLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
   }
 }
 

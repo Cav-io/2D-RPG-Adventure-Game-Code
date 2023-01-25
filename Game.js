@@ -17,9 +17,11 @@ class Game {
       //Calls a function before going repainting the next frame
       requestAnimationFrame(() => { 
 
+        const camera = this.map.entities.player; //Get the camera object
+
         //Drawing Layers
-        this.map.drawLower(this.context);
-        this.map.drawCollision(this.context);
+        this.map.drawLower(this.context, camera);
+        this.map.drawCollision(this.context, camera);
 
         //Draws every single entity 
         Object.values(this.map.entities).forEach(entity => {
@@ -27,10 +29,10 @@ class Game {
             direction: this.keyInput.direction,
             speedBoost: this.keyInput.speedBoost,
           })
-          entity.sprite.drawObj(this.context);
+          entity.sprite.drawObj(this.context, camera);
         })
       
-        this.map.drawUpper(this.context);
+        this.map.drawUpper(this.context, camera);
         
         gameLoop(); //Re-iterates the function
       })

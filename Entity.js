@@ -20,7 +20,7 @@ class Sprite{
       "walk-right" : [ [3,1], [3,2], [3,3], [3,0] ]  
     }
     
-    this.animationSet = config.animationSet || "walk-down";
+    this.animationSet = config.animationSet || "idle-down";
     this.currentSpriteFrame = 0;
     this.framesLimit = 8;
     this.framesLeft =  this.framesLimit;
@@ -67,8 +67,10 @@ class Sprite{
 
 
   //Sprite Methods
-  drawObj(context){ 
-    const {x, y} = this.Obj; //Destructuring
+  drawObj(context, camera){ 
+    //const {x, y} = this.Obj; //Destructuring
+    const x = this.Obj.x + 9*16 - camera.x
+    const y = this.Obj.y + 4*16 - camera.y
     if (this.isLoaded) {  //If the sprite is loaded
       const fx = this.animationsMap[this.animationSet][this.currentSpriteFrame][0]*16
       const fy = this.animationsMap[this.animationSet][this.currentSpriteFrame][1]*16
