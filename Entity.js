@@ -22,7 +22,7 @@ class Sprite{
     
     this.animationSet = config.animationSet || "walk-down";
     this.currentSpriteFrame = 0;
-    this.framesLimit = 16;
+    this.framesLimit = 8;
     this.framesLeft =  this.framesLimit;
     
     //Obj Class
@@ -32,11 +32,24 @@ class Sprite{
 
   //updates the current sprite set if there is a change to their direction
   updateSpriteSet(walkingDir){
-    this.animationSet = walkingDir
-    this.framesLeft = this.framesLimit;
+    if(this.animationSet !== walkingDir){
+      this.framesLeft = this.framesLimit;
+      this.currentSpriteFrame = 0;
+      this.animationSet = walkingDir
+    }
   }
 
   updateFramesLeft(){
+    
+    //If speed boost is on...
+    if(this.Obj.speed === 2){
+      //...then set the frames limit to 4 (frames will generate faster)
+      this.framesLimit = 4;
+    } else {
+      //...or else set the frames limit to default
+      this.framesLimit = 8;
+    }
+    
     if(this.framesLeft > 0){
       this.framesLeft--;
       return;
@@ -48,6 +61,7 @@ class Sprite{
     if(this.animationsMap[this.animationSet][this.currentSpriteFrame] === undefined){
       this.currentSpriteFrame = 0;
     }
+
   }
 
 
@@ -73,6 +87,7 @@ class Obj { //A blueprint for an object in the game
     
     this.x = config.x*16;
     this.y = config.y*16;
+    this.speed = config.speed || 1;
     
     //Creates an attribute for the sprite or skin of the game object   
     this.sprite = new Sprite({Obj: this, name: config.name});
@@ -94,7 +109,7 @@ class Player extends Obj{ //GameObj that can be controlled by the user
     
     //How many grids the player has left to travel
     this.TilesLeft = config.TilesLeft*16 || 0; 
-    this.speed = 1
+    
     
     //Assigns the axis and the value for the correspoding direction
     this.directionDict = {
@@ -106,7 +121,7 @@ class Player extends Obj{ //GameObj that can be controlled by the user
   //Updates the character in each loop
   update(state) {
     this.updatePos();
-    this.updateSprite()
+    this.updateSprite(state)
     
     //If there are no more tiles left to travel...
     if(this.TilesLeft === 0){
@@ -142,12 +157,14 @@ class Player extends Obj{ //GameObj that can be controlled by the user
   }
 
   //Updates the player's sprite
-  updateSprite(){
-    //If there are no tiles left to travel...
-    if(this.TilesLeft === 0){
+  updateSprite(state){
+      if (this.TilesLeft === 0 && !state.direction){
       //...Then set the player's sprite animation to 'idle' + direction
       this.sprite.updateSpriteSet("idle-"+this.direction)
-    } else {
+        return;
+    } 
+
+    if(this.TilesLeft > 0){
       //...Otherwise, set the player's sprite animation to 'walk' + direction
       this.sprite.updateSpriteSet("walk-"+this.direction)
     } 

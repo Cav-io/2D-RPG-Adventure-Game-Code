@@ -52,8 +52,10 @@ window.Maps = {
         x: 5, y: 4, //sets player properties 
         }), //set player source 
       NPC1: new Obj({
+        //sets NPC1 properties
         name: "Boy",
-        x: 7, y: 5, //sets NPC1 properties
+        x: 7, y: 5,
+        speed: 1,
         }),
     
       }
