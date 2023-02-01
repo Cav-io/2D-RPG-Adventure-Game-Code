@@ -122,7 +122,7 @@ class Player extends Obj{ //GameObj that can be controlled by the user
 
   //Updates the character in each loop
   update(state) {
-    this.updatePos();
+    this.updatePos(state);
     this.updateSprite(state)
     
     //If there are no more tiles left to travel...
@@ -147,8 +147,9 @@ class Player extends Obj{ //GameObj that can be controlled by the user
     }
   }
 
-  updatePos() {
+  updatePos(state) {
     if (this.TilesLeft > 0) { //If the player has to move
+      
       //Checks which direction it needs to move to
       const [axis, value] = this.directionDict[this.direction] 
       //Changes their position value on the correct axis
