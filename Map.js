@@ -32,19 +32,27 @@ class Map {
     context.drawImage(upperLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
   }
     
-  checkCollision(){
-    let player = this.entities.player
-    if(player.x >= 0 && player.x < this.walls.width*16 && 
-       player.y >= 0 && player.y < this.walls.height*16){
+  checkCollision(x, y, direction){
+    let collide = true;
+    let directionDict = {
+      "up": [0, -1], "down": [0, 1],
+      "right": [1, 0], "left": [-1, 0]
+    }
+    let xValue = directionDict[direction][0];
+    let yValue = directionDict[direction][1];
+    x += xValue;
+    y += yValue;
+    if(x >= 0 && x < this.walls.width && 
+       y >= 0 && y < this.walls.height){
       if (Object.keys(this.walls).length !== 0){
-        if (this.walls.data[parseInt(player.y/16)][parseInt(player.x/16)] === 0){
-          console.log("free space")
-        } 
-        else{
-          console.log("collision")
+        
+        if (this.walls.data[parseInt(y)][parseInt(x)] === 0){
+          collide = false
         }
+        
       }
     }
+    return collide;
   }
 
 
@@ -74,8 +82,8 @@ window.Maps = {
     name: "StartingTown",
     entities: { //Collection of entities of StartingHouse map
       player: new Player({ //creates new Player instance
-        name: "RedSamurai",
-        x: 0, y: 0, //sets player properties 
+        name: "Inspector",
+        x: 5, y: 4, //sets player properties 
         }), //set player source 
       NPC1: new Obj({
         //sets NPC1 properties

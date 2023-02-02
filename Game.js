@@ -19,15 +19,13 @@ class Game {
         
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); //Clears the canvas
         const camera = this.map.entities.player; //Get the camera object
-        this.map.checkCollision();
         //Drawing Layers
 
         Object.values(this.map.entities).forEach(entity => {
           entity.update({
             direction: this.keyInput.direction,
             speedBoost: this.keyInput.speedBoost,
-            collision: this.map.collision
-          
+            map: this.map
           })
         })
                                                  
@@ -40,7 +38,6 @@ class Game {
         })
       
         this.map.drawUpper(this.context, camera);
-        
         gameLoop(); //Re-iterates the function
       })
     }
