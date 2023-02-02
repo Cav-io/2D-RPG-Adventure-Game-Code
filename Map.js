@@ -46,7 +46,7 @@ class Map {
        y >= 0 && y < this.walls.height){
       if (Object.keys(this.walls).length !== 0){
         
-        if (this.walls.data[parseInt(y)][parseInt(x)] === 0){
+        if (this.walls.data[parseInt(y/25)][parseInt(x)] === 0){
           collide = false
         }
         
@@ -83,7 +83,7 @@ window.Maps = {
     entities: { //Collection of entities of StartingHouse map
       player: new Player({ //creates new Player instance
         name: "Inspector",
-        x: 5, y: 4, //sets player properties 
+        x: 20, y: 10, //sets player properties 
         }), //set player source 
       NPC1: new Obj({
         //sets NPC1 properties

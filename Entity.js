@@ -111,7 +111,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
 
     //How many grids the player has left to travel
     this.TilesLeft = config.TilesLeft * 16 || 0;
-
+    this.behaviour = null
 
     //Assigns the axis and the value for the correspoding direction
     this.directionDict = {
@@ -150,6 +150,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
     } else{
       
       this.TilesLeft = this.speed * 16;
+      this.behaviour = "walking"
     }
     }
     
@@ -175,7 +176,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
       return;
     }
 
-    if (this.TilesLeft > 0) {
+    if (this.behaviour === "walking") {
       //...Otherwise, set the player's sprite animation to 'walk' + direction
       this.sprite.updateSpriteSet("walk-" + this.direction)
     }
