@@ -122,7 +122,14 @@ window.Maps = {
         x: 31, y: 8,
         animationSet: "walk-left",
         speed: 2
-      })
+      }),
+      monster1: new Obj({
+        name: "Racoon",
+        x: 25, y: 16,
+        type: "monster",
+        animationSet: "walk-down",
+        speed: 2
+      }),
     }
   }
 }

@@ -4,6 +4,9 @@ class Sprite {
     this.skin = new Image(); //Creates a new image attribute for the sprite
     this.name = config.name
     this.skin.src = "Characters/" + config.name + "/SpriteSheet.png"
+    if(config.type === "monster"){ 
+     this.skin.src = "Monsters/" + config.name + "/SpriteSheet.png"
+    }
     this.skin.onload = () => {//When the skin is loaded
       this.isLoaded = true; //Mark as loaded
     }
@@ -87,13 +90,16 @@ class Obj { //A blueprint for an object in the game
   constructor(config) {
 
     this.isPlayer = false;
-
     this.x = config.x * 16;
     this.y = config.y * 16;
     this.speed = config.speed || 1;
 
     //Creates an attribute for the sprite or skin of the game object   
-    this.sprite = new Sprite({ Obj: this, name: config.name, animationSet: config.animationSet });
+    this.sprite = new Sprite({ Obj: this, 
+                              name: config.name, 
+                              animationSet: config.animationSet,
+                              type: config.type
+                            });
 
     //The direction that the object faces
     this.direction = config.direction || "down";
