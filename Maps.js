@@ -8,7 +8,12 @@ window.Maps = {
         name: "MaskedNinja",
         x: 5, y: 4, //sets player properties 
         }), //set player source 
-      },
+      npc1: new Obj({
+        name: "OldWoman",
+        x: 9, y: 3,
+        animationSet: "idle-left"
+      })
+      }
   },
   StartingTown: {
     name: "StartingTown",
@@ -50,6 +55,11 @@ window.Maps = {
         animationSet: "walk-left",
         speed: 2
       }),
+      npc8: new Obj({
+        name: "RedNinja",
+        x: 26, y: 19,
+        animationSet: "idle-left"
+      }),
       monster1: new Obj({
         name: "Racoon",
         x: 25, y: 16,
@@ -57,6 +67,13 @@ window.Maps = {
         animationSet: "walk-down",
         speed: 2
       }),
+      monster2: new Obj({
+        name: "Dragon",
+        x: 27, y: 21,
+        type: "monster",
+        animationSet: "walk-down",
+        speed: 2
+      }),
     }
-  }
+  },
 }

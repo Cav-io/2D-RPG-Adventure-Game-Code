@@ -6,30 +6,30 @@ class Map {
     this.walls = config.walls || {};
     
     //assign layer sources
-    this.lowerLayerSrc = "/Maps/"+this.name+"/lower layer.png"; 
-    this.collisionLayerSrc = "/Maps/"+this.name+"/collision layer.png";
-    this.upperLayerSrc = "/Maps/"+this.name+"/upper layer.png";
+    this.lowerLayer = new Image(); 
+    this.lowerLayer.src = "/Maps/"+this.name+"/lower layer.png";
+
+    this.collisionLayer = new Image(); 
+    this.collisionLayer.src = "/Maps/"+this.name+"/collision layer.png";
+
+    this.upperLayer = new Image(); 
+    this.upperLayer.src = "/Maps/"+this.name+"/upper layer.png";
+
     
     //assign entities 
     this.entities = config.entities; 
   }
 
   drawLower(context, camera){
-    const lowerLayer = new Image(); 
-    lowerLayer.src = this.lowerLayerSrc; 
-    context.drawImage(lowerLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
+    context.drawImage(this.lowerLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
   }
 
   drawCollision(context, camera){
-    const collisionLayer = new Image(); 
-    collisionLayer.src = this.collisionLayerSrc; 
-    context.drawImage(collisionLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
+    context.drawImage(this.collisionLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
   }
 
   drawUpper(context, camera){
-    const upperLayer = new Image(); 
-    upperLayer.src = this.upperLayerSrc; 
-    context.drawImage(upperLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
+    context.drawImage(this.upperLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
   }
     
   checkCollision(x, y, direction){
@@ -59,7 +59,6 @@ class Map {
     }
     return collide;
   }
-
 
   fetchCoordinates(){
     fetch('/Maps/'+this.name+'/collision.json')
