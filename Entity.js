@@ -86,13 +86,14 @@ class Sprite {
 class Obj { //A blueprint for an object in the game
   constructor(config) {
 
+    this.isPlayer = false;
 
     this.x = config.x * 16;
     this.y = config.y * 16;
     this.speed = config.speed || 1;
 
     //Creates an attribute for the sprite or skin of the game object   
-    this.sprite = new Sprite({ Obj: this, name: config.name });
+    this.sprite = new Sprite({ Obj: this, name: config.name, animationSet: config.animationSet });
 
     //The direction that the object faces
     this.direction = config.direction || "down";
@@ -111,8 +112,8 @@ class Player extends Obj { //GameObj that can be controlled by the user
 
     //How many grids the player has left to travel
     this.TilesLeft = config.TilesLeft * 16 || 0;
-    this.behaviour = null
-
+    this.behaviour = "standing"
+    this.isPlayer = true
 
     //Assigns the axis and the value for the correspoding direction
     this.directionDict = {
@@ -144,16 +145,15 @@ class Player extends Obj { //GameObj that can be controlled by the user
     
     //Updates player's direction when TilesLeft is 0
     if (this.TilesLeft === 0 && state.direction) {
-      let value = this.directionDict[this.direction][1];
       this.direction = state.direction;
-    if(state.map.checkCollision(this.x/16, this.y/16, this.direction)){
-      this.TilesLeft = 0;
-    } else{
-      
-      this.TilesLeft = this.speed * 16;
-      this.behviour = "walking";
-    }
-    }
+      if(state.map.checkCollision(this.x/16, this.y/16, this.direction)){
+        this.TilesLeft = 0;
+        this.behaviour = "standing"
+      } else{
+        this.TilesLeft = this.speed * 16;
+        this.behviour = "walking";
+        }
+      }
     
     
   }
@@ -174,12 +174,12 @@ class Player extends Obj { //GameObj that can be controlled by the user
     if (this.TilesLeft === 0 && !state.direction) {
       //...Then set the player's sprite animation to 'idle' + direction
       this.sprite.updateSpriteSet("idle-" + this.direction)
-      return;
-    }
-
+      this.behaviour = "standing";
+    } else {
     if (this.behaviour = "walking") {
       //...Otherwise, set the player's sprite animation to 'walk' + direction
       this.sprite.updateSpriteSet("walk-" + this.direction)
+      }
     }
   }
 }

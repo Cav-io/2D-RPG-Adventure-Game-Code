@@ -49,6 +49,13 @@ class Map {
           collide = false
         }
       }
+    Object.values(this.entities).forEach(entity => {
+          if(entity.isPlayer === false){
+             if(x == entity.x/16 && y ==entity.y/16){            
+             collide = true
+             }
+          }  
+      })
     }
     return collide;
   }
@@ -83,12 +90,39 @@ window.Maps = {
         name: "Inspector",
         x: 20, y: 10, //sets player properties 
         }), //set player source 
-      NPC1: new Obj({
+      npc1: new Obj({
         //sets NPC1 properties
         name: "Boy",
         x: 25, y: 10,
-        speed: 1,
-        }),
-      },
+      }),
+      npc2: new Obj({
+        name: "MaskFrog",
+        x: 16, y: 11,
+        animationSet: "idle-up"
+      }),
+      npc3: new Obj({
+        name: "OldMan3",
+        x:34, y: 11.5
+      }),
+      npc4: new Obj({
+        name: "Monk2",
+        x: 39, y: 15,
+      }),
+      npc5: new Obj({
+        name: "OldWoman",
+        x: 33, y: 7,
+      }),
+      npc6: new Obj({
+        name: "Princess",
+        x: 19, y: 18,
+        animationSet: "idle-right"
+      }),
+      npc7: new Obj({
+        name: "Villager",
+        x: 31, y: 8,
+        animationSet: "walk-left",
+        speed: 2
+      })
+    }
   }
 }
