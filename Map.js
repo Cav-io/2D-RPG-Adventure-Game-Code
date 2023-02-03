@@ -45,11 +45,9 @@ class Map {
     if(x >= 0 && x < this.walls.width && 
        y >= 0 && y < this.walls.height){
       if (Object.keys(this.walls).length !== 0){
-        
-        if (this.walls.data[parseInt(y/25)][parseInt(x)] === 0){
+        if (this.walls.data[x+(y*this.walls.width)] === 0){
           collide = false
         }
-        
       }
     }
     return collide;
@@ -73,7 +71,7 @@ window.Maps = {
     name: 'StartingHouse',
     entities: { //Collection of entities of StartingHouse map
       player: new Player({ //creates new Player instance 
-        name: "RedSamurai",
+        name: "MaskedNinja",
         x: 5, y: 4, //sets player properties 
         }), //set player source 
       },
@@ -88,7 +86,7 @@ window.Maps = {
       NPC1: new Obj({
         //sets NPC1 properties
         name: "Boy",
-        x: 7, y: 5,
+        x: 25, y: 10,
         speed: 1,
         }),
       },

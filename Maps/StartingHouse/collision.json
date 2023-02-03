@@ -1,0 +1,49 @@
+{ "compressionlevel":-1,
+ "height":10,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[0, 0, 0, 375, 637, 638, 638, 639, 378, 603, 604, 601, 379, 0,
+            0, 375, 600, 398, 0, 0, 0, 0, 491, 619, 620, 617, 389, 0,
+            375, 597, 616, 0, 0, 0, 0, 0, 0, 0, 0, 0, 397, 379,
+            2684355195, 613, 0, 0, 0, 629, 647, 648, 649, 2147484277, 0, 0, 0, 3758097035,
+            385, 631, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 389,
+            2684355195, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 389,
+            385, 613, 647, 648, 649, 645, 0, 0, 0, 0, 0, 613, 387, 419,
+            415, 418, 418, 418, 418, 418, 416, 0, 417, 418, 418, 418, 419, 0,
+            0, 427, 427, 427, 427, 427, 427, 427, 427, 427, 427, 427, 427, 0,
+            0, 427, 427, 427, 427, 427, 427, 587, 587, 587, 587, 587, 587, 587],
+         "height":10,
+         "id":1,
+         "name":"Walls",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":14,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":6,
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.9.1",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "source":"C:\/Users\/hossa\/TilesetInteriorFloor.tsx"
+        }, 
+        {
+         "firstgid":375,
+         "source":"C:\/Users\/hossa\/TilesetWallSimple.tsx"
+        }, 
+        {
+         "firstgid":485,
+         "source":"C:\/Users\/hossa\/TilesetElement.tsx"
+        }],
+ "tilewidth":16,
+ "type":"map",
+ "version":"1.9",
+ "width":14
+}

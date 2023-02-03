@@ -113,6 +113,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
     this.TilesLeft = config.TilesLeft * 16 || 0;
     this.behaviour = null
 
+
     //Assigns the axis and the value for the correspoding direction
     this.directionDict = {
       "up": ["y", -1], "down": ["y", 1],
@@ -150,7 +151,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
     } else{
       
       this.TilesLeft = this.speed * 16;
-      this.behaviour = "walking"
+      this.behviour = "walking";
     }
     }
     
@@ -176,7 +177,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
       return;
     }
 
-    if (this.behaviour === "walking") {
+    if (this.behaviour = "walking") {
       //...Otherwise, set the player's sprite animation to 'walk' + direction
       this.sprite.updateSpriteSet("walk-" + this.direction)
     }
