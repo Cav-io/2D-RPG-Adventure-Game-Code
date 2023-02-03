@@ -15,6 +15,7 @@ window.Maps = {
       })
       }
   },
+  
   StartingTown: {
     name: "StartingTown",
     entities: { //Collection of entities of StartingHouse map
@@ -33,7 +34,7 @@ window.Maps = {
         animationSet: "idle-up"
       }),
       npc3: new Obj({
-        name: "OldMan3",
+        name: "OldMan",
         x:34, y: 11.5
       }),
       npc4: new Obj({
@@ -76,4 +77,66 @@ window.Maps = {
       }),
     }
   },
+  
+  Dojo: { 
+    name: 'Dojo',
+    entities: { 
+      player: new Player({ 
+        name: "MaskedNinja",
+        x: 8, y: 16,  
+      }),
+      master: new Obj({
+        name: "OldMan3",
+        x: 8, y: 5
+      }),
+      npc1: new Obj({
+        name: "BlueSamurai",
+        x: 2, y: 8,
+        animationSet: "walk-left",
+        speed: 2
+      }),
+      npc2: new Obj({
+        name: "Master",
+        x: 5, y: 4,
+        animationSet:"walk-right"
+      }),
+      npc3: new Obj({
+        name: "Monk",
+        x: 6, y: 4,
+        animationSet:"walk-left",
+        speed:2
+      }),
+      npc4: new Obj({
+        name: "Monk2",
+        x: 13, y: 6,
+        animationSet:"idle-left",
+      }),
+      npc5: new Obj({
+        name: "Lion",
+        x: 12, y: 2,
+        animationSet:"walk-up",
+        speed: 2
+      }),
+      npc6: new Obj({
+        name: "Villager4",
+        x: 3, y: 2,
+      }),
+      npc7: new Obj({
+        name: "Monk",
+        x: 11, y: 12,
+        animationSet:"idle-down",
+      }),
+      npc8: new Obj({
+        name: "Knight",
+        x: 14, y: 4,
+        animationSet:"walk-right",
+        speed: 2
+      }),
+      npc4: new Obj({
+        name: "Monk2",
+        x: 7, y: 13,
+        animationSet:"idle-right",
+      }),
+    }
+  }
 }

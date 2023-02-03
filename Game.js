@@ -46,7 +46,7 @@ class Game {
   
   //The init method will start the game
   init() {
-    this.map = new Map(window.Maps.StartingTown)
+    this.map = new Map(window.Maps.Dojo)
     this.map.fetchCoordinates()
     this.keyInput = new keyInput()
     this.keyInput.init()
