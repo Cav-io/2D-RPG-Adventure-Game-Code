@@ -132,11 +132,6 @@ window.Maps = {
         animationSet:"walk-right",
         speed: 2
       }),
-      npc4: new Obj({
-        name: "Monk2",
-        x: 7, y: 13,
-        animationSet:"idle-right",
-      }),
     }
   }
 }
