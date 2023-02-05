@@ -13,7 +13,13 @@ window.Maps = {
         x: 9, y: 3,
         animationSet: "idle-left"
       })
-      }
+      },
+    exits:{
+      map1:{
+        name: "StartingTown",
+        x:7, y:7
+      },
+    },
   },
   
   StartingTown: {
@@ -75,6 +81,17 @@ window.Maps = {
         animationSet: "walk-down",
         speed: 2
       }),
+    },
+    exits:{
+      map1: {
+        name: "Dojo",
+        x: 36, y:15,
+        newX: 8, newY: 17
+      },
+      map2:{
+        name:'StartingHouse',
+        x: 28, y:8
+      }
     }
   },
   
@@ -83,7 +100,7 @@ window.Maps = {
     entities: { 
       player: new Player({ 
         name: "MaskedNinja",
-        x: 8, y: 16,  
+        x: 8, y: 15,  
       }),
       master: new Obj({
         name: "OldMan3",
@@ -132,6 +149,19 @@ window.Maps = {
         animationSet:"walk-right",
         speed: 2
       }),
+    },
+    exits: {
+      map1: {
+        name: "StartingTown",
+        x: 8, y:17,
+        newX:36, newY:15
+      }
     }
   }
 }
+
+window.mapDict = {
+  StartingTown: new Map(window.Maps.StartingTown),
+  Dojo: new Map(window.Maps.Dojo),
+  StartingHouse: new Map(window.Maps.StartingHouse)
+};

@@ -19,7 +19,6 @@ class Game {
         
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); //Clears the canvas
         const camera = this.map.entities.player; //Get the camera object
-        //Drawing Layers
 
         Object.values(this.map.entities).forEach(entity => {
           entity.update({
@@ -28,6 +27,7 @@ class Game {
             map: this.map
           })
         })
+
                                                  
         this.map.drawLower(this.context, camera);
         this.map.drawCollision(this.context, camera);
@@ -36,8 +36,18 @@ class Game {
         Object.values(this.map.entities).forEach(entity => {
           entity.sprite.drawObj(this.context, camera);
         })
-      
+
         this.map.drawUpper(this.context, camera);
+        
+        Object.entries(this.map.exits).forEach(([key, exit]) => {
+          if (camera.x / 16 === exit.x && camera.y / 16 === exit.y) {
+            const newMap = Object.keys(window.mapDict).find(k => window.mapDict[k].name === exit.name);
+            this.map = window.mapDict[newMap];
+            this.map.fetchCoordinates();
+          }
+        });
+        
+        
         gameLoop(); //Re-iterates the function
       })
     }
@@ -46,7 +56,7 @@ class Game {
   
   //The init method will start the game
   init() {
-    this.map = new Map(window.Maps.Dojo)
+    this.map = mapDict.Dojo
     this.map.fetchCoordinates()
     this.keyInput = new keyInput()
     this.keyInput.init()

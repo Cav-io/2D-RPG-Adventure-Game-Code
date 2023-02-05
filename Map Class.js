@@ -4,6 +4,7 @@ class Map {
     //Assigns a name for the map
     this.name = config.name;
     this.walls = config.walls || {};
+    this.exits = config.exits || {};
     
     //assign layer sources
     this.lowerLayer = new Image(); 
