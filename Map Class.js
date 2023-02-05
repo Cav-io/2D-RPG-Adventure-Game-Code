@@ -80,6 +80,9 @@ checkCollision(x, y, direction){
     // Assign the first layer of the JSON object to the "walls" property
     this.walls = json.layers[0];
   }
+
   
 }
+
+
 

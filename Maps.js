@@ -4,10 +4,6 @@ window.Maps = {
   StartingHouse: { 
     name: 'StartingHouse',
     entities: { //Collection of entities of StartingHouse map
-      player: new Player({ //creates new Player instance 
-        name: "MaskedNinja",
-        x: 5, y: 4, //sets player properties 
-        }), //set player source 
       npc1: new Obj({
         name: "OldWoman",
         x: 9, y: 3,
@@ -17,7 +13,8 @@ window.Maps = {
     exits:{
       map1:{
         name: "StartingTown",
-        x:7, y:7
+        x:7, y:7,
+        newX: 28, newY: 9
       },
     },
   },
@@ -25,10 +22,6 @@ window.Maps = {
   StartingTown: {
     name: "StartingTown",
     entities: { //Collection of entities of StartingHouse map
-      player: new Player({ //creates new Player instance
-        name: "Inspector",
-        x: 20, y: 10, //sets player properties 
-        }), //set player source 
       npc1: new Obj({
         //sets NPC1 properties
         name: "Boy",
@@ -86,11 +79,12 @@ window.Maps = {
       map1: {
         name: "Dojo",
         x: 36, y:15,
-        newX: 8, newY: 17
+        newX: 8, newY: 16
       },
       map2:{
         name:'StartingHouse',
-        x: 28, y:8
+        x: 28, y:8,
+        newX: 7, newY: 6
       }
     }
   },
@@ -98,10 +92,6 @@ window.Maps = {
   Dojo: { 
     name: 'Dojo',
     entities: { 
-      player: new Player({ 
-        name: "MaskedNinja",
-        x: 8, y: 15,  
-      }),
       master: new Obj({
         name: "OldMan3",
         x: 8, y: 5
@@ -154,7 +144,7 @@ window.Maps = {
       map1: {
         name: "StartingTown",
         x: 8, y:17,
-        newX:36, newY:15
+        newX:36, newY:16
       }
     }
   }
