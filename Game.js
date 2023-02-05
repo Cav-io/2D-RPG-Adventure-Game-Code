@@ -57,7 +57,6 @@ class Game {
           }
         });
         
-        
         gameLoop(); //Re-iterates the function
       })
     }
