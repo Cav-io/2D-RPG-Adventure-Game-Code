@@ -4,6 +4,7 @@ class Map {
     //Assigns a name for the map
     this.name = config.name;
     this.walls = config.walls || {};
+    this.exits = config.exits || {};
     
     //assign layer sources
     this.lowerLayer = new Image(); 
@@ -32,41 +33,56 @@ class Map {
     context.drawImage(this.upperLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
   }
     
-  checkCollision(x, y, direction){
-    let collide = true;
-    let directionDict = {
-      "up": [0, -1], "down": [0, 1],
-      "right": [1, 0], "left": [-1, 0]
-    }
-    let xValue = directionDict[direction][0];
-    let yValue = directionDict[direction][1];
-    x += xValue;
-    y += yValue;
-    if(x >= 0 && x < this.walls.width && 
-       y >= 0 && y < this.walls.height){
-      if (Object.keys(this.walls).length !== 0){
-        if (this.walls.data[x+(y*this.walls.width)] === 0){
-          collide = false
-        }
+checkCollision(x, y, direction){
+  // Set initial value of collision as true
+  let collide = true;
+  
+  // Define a dictionary of direction with corresponding x and y values
+  let directionDict = {
+    "up": [0, -1], "down": [0, 1],
+    "right": [1, 0], "left": [-1, 0]
+  };
+  
+  // Destructure x and y values from the dictionary based on the input direction
+  const [xValue, yValue] = directionDict[direction];
+  
+  // Update x and y values based on direction
+  x += xValue;
+  y += yValue;
+  
+  // Check if new x and y values are within the bounds of the walls
+  if (x >= 0 && x < this.walls.width && y >= 0 && y < this.walls.height) {
+    // Check if there are any walls defined
+    if (Object.keys(this.walls).length !== 0) {
+      // Check if the current position contains a wall
+      if (this.walls.data[x + (y * this.walls.width)] === 0) {
+        collide = false;
       }
+    }   
+    // Check for collision with entities, except the player
     Object.values(this.entities).forEach(entity => {
-          if(entity.isPlayer === false){
-             if(x == entity.x/16 && y ==entity.y/16){            
-             collide = true
-             }
-          }  
-      })
-    }
-    return collide;
+      if(entity.isPlayer === false){
+        if(x == entity.x/16 && y == entity.y/16){            
+          collide = true
+        }
+      }  
+    })
+  };
+  // Return the final value of collision
+  return collide;
   }
 
-  fetchCoordinates(){
-    fetch('/Maps/'+this.name+'/collision.json')
-    .then(response => response.json())
-    .then(json => {
-      this.walls = json.layers[0]
-    })
+  async fetchCoordinates(){
+    // Make a fetch request to retrieve collision data for the map
+    const response = await fetch(`/Maps/${this.name}/collision.json`);
+    // Parse the response as a JSON object
+    const json = await response.json();
+    // Assign the first layer of the JSON object to the "walls" property
+    this.walls = json.layers[0];
   }
+
   
 }
+
+
 
