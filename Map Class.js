@@ -81,6 +81,13 @@ checkCollision(x, y, direction){
     this.walls = json.layers[0];
   }
 
+  update(key, exit){ 
+    player.x = exit.newX*16;
+    player.y = exit.newY*16;
+    return Object.keys(window.mapDict).
+      find(k => window.mapDict[k].name === exit.name)
+  }
+
   
 }
 

@@ -28,7 +28,6 @@ class Game {
             map: this.map
           });
         });
-
                                                  
         this.map.drawLower(this.context, player);
         this.map.drawCollision(this.context, player);
@@ -43,12 +42,8 @@ class Game {
         
         Object.entries(this.map.exits).forEach(([key, exit]) => {
           if (player.x / 16 === exit.x && player.y / 16 === exit.y) {
-            player.x = exit.newX*16;
-            player.y = exit.newY*16;
-            const newMap = Object.keys(window.mapDict).find(k => window.mapDict[k].name === exit.name);
-            this.map = window.mapDict[newMap];
+            this.map = window.mapDict[this.map.update(key, exit)];
             this.map.fetchCoordinates();
-            console.log(this.map)
           }
         });
         
