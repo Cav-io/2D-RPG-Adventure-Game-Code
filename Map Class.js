@@ -6,7 +6,7 @@ class Map {
     this.walls = config.walls || {};
     this.exits = config.exits || {};
     
-    //Creates layer instances and assigns layer sources
+    //assign layer sources
     this.lowerLayer = new Image(); 
     this.lowerLayer.src = "/Maps/"+this.name+"/lower layer.png";
 
@@ -25,14 +25,12 @@ class Map {
     context.drawImage(this.lowerLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
   }
 
-  //draw lower layer image 
   drawCollision(context, camera){
-    context.drawImage(this.collisionLayer, 9*16 - camera.x, 4*16 - camera.y); 
+    context.drawImage(this.collisionLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
   }
 
-  //draw lower layer image 
   drawUpper(context, camera){
-    context.drawImage(this.upperLayer, 9*16 - camera.x, 4*16 - camera.y); 
+    context.drawImage(this.upperLayer, 9*16 - camera.x, 4*16 - camera.y); //draw lower layer image 
   }
     
 checkCollision(x, y, direction){
@@ -81,13 +79,6 @@ checkCollision(x, y, direction){
     const json = await response.json();
     // Assign the first layer of the JSON object to the "walls" property
     this.walls = json.layers[0];
-  }
-
-  update(key, exit){ 
-    player.x = exit.newX*16;
-    player.y = exit.newY*16;
-    return Object.keys(window.mapDict).
-      find(k => window.mapDict[k].name === exit.name)
   }
 
   
