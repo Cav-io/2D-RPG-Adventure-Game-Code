@@ -18,36 +18,31 @@ class Game {
       requestAnimationFrame(() => { 
         
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); //Clears the canvas
-        const camera = player; //Get the camera object
-
-        Object.values(this.map.entities).forEach(entity => {
+        const entities = Object.values(this.map.entities);
+        entities.push(player);
+        
+        entities.forEach(entity => {
           entity.update({
             direction: this.keyInput.direction,
             speedBoost: this.keyInput.speedBoost,
             map: this.map
-          })
-        })
-        player.update({
-          direction: this.keyInput.direction,
-          speedBoost: this.keyInput.speedBoost,
-          map: this.map
+          });
         });
 
                                                  
-        this.map.drawLower(this.context, camera);
-        this.map.drawCollision(this.context, camera);
+        this.map.drawLower(this.context, player);
+        this.map.drawCollision(this.context, player);
 
         //Draws every single entity 
-        Object.values(this.map.entities).forEach(entity => {
-          entity.sprite.drawObj(this.context, camera);
+        Object.values(entities).forEach(entity => {
+          entity.sprite.drawObj(this.context, player);
         })
-        player.sprite.drawObj(this.context, camera)
         
 
-        this.map.drawUpper(this.context, camera);
+        this.map.drawUpper(this.context, player);
         
         Object.entries(this.map.exits).forEach(([key, exit]) => {
-          if (camera.x / 16 === exit.x && camera.y / 16 === exit.y) {
+          if (player.x / 16 === exit.x && player.y / 16 === exit.y) {
             player.x = exit.newX*16;
             player.y = exit.newY*16;
             const newMap = Object.keys(window.mapDict).find(k => window.mapDict[k].name === exit.name);
