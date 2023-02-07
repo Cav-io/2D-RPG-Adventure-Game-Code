@@ -11,7 +11,7 @@ class Game {
         // Clears the canvas
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-//Creates a list for entities
+         //Creates a list for entities
         const entities = Object.values(this.map.entities);
         //Adds player as an entity
         entities.push(player);
