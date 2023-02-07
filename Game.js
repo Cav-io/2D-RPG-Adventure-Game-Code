@@ -68,8 +68,8 @@ class Game {
         this.context.globalAlpha = fadeInOpacity;
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        fadeInOpacity += 0.05;
-        if (fadeInOpacity >= 1) {
+        fadeInOpacity += 0.025;
+        if (fadeInOpacity >= 0.6) {
           // If opacity has reached 1, stop the fade in
           fadeIn = false;
           this.context.globalAlpha = 1;
