@@ -41,6 +41,7 @@ class Game {
         //Draw lower and collision layers
         this.map.drawLower(this.context, player);
         this.map.drawCollision(this.context, player);
+        
 
         //Draws every single entity 
         Object.values(entities).forEach(entity => {
@@ -49,6 +50,7 @@ class Game {
 
         //Draw Upper Layer
         this.map.drawUpper(this.context, player);
+        player.hud.drawHUD(this.context)
 
         // Check for player exiting or entering a new map
         Object.entries(this.map.exits).forEach(([key, exit]) => {
@@ -90,9 +92,16 @@ class Game {
       name: "MaskedNinja",
       x: 4, y: 4,
       transform: {
-        name: "Lizard",
+        name: "Snake",
         type: "monster"
-      }
+      },
+      hud: new HUD({
+        src: "Monsters/Snake/SpriteSheet.png",
+        x: 9, y: 4,
+        width: 16, height: 16,
+        type: "transform",
+        opacity: 0.5
+      })
     });
     
     //Initiates the starting map 

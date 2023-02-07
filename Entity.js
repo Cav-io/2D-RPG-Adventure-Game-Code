@@ -133,6 +133,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
     this.TilesLeft = config.TilesLeft * 16 || 0;
     this.behaviour = "standing";
     this.isPlayer = true;
+    this.hud = config.hud
 
     this.originalSprite = {
       name: this.name,
@@ -160,12 +161,15 @@ class Player extends Obj { //GameObj that can be controlled by the user
         //...Then give the player a speed boost
         this.speed = 2;
         this.sprite.obj= this.transform
+        this.hud.opacity = 0.8
         console.log("Speed boost is on!")
         //Otherwise, if speedBoost is false and the player's speed is boosted 
       } else if (state.speedBoost === false && this.speed === 2) {
         //...Then return player speed to default
         this.speed = 1;
         this.sprite.obj= this.originalSprite
+        this.hud.opacity = null
+        this.hud.opacity = 0.3
         console.log("Speed boost is off!")
       }
     }
