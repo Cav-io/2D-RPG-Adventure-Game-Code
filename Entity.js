@@ -84,6 +84,19 @@ class Sprite {
       this.updateFramesLeft();
     }
   }
+
+  set obj(obj) {
+  this._obj = obj;
+  this.skin.src = "Characters/" + this._obj.name + "/SpriteSheet.png";
+  if(this._obj.type === "monster"){ 
+    this.skin.src = "Monsters/" + this._obj.name + "/SpriteSheet.png";
+    }
+  }
+
+  get obj() {
+    return this._obj;
+  }
+  
 }
 
 
@@ -96,7 +109,7 @@ class Obj { //A blueprint for an object in the game
     this.y = config.y * 16;
     this.speed = config.speed || 1;
     this.name = config.name
-    this.type = config.type
+    this.type = config.type || "character"
 
     //Creates an attribute for the sprite or skin of the game object   
     this.sprite = new Sprite({ Obj: this, animationSet: config.animationSet});
@@ -118,8 +131,14 @@ class Player extends Obj { //GameObj that can be controlled by the user
 
     //How many grids the player has left to travel
     this.TilesLeft = config.TilesLeft * 16 || 0;
-    this.behaviour = "standing"
-    this.isPlayer = true
+    this.behaviour = "standing";
+    this.isPlayer = true;
+
+    this.originalSprite = {
+      name: this.name,
+      type: this.type
+    }
+    this.transform = config.transform
 
     //Assigns the axis and the value for the correspoding direction
     this.directionDict = {
@@ -140,11 +159,13 @@ class Player extends Obj { //GameObj that can be controlled by the user
       if (state.speedBoost && this.speed === 1) {
         //...Then give the player a speed boost
         this.speed = 2;
+        this.sprite.obj= this.transform
         console.log("Speed boost is on!")
         //Otherwise, if speedBoost is false and the player's speed is boosted 
       } else if (state.speedBoost === false && this.speed === 2) {
         //...Then return player speed to default
         this.speed = 1;
+        this.sprite.obj= this.originalSprite
         console.log("Speed boost is off!")
       }
     }

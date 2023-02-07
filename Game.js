@@ -88,7 +88,11 @@ class Game {
     //Initiates Player as a global object
     window.player = new Player({
       name: "MaskedNinja",
-      x: 4, y: 4
+      x: 4, y: 4,
+      transform: {
+        name: "Lizard",
+        type: "monster"
+      }
     });
     
     //Initiates the starting map 
