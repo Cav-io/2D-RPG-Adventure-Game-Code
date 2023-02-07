@@ -11,15 +11,15 @@ class Game {
     this.map = null;
   }
 
-  //Game Loop
-  Loop() { //Loop method for the game
-    const gameLoop = () => { //Declares a game loop  function  
-      //Calls a function before going repainting the next frame
-      requestAnimationFrame(() => { 
+  Loop() {
+    let fadeIn = false;
+    let fadeInOpacity = 0;
+    
+    const gameLoop = () => {
+      if (!fadeIn) {
+        // Clears the canvas
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        //Clears the canvas
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); 
-
         //Creates a list for entities
         const entities = Object.values(this.map.entities);
         //Adds player as an entity
@@ -49,21 +49,36 @@ class Game {
         //Draw Upper Layer
         this.map.drawUpper(this.context, player);
 
-
-        //Check for player exiting or entering a new map
+        // Check for player exiting or entering a new map
         Object.entries(this.map.exits).forEach(([key, exit]) => {
           if (player.x / 16 === exit.x && player.y / 16 === exit.y) {
+            // Start the fade in transition
+            fadeIn = true;
+            fadeInOpacity = 0;
             this.map = window.mapDict[this.map.update(key, exit)];
             this.map.fetchCoordinates();
           }
         });
+      }
+      
+      if (fadeIn) {
+        // If fade in is true, fill the canvas with black and increase opacity
+        this.context.fillStyle = "black";
+        this.context.globalAlpha = fadeInOpacity;
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        //Re-iterates the function infinitely
-        gameLoop();
-      })
-    }
-    //Initiates the game loop
-    gameLoop(); 
+        fadeInOpacity += 0.05;
+        if (fadeInOpacity >= 1) {
+          // If opacity has reached 1, stop the fade in
+          fadeIn = false;
+          this.context.globalAlpha = 1;
+        }
+      }
+
+      requestAnimationFrame(gameLoop);
+    };
+    
+    gameLoop();
   }
   
   //The init method will Initiate the game
