@@ -11,7 +11,7 @@ class Game {
     this.map = null;
   }
 
-  Loop() {
+ Loop() {
     let fadeIn = false;
     let fadeInOpacity = 0;
     
@@ -19,6 +19,7 @@ class Game {
       if (!fadeIn) {
         // Clears the canvas
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
         
         //Creates a list for entities
         const entities = Object.values(this.map.entities);
@@ -80,6 +81,7 @@ class Game {
     
     gameLoop();
   }
+
   
   //The init method will Initiate the game
   init() {
