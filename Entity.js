@@ -30,9 +30,6 @@ class Sprite {
     this.currentSpriteFrame = 0;
     this.framesLimit = 8;
     this.framesLeft = this.framesLimit;
-
-
-
   }
 
   //updates the current sprite set if there is a change to their direction
@@ -68,8 +65,6 @@ class Sprite {
     }
 
   }
-
-
 
   //Sprite Methods
   drawObj(context, camera) {
@@ -134,6 +129,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
     this.behaviour = "standing";
     this.isPlayer = true;
     this.hud = config.hud
+    this.fx = config.fx
 
     this.originalSprite = {
       name: this.name,
