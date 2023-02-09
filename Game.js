@@ -104,7 +104,7 @@ class Game {
         opacity: 0.5
       }),
       fx: new FX({
-        name: "Smoke2",
+        name: "Smoke",
         isFinished: true
       })
     });
