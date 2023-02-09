@@ -53,7 +53,9 @@ class Game {
         //Draw Upper Layer
         this.map.drawUpper(this.context, player);
         //Draw player HUD
-        player.hud.drawHUD(this.context)
+        Object.values(player.hud).forEach(hud => {
+          hud.drawHUD(this.context)
+        })
 
         // Check for player exiting or entering a new map
         Object.entries(this.map.exits).forEach(([key, exit]) => {
