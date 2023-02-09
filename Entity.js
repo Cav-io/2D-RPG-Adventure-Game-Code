@@ -138,7 +138,6 @@ class Player extends Obj { //GameObj that can be controlled by the user
 
     //Assigns the HUD dictionary
     this.hud = config.hud
-    
     this.hud.transformHUD.name = this.transform.name
     
     //Assigns the axis and the value for the correspoding direction
@@ -153,7 +152,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
   update(state) {
     this.updateSprite(state)
     this.updatePos(state);
-
+    
     //If there are no more tiles left to travel...
     if (this.TilesLeft === 0) {
       //if speedBoost is true and the player's speed is default
@@ -162,7 +161,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
         this.speed = 2;
         this.sprite.obj= this.transform //Switch to transformed entity 
         this.hud.transformHUD.opacity = 0.8 //Increase the opacity of transformHUD
-        this.fx.isFinished = false //Activate the transform effect
+        this.fx.transformFX.isFinished = false //Activate the transform effect
         console.log("Speed boost is on!")
         //Otherwise, if speedBoost is false and the player's speed is boosted 
       } else if (state.speedBoost === false && this.speed === 2) {
@@ -170,7 +169,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
         this.speed = 1;
         this.sprite.obj= this.originalSprite //Return to original entity
         this.hud.transformHUD.opacity = 0.3 //Reduce the opacity of transformHUD
-        this.fx.isFinished = false //Activate the transform effect
+        this.fx.transformFX.isFinished = false //Activate the transform effect
         console.log("Speed boost is off!")
       }
     }

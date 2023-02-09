@@ -28,8 +28,7 @@ class HUD {
 
 
 class FX{
-  constructor(config){
-    
+  constructor(config){    
     this.skin = new Image(); 
     this.name = config.name
     this.skin.src = "FX/" + config.name + "/SpriteSheet.png"

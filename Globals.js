@@ -9,6 +9,12 @@ const playerHUD = {
     })
 }
 
+const playerEffects = {
+  transformFX: new FX({
+    name: 'Shield',
+    isFinished: true
+  })
+}
 
 window.player = new Player({
     name: "MaskedNinja",
@@ -18,10 +24,7 @@ window.player = new Player({
       type: "monster"
     },
     hud: playerHUD,
-    fx: new FX({
-      name: "Shield",
-      isFinished: true
-    })
+    fx: playerEffects
 });
 
 //Creates global Maps object 

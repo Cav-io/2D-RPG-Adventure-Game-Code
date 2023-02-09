@@ -49,7 +49,10 @@ class Game {
         })
 
         //Draw player effects
-        player.fx.drawFX(this.context, player)
+        Object.values(player.fx).forEach(effect => {
+          effect.drawFX(this.context, player)
+        })
+        
         //Draw Upper Layer
         this.map.drawUpper(this.context, player);
         //Draw player HUD
