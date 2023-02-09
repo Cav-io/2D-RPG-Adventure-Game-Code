@@ -51,7 +51,6 @@ class Game {
         //Draw Upper Layer
         // player.fx.drawFX(this.context, player)
         this.map.drawUpper(this.context, player);
-        //player.fx.drawFX(this.context, player)
         player.hud.drawHUD(this.context)
 
         // Check for player exiting or entering a new map
