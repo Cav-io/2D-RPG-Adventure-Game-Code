@@ -1,11 +1,14 @@
 class Sprite {
   constructor(config) {
 
+    //Obj Class
+    this.Obj = config.Obj;
+
     this.skin = new Image(); //Creates a new image attribute for the sprite
-    this.name = config.name
-    this.skin.src = "Characters/" + config.name + "/SpriteSheet.png"
-    if(config.type === "monster"){ 
-     this.skin.src = "Monsters/" + config.name + "/SpriteSheet.png"
+    this.name = this.Obj.name
+    this.skin.src = "Characters/" + this.Obj.name + "/SpriteSheet.png"
+    if(this.Obj.type === "monster"){ 
+     this.skin.src = "Monsters/" + this.Obj.name + "/SpriteSheet.png"
     }
     this.skin.onload = () => {//When the skin is loaded
       this.isLoaded = true; //Mark as loaded
@@ -27,10 +30,6 @@ class Sprite {
     this.currentSpriteFrame = 0;
     this.framesLimit = 8;
     this.framesLeft = this.framesLimit;
-
-    //Obj Class
-    this.Obj = config.Obj;
-
   }
 
   //updates the current sprite set if there is a change to their direction
@@ -67,8 +66,6 @@ class Sprite {
 
   }
 
-
-
   //Sprite Methods
   drawObj(context, camera) {
     //const {x, y} = this.Obj; //Destructuring
@@ -82,6 +79,19 @@ class Sprite {
       this.updateFramesLeft();
     }
   }
+
+  set obj(obj) {
+  this._obj = obj;
+  this.skin.src = "Characters/" + this._obj.name + "/SpriteSheet.png";
+  if(this._obj.type === "monster"){ 
+    this.skin.src = "Monsters/" + this._obj.name + "/SpriteSheet.png";
+    }
+  }
+
+  get obj() {
+    return this._obj;
+  }
+  
 }
 
 
@@ -93,13 +103,11 @@ class Obj { //A blueprint for an object in the game
     this.x = config.x * 16;
     this.y = config.y * 16;
     this.speed = config.speed || 1;
+    this.name = config.name
+    this.type = config.type || "character"
 
     //Creates an attribute for the sprite or skin of the game object   
-    this.sprite = new Sprite({ Obj: this, 
-                              name: config.name, 
-                              animationSet: config.animationSet,
-                              type: config.type
-                            });
+    this.sprite = new Sprite({ Obj: this, animationSet: config.animationSet});
 
     //The direction that the object faces
     this.direction = config.direction || "down";
@@ -118,9 +126,20 @@ class Player extends Obj { //GameObj that can be controlled by the user
 
     //How many grids the player has left to travel
     this.TilesLeft = config.TilesLeft * 16 || 0;
-    this.behaviour = "standing"
-    this.isPlayer = true
+    this.behaviour = "standing";
+    this.isPlayer = true;
+    this.fx = config.fx
 
+    this.originalSprite = {
+      name: this.name,
+      type: this.type
+    }
+    this.transform = config.transform
+
+    //Assigns the HUD dictionary
+    this.hud = config.hud
+    this.hud.transformHUD.name = this.transform.name
+    
     //Assigns the axis and the value for the correspoding direction
     this.directionDict = {
       "up": ["y", -1], "down": ["y", 1],
@@ -133,18 +152,24 @@ class Player extends Obj { //GameObj that can be controlled by the user
   update(state) {
     this.updateSprite(state)
     this.updatePos(state);
-
+    
     //If there are no more tiles left to travel...
     if (this.TilesLeft === 0) {
       //if speedBoost is true and the player's speed is default
       if (state.speedBoost && this.speed === 1) {
         //...Then give the player a speed boost
         this.speed = 2;
+        this.sprite.obj= this.transform //Switch to transformed entity 
+        this.hud.transformHUD.opacity = 0.8 //Increase the opacity of transformHUD
+        this.fx.transformFX.isFinished = false //Activate the transform effect
         console.log("Speed boost is on!")
         //Otherwise, if speedBoost is false and the player's speed is boosted 
       } else if (state.speedBoost === false && this.speed === 2) {
         //...Then return player speed to default
         this.speed = 1;
+        this.sprite.obj= this.originalSprite //Return to original entity
+        this.hud.transformHUD.opacity = 0.3 //Reduce the opacity of transformHUD
+        this.fx.transformFX.isFinished = false //Activate the transform effect
         console.log("Speed boost is off!")
       }
     }
