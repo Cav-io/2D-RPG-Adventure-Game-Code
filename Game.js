@@ -48,9 +48,11 @@ class Game {
           entity.sprite.drawObj(this.context, player);
         })
 
-        //Draw Upper Layer
+        //Draw player effects
         player.fx.drawFX(this.context, player)
+        //Draw Upper Layer
         this.map.drawUpper(this.context, player);
+        //Draw player HUD
         player.hud.drawHUD(this.context)
 
         // Check for player exiting or entering a new map
@@ -59,22 +61,29 @@ class Game {
             // Start the fade in transition
             fadeIn = true;
             fadeInOpacity = 0;
+            //Change to the respective map
             this.map = window.mapDict[this.map.update(key, exit)];
+            //Traverse the collision json file for the new map
             this.map.fetchCoordinates();
           }
         });
       }
       
+      // If fade in is true
       if (fadeIn) {
-        // If fade in is true, fill the canvas with black and increase opacity
-        this.context.fillStyle = "black";
-        this.context.globalAlpha = fadeInOpacity;
-        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        
+        //The fade-in transition colour
+        this.context.fillStyle = "black"; 
+        //The level of opacity
+        this.context.globalAlpha = fadeInOpacity; 
+        //Make sures it covers the whole canvas 
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
+
+        //Keep increasing the opacity of the transition 
         fadeInOpacity += 0.025;
         if (fadeInOpacity >= 0.6) {
-          // If opacity has reached 1, stop the fade in
+          // If opacity has reached the opacity limit, stop the fade in
           fadeIn = false;
+          
           this.context.globalAlpha = 1;
         }
       }
@@ -88,26 +97,7 @@ class Game {
   
   //The init method will Initiate the game
   init() {
-    //Initiates Player as a global object
-    window.player = new Player({
-      name: "MaskedNinja",
-      x: 4, y: 4,
-      transform: {
-        name: "Lizard",
-        type: "monster"
-      },
-      hud: new HUD({
-        src: "Monsters/Lizard/SpriteSheet.png",
-        x: 9, y: 4,
-        width: 16, height: 16,
-        type: "transform",
-        opacity: 0.5
-      }),
-      fx: new FX({
-        name: "Smoke",
-        isFinished: true
-      })
-    });
+    
     
     //Initiates the starting map 
     this.map = mapDict.StartingHouse

@@ -1,3 +1,23 @@
+window.player = new Player({
+      name: "MaskedNinja",
+      x: 4, y: 4,
+      transform: {
+        name: "Snake",
+        type: "monster"
+      },
+      hud: new HUD({
+        src: "Monsters/Snake/SpriteSheet.png",
+        x: 9, y: 4,
+        width: 16, height: 16,
+        type: "transform",
+        opacity: 0.5
+      }),
+      fx: new FX({
+        name: "Shield",
+        isFinished: true
+      })
+    });
+
 //Creates global Maps object 
 window.Maps = { 
   //creates StartingHouse map 

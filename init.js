@@ -5,3 +5,7 @@ const game = new Game({
   });
 
 game.init(); //this method will start the game instance
+
+
+//Initiates Player as a global object
+   
