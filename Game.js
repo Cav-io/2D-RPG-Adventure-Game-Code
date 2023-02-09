@@ -49,7 +49,7 @@ class Game {
         })
 
         //Draw Upper Layer
-        // player.fx.drawFX(this.context, player)
+        player.fx.drawFX(this.context, player)
         this.map.drawUpper(this.context, player);
         player.hud.drawHUD(this.context)
 
@@ -93,18 +93,19 @@ class Game {
       name: "MaskedNinja",
       x: 4, y: 4,
       transform: {
-        name: "Snake",
+        name: "Lizard",
         type: "monster"
       },
       hud: new HUD({
-        src: "Monsters/Snake/SpriteSheet.png",
+        src: "Monsters/Lizard/SpriteSheet.png",
         x: 9, y: 4,
         width: 16, height: 16,
         type: "transform",
         opacity: 0.5
       }),
       fx: new FX({
-        name: "Smoke2"
+        name: "Smoke2",
+        isFinished: true
       })
     });
     

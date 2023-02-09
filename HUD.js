@@ -27,17 +27,17 @@ class HUD {
 class FX{
   constructor(config){
     
-    this.skin = new Image(); //Creates a new image attribute for the sprite
+    this.skin = new Image(); 
     this.name = config.name
     this.skin.src = "FX/" + config.name + "/SpriteSheet.png"
+    this.isFinished = config.isFinished || false; // New property to control the animation loop
 
-    this.skin.onload = () => {//When the skin is loaded
-      this.isLoaded = true; //Mark as loaded
+    this.skin.onload = () => {
+      this.isLoaded = true;
     }
 
     this.updated = false;
 
-    //Player movement animation
     this.animationsMap = config.animationsMap || {
       "play": [[1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0]]
     }
@@ -61,18 +61,17 @@ class FX{
 
     if (this.animationsMap[this.animationSet][this.currentSpriteFrame] === undefined) {
       this.currentSpriteFrame = 0;
+      this.isFinished = true; // Mark the animation as finished
+      return;
     }
   }
   
-  //Sprite Methods
   drawFX(context, camera) {
-    //const {x, y} = this.Obj; //Destructuring
     const x = player.x + 9 * 16 - camera.x
     const y = player.y + 4 * 16 - camera.y
-    if (this.isLoaded) {  //If the sprite is loaded
+    if (this.isLoaded && !this.isFinished) {  // Only update the animation if it's not finished
       const fx = this.animationsMap[this.animationSet][this.currentSpriteFrame][0] * 16
       const fy = this.animationsMap[this.animationSet][this.currentSpriteFrame][1] * 16
-      //then draw the sprite on the game canvas 
       context.drawImage(this.skin, fx, fy, 16, 16, x, y, 16, 16)
       this.updateFramesLeft()
 

@@ -158,6 +158,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
         this.speed = 2;
         this.sprite.obj= this.transform
         this.hud.opacity = 0.8
+        this.fx.isFinished = false
         console.log("Speed boost is on!")
         //Otherwise, if speedBoost is false and the player's speed is boosted 
       } else if (state.speedBoost === false && this.speed === 2) {
@@ -166,6 +167,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
         this.sprite.obj= this.originalSprite
         this.hud.opacity = null
         this.hud.opacity = 0.3
+        this.fx.isFinished = false
         console.log("Speed boost is off!")
       }
     }
