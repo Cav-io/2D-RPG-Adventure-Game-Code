@@ -101,7 +101,8 @@ class Obj { //A blueprint for an object in the game
   constructor(config) {
 
     this.isPlayer = false;
-    this.TilesLeft = config.TilesLeft * 16 || 0;
+    this.TilesLeft = config.TilesLeft * 16 || 80*16
+      ;
     this.x = config.x * 16;
     this.y = config.y * 16;
     this.speed = config.speed || 1;
@@ -136,7 +137,6 @@ class Obj { //A blueprint for an object in the game
         this.TilesLeft = 0;
         this.behaviour = "standing"
       } else{
-        this.TilesLeft = this.speed * 16;
         this.behviour = "walking";
         }
       }

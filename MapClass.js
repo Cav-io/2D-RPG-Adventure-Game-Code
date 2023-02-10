@@ -66,6 +66,9 @@ checkCollision(x, y, direction){
       if(x == entity.x/16 && y == entity.y/16){
         collide = true
       }
+      if(x == player.x/16 && y == player.y/16){
+        collide = true
+      }
     })
   };
   // Return the final value of collision
