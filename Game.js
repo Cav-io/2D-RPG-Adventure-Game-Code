@@ -20,26 +20,23 @@ class Game {
         // Clears the canvas
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        
-        //Creates a list for entities
+        // Create a list of entities from the values of the entities in the map object
         const entities = Object.values(this.map.entities);
-        //Adds player as an entity
         entities.push(player);
-
-        //Update each entity in the map
+        
+        // Iterate through each entity in the list
         entities.forEach(entity => {
-          if(entity.isPlayer === true){      
-            entity.update({
-              //Passed on for any keyInput for movement
-              direction: this.keyInput.direction,
-              //Passed on for any keyInput for speed toggle
-              speedBoost: this.keyInput.speedBoost,
-              //Passed on to check for any collision tiles
-              map: this.map
-            });
-          } else {
-            entity.update()
+          // Initial state
+          const state = { map: this.map };
+        
+          // add the player's direction and speedBoost to the state
+          if (entity.isPlayer) {
+            state.direction = this.keyInput.direction;
+            state.speedBoost = this.keyInput.speedBoost;
           }
+        
+          // passing in the state for every other entity
+          entity.update(state);
         });
 
         //Draw lower and collision layers

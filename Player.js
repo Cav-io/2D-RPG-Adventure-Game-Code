@@ -6,6 +6,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
     //How many grids the player has left to travel
     this.isPlayer = true;
     this.fx = config.fx
+    this.TilesLeft = 0
 
     this.originalSprite = {
       name: this.name,

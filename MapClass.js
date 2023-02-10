@@ -63,11 +63,9 @@ checkCollision(x, y, direction){
     }   
     // Check for collision with entities, except the player
     Object.values(this.entities).forEach(entity => {
-      if(entity.isPlayer === false){
-        if(x == entity.x/16 && y == entity.y/16){            
-          collide = true
-        }
-      }  
+      if(x == entity.x/16 && y == entity.y/16){
+        collide = true
+      }
     })
   };
   // Return the final value of collision

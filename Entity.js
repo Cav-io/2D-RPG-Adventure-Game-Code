@@ -26,6 +26,7 @@ class Sprite {
       "walk-right": [[3, 1], [3, 2], [3, 3], [3, 0]]
     }
 
+
     this.animationSet = config.animationSet || "idle-down";
     this.currentSpriteFrame = 0;
     this.framesLimit = 8;
@@ -100,7 +101,7 @@ class Obj { //A blueprint for an object in the game
   constructor(config) {
 
     this.isPlayer = false;
-    this.TilesLeft = config.TilesLeft * 16 || 0;
+    this.TilesLeft = config.TilesLeft * 16 || 80;
     this.x = config.x * 16;
     this.y = config.y * 16;
     this.speed = config.speed || 1;
@@ -123,7 +124,48 @@ class Obj { //A blueprint for an object in the game
   }
 
   //The Update method will commit changes to the object 
-  update() {}
+  update(state) {
+    this.updatePos()
+    this.updateSprite()
+
+    
+    //Updates player's direction when TilesLeft is 0
+
+    if(Number.isInteger(this.x/16) && Number.isInteger(this.y/16) && this.TilesLeft > 0){
+      if(state.map.checkCollision(this.x/16, this.y/16, this.direction)){
+        this.TilesLeft = 0;
+        this.behaviour = "standing"
+      } else{
+        this.TilesLeft = this.speed * 16;
+        this.behviour = "walking";
+        }
+      }
+  }
+
+  updatePos() {
+    if (this.TilesLeft > 0) { //If the player has to move  
+      //Checks which direction it needs to move to
+      const [axis, value] = this.directionDict[this.direction]
+      //Changes their position value on the correct axis
+      this[axis] += value * this.speed
+      // If this method continues to run, the method will stop when the TilesLeft is 0
+      this.TilesLeft -= this.speed * this.speed;
+    }
+  }
+
+  //Updates the player's sprite
+  updateSprite() {
+    if (this.TilesLeft === 0) {
+      //...Then set the player's sprite animation to 'idle' + direction
+      this.sprite.updateSpriteSet("idle-" + this.direction)
+      this.behaviour = "standing";
+    } else {
+    if (this.behaviour = "walking") {
+      //...Otherwise, set the player's sprite animation to 'walk' + direction
+      this.sprite.updateSpriteSet("walk-" + this.direction)
+      }
+    }
+  }
 }
 
 

@@ -34,7 +34,7 @@ window.Maps = {
     name: 'StartingHouse',
     entities: { //Collection of entities of StartingHouse map
       npc1: new Obj({
-        name: "OldWoman",
+        name: "Boy",
         x: 9, y: 3,
         behaviourLoop: [
           {behaviour: "walking", direction: "down", tiles: 2},
