@@ -17,7 +17,7 @@ const playerEffects = {
 }
 
 window.player = new Player({
-    name: "MaskedNinja",
+    name: "GreenNinja",
     x: 4, y: 4,
     transform: {
       name: "GoldRacoon",
@@ -63,7 +63,7 @@ window.Maps = {
       npc2: new Obj({
         name: "MaskFrog",
         x: 16, y: 11,
-        animationSet: "idle-up"
+        direction: "up"
       }),
       npc3: new Obj({
         name: "OldMan",
@@ -80,31 +80,33 @@ window.Maps = {
       npc6: new Obj({
         name: "Princess",
         x: 19, y: 18,
-        animationSet: "idle-right"
+        direction: "right"
       }),
       npc7: new Obj({
         name: "Villager",
         x: 31, y: 8,
-        animationSet: "walk-left",
+        direction: "left",
         speed: 2
       }),
       npc8: new Obj({
         name: "RedNinja",
         x: 26, y: 19,
-        animationSet: "idle-left"
+        direction: "left"
       }),
       monster1: new Obj({
         name: "Racoon",
         x: 25, y: 16,
         type: "monster",
-        animationSet: "walk-down",
+        direction: "down",
+        behaviour: "walking",
         speed: 2
       }),
       monster2: new Obj({
         name: "Dragon",
         x: 27, y: 21,
         type: "monster",
-        animationSet: "walk-down",
+        direction: "down",
+        behaviour: "walking",
         speed: 2
       }),
     },
@@ -137,7 +139,7 @@ window.Maps = {
       npc1: new Obj({
         name: "BlueSamurai",
         x: 2, y: 8,
-        animationSet: "walk-left",
+        direction: "left",
         speed: 2
       }),
       npc2: new Obj({
@@ -201,7 +203,7 @@ window.Maps = {
       npc3: new Obj({
         name: "OldMan",
         x:11, y:19,
-        animationSet: "idle-left"
+        direction: "left"
       }),
       npc4: new Obj({
         name: "Villager2",
@@ -218,7 +220,7 @@ window.Maps = {
       npc6: new Obj({
         name: "Inspector",
         x:13, y:18,
-        animationSet: "idle-right"
+        direction: "right"
       }),
       npc7: new Obj({
         name: "OldMan2",
@@ -227,7 +229,7 @@ window.Maps = {
       npc8: new Obj({
         name: "Monk",
         x:12, y:12,
-        animationSet: "idle-up"
+        direction: "up"
       }),
       
     },

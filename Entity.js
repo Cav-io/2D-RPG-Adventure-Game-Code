@@ -101,8 +101,7 @@ class Obj { //A blueprint for an object in the game
   constructor(config) {
 
     this.isPlayer = false;
-    this.TilesLeft = config.TilesLeft * 16 || 80*16
-      ;
+    this.TilesLeft = config.TilesLeft * 16 || 80*16;
     this.x = config.x * 16;
     this.y = config.y * 16;
     this.speed = config.speed || 1;
@@ -126,20 +125,13 @@ class Obj { //A blueprint for an object in the game
 
   //The Update method will commit changes to the object 
   update(state) {
-    this.updatePos()
-    this.updateSprite()
-
-    
-    //Updates player's direction when TilesLeft is 0
-
     if(Number.isInteger(this.x/16) && Number.isInteger(this.y/16) && this.TilesLeft > 0){
       if(state.map.checkCollision(this.x/16, this.y/16, this.direction)){
         this.TilesLeft = 0;
-        this.behaviour = "standing"
-      } else{
-        this.behviour = "walking";
-        }
       }
+    }
+    this.updatePos()
+    this.updateSprite()
   }
 
   updatePos() {
