@@ -36,9 +36,13 @@ window.Maps = {
       npc1: new Obj({
         name: "OldWoman",
         x: 9, y: 3,
-        animationSet: "idle-left"
+        behaviourLoop: [
+          {behaviour: "walking", direction: "down", tiles: 2},
+          {behaviour: "standing", direction: "down", time: 800},
+          {behaviour: "walking", direction: "up", tiles: 2}
+        ]
       })
-      },
+    },
     exits:{
       StartingTown:{
         name: "StartingTown",

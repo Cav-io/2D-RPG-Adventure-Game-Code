@@ -28,14 +28,18 @@ class Game {
 
         //Update each entity in the map
         entities.forEach(entity => {
-          entity.update({
-            //Passed on for any keyInput for movement
-            direction: this.keyInput.direction,
-            //Passed on for any keyInput for speed toggle
-            speedBoost: this.keyInput.speedBoost,
-            //Passed on to check for any collision tiles
-            map: this.map
-          });
+          if(entity.isPlayer === true){      
+            entity.update({
+              //Passed on for any keyInput for movement
+              direction: this.keyInput.direction,
+              //Passed on for any keyInput for speed toggle
+              speedBoost: this.keyInput.speedBoost,
+              //Passed on to check for any collision tiles
+              map: this.map
+            });
+          } else {
+            entity.update()
+          }
         });
 
         //Draw lower and collision layers
