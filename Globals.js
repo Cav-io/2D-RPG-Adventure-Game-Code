@@ -20,7 +20,7 @@ window.player = new Player({
     name: "MaskedNinja",
     x: 4, y: 4,
     transform: {
-      name: "Dragon",
+      name: "GoldRacoon",
       type: "monster"
     },
     hud: playerHUD,
