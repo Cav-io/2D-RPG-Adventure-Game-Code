@@ -37,7 +37,7 @@ class Map {
     
 checkCollision(x, y, direction){
   // Set initial value of collision as true
-  let collide = true;
+  let collide = false;
   
   // Define a dictionary of direction with corresponding x and y values
   let directionDict = {
@@ -57,17 +57,15 @@ checkCollision(x, y, direction){
     // Check if there are any walls defined
     if (Object.keys(this.walls).length !== 0) {
       // Check if the current position contains a wall
-      if (this.walls.data[x + (y * this.walls.width)] === 0) {
-        collide = false;
+      if (this.walls.data[x + (y * this.walls.width)] !== 0) {
+        collide = true;
       }
     }   
     // Check for collision with entities, except the player
     Object.values(this.entities).forEach(entity => {
       if(x == entity.x/16 && y == entity.y/16){
-        collide = true
       }
       if(x == player.x/16 && y == player.y/16){
-        collide = true
       }
     })
   };
