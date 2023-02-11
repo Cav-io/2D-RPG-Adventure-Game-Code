@@ -19,6 +19,7 @@ class Game {
       if (!fadeIn) {
         // Clears the canvas
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
         
         // Create a list of entities from the values of the entities in the map object
         const entities = Object.values(this.map.entities);
@@ -34,7 +35,6 @@ class Game {
             state.direction = this.keyInput.direction;
             state.speedBoost = this.keyInput.speedBoost;
           }
-        
           // passing in the state for every other entity
           entity.update(state);
         });

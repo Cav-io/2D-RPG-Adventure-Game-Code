@@ -34,44 +34,53 @@ class Map {
     context.drawImage(this.upperLayer, 9*16 - camera.x, 4*16 - camera.y); 
   }
     
-checkCollision(x, y, direction){
-  // Set initial value of collision as false
-  let collide = false;
-  
-  // Define a dictionary of direction with corresponding x and y values
-  let directionDict = {
-    "up": [0, -1], "down": [0, 1],
-    "right": [1, 0], "left": [-1, 0]
-  };
-  
-  // Destructure x and y values from the dictionary based on the input direction
-  const [xValue, yValue] = directionDict[direction];
-  
-  // Update x and y values based on direction
-  x += xValue;
-  y += yValue;
-  
-  // Check if new x and y values are within the bounds of the walls
-  if (x >= 0 && x < this.walls.width && y >= 0 && y < this.walls.height) {
-    // Check if there are any walls defined
-    if (Object.keys(this.walls).length !== 0) {
-      // Check if the current position contains a wall
-      if (this.walls.data[x + (y * this.walls.width)] !== 0) {
-        collide = true;
-      }
-    }   
-    // Check for collision with entities, except the player
+  checkCollision(x, y, direction){
+    // Set initial value of collision as false
+    let collide = false;
+    
+    // Define a dictionary of direction with corresponding x and y values
+    let directionDict = {
+      "up": [0, -1], "down": [0, 1],
+      "right": [1, 0], "left": [-1, 0]
+    };
+    
+    // Destructure x and y values from the dictionary based on the input direction
+    const [xValue, yValue] = directionDict[direction];
+    
+    // Update x and y values based on direction
+    x += xValue;
+    y += yValue;
+    
+    // Check if new x and y values are within the bounds of the walls
+    if (x >= 0 && x < this.walls.width && y >= 0 && y < this.walls.height) {
+      // Check if there are any walls defined
+      if (Object.keys(this.walls).length !== 0) {
+        // Check if the current position contains a wall
+        if (this.walls.data[x + (y * this.walls.width)] !== 0) {
+          collide = true;
+        }
+      }   
+    };
+    
+    if(player.TilesLeft > 0){
+      const [axis, value] = player.directionDict[player.direction];
+      console.log(axis)
+    }
+    
+    // Check for collision with entities, except the player 
     Object.values(this.entities).forEach(entity => {
+      //Player to entity collsion
       if(x == entity.x/16 && y == entity.y/16){
         collide = true
       }
+      //Entity to player collision
       if(x == player.x/16 && y == player.y/16){
         collide = true
       }
+
     })
-  };
-  // Return the final value of collision
-  return collide;
+    // Return the final value of collision
+    return collide;
   }
 
   async fetchCoordinates(){
