@@ -18,7 +18,6 @@ const playerEffects = {
 
 window.player = new Player({
     name: "GreenNinja",
-    x: 4, y: 4,
     transform: {
       name: "GoldRacoon",
       type: "monster"

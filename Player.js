@@ -7,6 +7,8 @@ class Player extends Obj { //GameObj that can be controlled by the user
     this.isPlayer = true;
     this.fx = config.fx
     this.TilesLeft = 0
+    this.x = config.x*16 || 4*16;
+    this.y = config.y*16 || 4*16;
 
     this.originalSprite = {
       name: this.name,
