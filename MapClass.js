@@ -17,8 +17,7 @@ class Map {
     this.upperLayer.src = "/Maps/"+this.name+"/upper layer.png";
 
     
-    //assign entities 
-    this.entities = config.entities; 
+    this.entities = config.entities;  
   }
 
   drawLower(context, camera){
@@ -36,7 +35,7 @@ class Map {
   }
     
 checkCollision(x, y, direction){
-  // Set initial value of collision as true
+  // Set initial value of collision as false
   let collide = false;
   
   // Define a dictionary of direction with corresponding x and y values
@@ -64,8 +63,10 @@ checkCollision(x, y, direction){
     // Check for collision with entities, except the player
     Object.values(this.entities).forEach(entity => {
       if(x == entity.x/16 && y == entity.y/16){
+        collide = true
       }
       if(x == player.x/16 && y == player.y/16){
+        collide = true
       }
     })
   };

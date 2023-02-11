@@ -96,25 +96,16 @@ class Game {
 
       requestAnimationFrame(gameLoop);
     };
-    
-    gameLoop();
+      gameLoop();
   }
 
   
-  //The init method will Initiate the game
-  init() {
-    
-    
-    //Initiates the starting map 
-    this.map = mapDict.StartingHouse
-    //Gets map coordinates to check for collisions
-    this.map.fetchCoordinates()
-
-    //Intialises a keyInput instance
-    this.keyInput = new keyInput()
-    this.keyInput.init()
-
-    //Intialises the game loop
-    this.Loop();
+init() {
+    this.map = mapDict.StartingHouse;
+    this.map.fetchCoordinates().then(() => {
+        this.keyInput = new keyInput();
+        this.keyInput.init();
+        this.Loop();
+    });
   }
 }
