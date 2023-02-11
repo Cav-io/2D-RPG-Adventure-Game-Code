@@ -1,7 +1,8 @@
 const playerHUD = {
     transformHUD: new HUD({
       type: "transform",
-      opacity: 0.5
+      opacity: 0.5,
+      
     }),
     heartHUD: new HUD({
       src: "HUD/Heart.png",

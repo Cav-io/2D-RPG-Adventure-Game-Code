@@ -1,7 +1,5 @@
 class HUD {
   constructor(config){
-    this.image = new Image();
-    this.image.src = config.src
     this.name = config.name
     this.type = config.type
     this.x = config.x;
@@ -17,6 +15,7 @@ class HUD {
     if(this.type === "transform"){
       this.transformHUD = new Image();
       this.transformHUD.src = "HUD/NinePathRect/DialogueBubble2.png"
+      this.image = new Image();
       this.image.src = "Monsters/"+this.name+"/SpriteSheet.png"
       context.globalAlpha = this.opacity; // set the global alpha value
       context.drawImage(this.transformHUD, 8, 8)
