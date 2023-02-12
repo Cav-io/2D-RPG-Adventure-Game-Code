@@ -60,7 +60,6 @@ window.Maps = {
         //sets NPC1 properties
         name: "Boy",
         x: 25, y: 10,
-        TilesLeft: 80,
       }),
       npc2: new Obj({
         name: "MaskFrog",

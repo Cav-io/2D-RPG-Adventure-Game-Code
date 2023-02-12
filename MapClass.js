@@ -48,8 +48,8 @@ class Map {
     const [xValue, yValue] = directionDict[obj.direction];
     
     // Update x and y values based on direction
-    const x = obj.x/16 + xValue;
-    const y = obj.y/16 + yValue;
+    const x = Math.round(obj.x/16 + xValue);
+    const y = Math.round(obj.y/16 + yValue);
     
     // Check if new x and y values are within the bounds of the walls
     if (x >= 0 && x < this.walls.width && y >= 0 && y < this.walls.height) {
@@ -66,46 +66,38 @@ class Map {
     // Check for collision with entities, except the player 
     Object.values(this.entities).forEach(entity => {
       //Player to entity collsion
-      if(x == entity.x/16 && y == entity.y/16){
+      if(x == Math.round(entity.x/16) && y == Math.round(entity.y/16)){
         collide = true
       }
       //Entity to player collision
-      if(x == player.x/16 && y == player.y/16){
+      if(x == Math.round(player.x/16) && y == Math.round(player.y/16)){
         collide = true
       }
-
-      // if(player.TilesLeft === 16){
-      //   const newPlayerX = player.x/16 + directionDict[player.direction][0]
-      //   const newPlayerY = player.y/16 + directionDict[player.direction][1]
-      //   if(x === newPlayerX && y === newPlayerY){
-      //     collide = true
-      // }}
-      
-      if(obj.isPlayer && entity.TilesLeft > 0){
-        if(obj.y/16 <= (entity.y/16) - yValue && y >= (entity.y/16) + yValue*2 &&
-          obj.x/16 <=  (entity.x/16) - xValue && x >= (entity.x/16) + xValue){
-            collide =true;
+    
+     // Player to entity collision while both are moving
+      if(obj.isPlayer && entity.behaviour === "walking"){
+        const [entityXValue, entityYValue] = directionDict[entity.direction];
+        const newEntityX = entity.x/16 + entityXValue;
+        const newEntityY = entity.y/16 + entityYValue;
+        if((x >= newEntityX && x <= entity.x/16) || (x >= entity.x/16 && x <= newEntityX)){
+          if((y >= newEntityY && y <= entity.y/16) || (y >= entity.y/16 && y <= newEntityY)){
+            collide = true;
+          }
         }
       }
 
+  
     })
-    
-    if(!obj.isPlayer){
-      if(obj.y/16 >= (player.y/16) - yValue && y <= (player.y/16) + yValue*2 &&
-        obj.x/16 >=  (player.x/16) - xValue && x <= (player.x/16) + xValue){
-          collide =true;
-      }
+  
+    //Entity to Player collsion while both moving
+    if(!obj.isPlayer && player.behaviour === "walking"){ 
+        const newPlayerX = Math.round(player.x/16 + directionDict[player.direction][0])
+        const newPlayerY = Math.round(player.y/16 + directionDict[player.direction][1])
+        if( x == newPlayerX && y == newPlayerY){
+          collide = true;
+        }
     }
-
-
-    // if(obj.isPlayer){
-    //   if(obj.y/16 <= 16 && y+yValue <= 18){
-    //     if(y+yValue< player.y){
-    //       collide =true;
-    //     }
-    //   }
-    // }
-    // Return the final value of collision
+    
     return collide;
   }
 
