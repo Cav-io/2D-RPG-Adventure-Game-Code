@@ -62,7 +62,6 @@ class Map {
       }   
     };
     
-    
     // Check for collision with entities, except the player 
     Object.values(this.entities).forEach(entity => {
       //Player to entity collsion
@@ -73,33 +72,36 @@ class Map {
       if(x == Math.round(player.x/16) && y == Math.round(player.y/16)){
         collide = true
       }
-    
-     // Player to entity collision while both are moving
-      if(obj.isPlayer && entity.behaviour === "walking"){
+          
+      // Check for player-to-entity collision while both are moving
+      if (obj.isPlayer && entity.behaviour === "walking") {
+        // Calculate the new position of the entity based on its current direction
         const [entityXValue, entityYValue] = directionDict[entity.direction];
         const newEntityX = entity.x/16 + entityXValue;
         const newEntityY = entity.y/16 + entityYValue;
+        // Check if the player's position falls within the entity's new and current positions
         if((x >= newEntityX && x <= entity.x/16) || (x >= entity.x/16 && x <= newEntityX)){
           if((y >= newEntityY && y <= entity.y/16) || (y >= entity.y/16 && y <= newEntityY)){
+            // If so, set the collide flag to true
             collide = true;
           }
         }
       }
-
-  
-    })
-  
-    //Entity to Player collsion while both moving
-    if(!obj.isPlayer && player.behaviour === "walking"){ 
-        const newPlayerX = Math.round(player.x/16 + directionDict[player.direction][0])
-        const newPlayerY = Math.round(player.y/16 + directionDict[player.direction][1])
-        if( x == newPlayerX && y == newPlayerY){
-          collide = true;
-        }
+    });
+      
+    // Check for entity-to-player collision while both are moving
+    if (!obj.isPlayer && player.behaviour === "walking") { 
+      // Calculate the new position of the player based on its current direction
+      const newPlayerX = Math.round(player.x/16 + directionDict[player.direction][0])
+      const newPlayerY = Math.round(player.y/16 + directionDict[player.direction][1])
+      // Check if the entity's position matches the player's new position
+      if ( x == newPlayerX && y == newPlayerY) {
+        // If so, set the collide flag to true
+        collide = true;
+      }
     }
-    
     return collide;
-  }
+  }  
 
   async fetchCoordinates(){
     // Make a fetch request to retrieve collision data for the map
