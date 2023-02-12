@@ -61,7 +61,7 @@ window.Maps = {
         //sets NPC1 properties
         name: "Boy",
         x: 25, y: 10,
-        TilesLeft: 80*16
+        TilesLeft: 1
       }),
       npc2: new Obj({
         name: "MaskFrog",
@@ -137,7 +137,8 @@ window.Maps = {
     entities: { 
       master: new Obj({
         name: "OldMan3",
-        x: 8, y: 5
+        x: 8, y: 5,
+        TilesLeft: 1*16
       }),
       npc1: new Obj({
         name: "BlueSamurai",

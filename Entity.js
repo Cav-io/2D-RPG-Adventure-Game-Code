@@ -101,7 +101,7 @@ class Obj { //A blueprint for an object in the game
   constructor(config) {
 
     this.isPlayer = false;
-    this.TilesLeft = config.TilesLeft * 16 || 0;
+    this.TilesLeft = config.TilesLeft * 16 || 5*16;
     this.x = config.x * 16;
     this.y = config.y * 16;
     this.speed = config.speed || 1;
@@ -132,7 +132,11 @@ class Obj { //A blueprint for an object in the game
     if(Number.isInteger(this.x/16) && Number.isInteger(this.y/16) && this.TilesLeft > 0 ){
     if(state.map.checkCollision(this)){
         this.behaviour = "standing"
-      }
+        console.log("standing")
+      } 
+    }
+    if(this.TilesLeft === 0){
+      this.behaviour = "standing"
     }
     this.updatePos()
     this.updateSprite()
@@ -147,6 +151,7 @@ class Obj { //A blueprint for an object in the game
       this[axis] += value * this.speed
       // If this method continues to run, the method will stop when the TilesLeft is 0
       this.TilesLeft -= this.speed * this.speed;
+      console.log("walking", this.TilesLeft/16)
     }
   }
 
