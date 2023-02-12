@@ -34,7 +34,7 @@ class Map {
     context.drawImage(this.upperLayer, 9*16 - camera.x, 4*16 - camera.y); 
   }
     
-  checkCollision(x, y, direction){
+  checkCollision(obj){
     // Set initial value of collision as false
     let collide = false;
     
@@ -45,11 +45,11 @@ class Map {
     };
     
     // Destructure x and y values from the dictionary based on the input direction
-    const [xValue, yValue] = directionDict[direction];
+    const [xValue, yValue] = directionDict[obj.direction];
     
     // Update x and y values based on direction
-    x += xValue;
-    y += yValue;
+    const x = obj.x/16 + xValue;
+    const y = obj.y/16 + yValue;
     
     // Check if new x and y values are within the bounds of the walls
     if (x >= 0 && x < this.walls.width && y >= 0 && y < this.walls.height) {
@@ -62,10 +62,6 @@ class Map {
       }   
     };
     
-    if(player.TilesLeft > 0){
-      const [axis, value] = player.directionDict[player.direction];
-      console.log(axis)
-    }
     
     // Check for collision with entities, except the player 
     Object.values(this.entities).forEach(entity => {
@@ -77,6 +73,26 @@ class Map {
       if(x == player.x/16 && y == player.y/16){
         collide = true
       }
+
+
+     //  if(player.TilesLeft > 0){
+     //    console.log(player.y)
+     //    if(player.y/16 > 16 && player.y/16 < 17){
+     //      if(y> 16 && y< 17){
+     //        console.log(player.y/16)
+     //        collide = true
+     //      }
+     //    }
+     // }
+
+
+      // if(player.TilesLeft === 16){
+      //   const newPlayerX = player.x/16 + directionDict[player.direction][0]
+      //   const newPlayerY = player.y/16 + directionDict[player.direction][1]
+      //   if(x === newPlayerX && y === newPlayerY){
+      //     collide = true
+      // }}
+      
 
     })
     // Return the final value of collision

@@ -57,7 +57,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
     //Updates player's direction when TilesLeft is 0
     if (this.TilesLeft === 0 && state.direction) {
       this.direction = state.direction;
-      if (state.map.checkCollision(this.x / 16, this.y / 16, this.direction)) {
+      if (state.map.checkCollision(this)) {
         this.TilesLeft = 0;
         this.behaviour = "standing"
       } else {

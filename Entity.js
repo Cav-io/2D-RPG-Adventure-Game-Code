@@ -126,7 +126,7 @@ class Obj { //A blueprint for an object in the game
   //The Update method will commit changes to the object 
   update(state) {
     if(Number.isInteger(this.x/16) && Number.isInteger(this.y/16) &&
-       state.map.checkCollision(this.x/16, this.y/16, this.direction)){
+       state.map.checkCollision(this)){
         this.TilesLeft = 0;
       }
     this.updatePos()

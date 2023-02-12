@@ -92,7 +92,7 @@ window.Maps = {
       }),
       npc8: new Obj({
         name: "RedNinja",
-        x: 25, y: 19,
+        x: 25, y: 20,
         direction: "left"
       }),
       monster1: new Obj({
