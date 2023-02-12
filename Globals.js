@@ -23,6 +23,7 @@ window.player = new Player({
       name: "GoldRacoon",
       type: "monster"
     },
+    x: 21, y:17,
     hud: playerHUD,
     fx: playerEffects
 });
@@ -60,6 +61,7 @@ window.Maps = {
         //sets NPC1 properties
         name: "Boy",
         x: 25, y: 10,
+        TilesLeft: 80*16
       }),
       npc2: new Obj({
         name: "MaskFrog",

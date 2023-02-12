@@ -98,6 +98,7 @@ class Map {
       if ( x == newPlayerX && y == newPlayerY) {
         // If so, set the collide flag to true
         collide = true;
+        
       }
     }
     return collide;

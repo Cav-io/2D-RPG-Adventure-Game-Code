@@ -101,14 +101,18 @@ class Obj { //A blueprint for an object in the game
   constructor(config) {
 
     this.isPlayer = false;
-    this.TilesLeft = config.TilesLeft * 16 ||0;
+    this.TilesLeft = config.TilesLeft * 16 || 0;
     this.x = config.x * 16;
     this.y = config.y * 16;
     this.speed = config.speed || 1;
     this.name = config.name
     this.type = config.type || "character"
     this.behaviourLoop = config.behaviourLoop
-    this.behaviour = "standing";
+    if (this.TilesLeft > 0){
+      this.behaviour = "walking"
+    } else {  
+      this.behaviour = "standing";
+    }
 
     //Creates an attribute for the sprite or skin of the game object   
     this.sprite = new Sprite({ Obj: this, animationSet: config.animationSet});
@@ -126,17 +130,17 @@ class Obj { //A blueprint for an object in the game
   //The Update method will commit changes to the object 
   update(state) {
     if(Number.isInteger(this.x/16) && Number.isInteger(this.y/16) && this.TilesLeft > 0 ){
-      
     if(state.map.checkCollision(this)){
-        this.TilesLeft = 0;
+        this.behaviour = "standing"
       }
     }
     this.updatePos()
     this.updateSprite()
+    //this.startBehaviourLoop()
   }
 
   updatePos() {
-    if (this.TilesLeft > 0) { //If the player has to move  
+    if (this.behaviour === "walking") { //If the player has to move  
       //Checks which direction it needs to move to
       const [axis, value] = this.directionDict[this.direction]
       //Changes their position value on the correct axis
@@ -151,7 +155,6 @@ class Obj { //A blueprint for an object in the game
     if (this.TilesLeft === 0) {
       //...Then set the player's sprite animation to 'idle' + direction
       this.sprite.updateSpriteSet("idle-" + this.direction)
-      this.behaviour = "standing";
     } else {
     if (this.behaviour = "walking") {
       //...Otherwise, set the player's sprite animation to 'walk' + direction
