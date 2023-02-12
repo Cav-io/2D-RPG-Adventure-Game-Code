@@ -74,18 +74,6 @@ class Map {
         collide = true
       }
 
-
-     //  if(player.TilesLeft > 0){
-     //    console.log(player.y)
-     //    if(player.y/16 > 16 && player.y/16 < 17){
-     //      if(y> 16 && y< 17){
-     //        console.log(player.y/16)
-     //        collide = true
-     //      }
-     //    }
-     // }
-
-
       // if(player.TilesLeft === 16){
       //   const newPlayerX = player.x/16 + directionDict[player.direction][0]
       //   const newPlayerY = player.y/16 + directionDict[player.direction][1]
@@ -93,8 +81,30 @@ class Map {
       //     collide = true
       // }}
       
+      if(obj.isPlayer && entity.TilesLeft > 0){
+        if(obj.y/16 <= (entity.y/16) - yValue && y >= (entity.y/16) + yValue*2 &&
+          obj.x/16 <=  (entity.x/16) - xValue && x >= (entity.x/16) + xValue){
+            collide =true;
+        }
+      }
 
     })
+    
+    if(!obj.isPlayer){
+      if(obj.y/16 >= (player.y/16) - yValue && y <= (player.y/16) + yValue*2 &&
+        obj.x/16 >=  (player.x/16) - xValue && x <= (player.x/16) + xValue){
+          collide =true;
+      }
+    }
+
+
+    // if(obj.isPlayer){
+    //   if(obj.y/16 <= 16 && y+yValue <= 18){
+    //     if(y+yValue< player.y){
+    //       collide =true;
+    //     }
+    //   }
+    // }
     // Return the final value of collision
     return collide;
   }
