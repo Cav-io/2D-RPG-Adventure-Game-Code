@@ -101,7 +101,7 @@ class Game {
 
   
 init() {
-    this.map = mapDict.StartingTown;
+    this.map = mapDict.Dojo;
     this.map.fetchCoordinates().then(() => {
         this.keyInput = new keyInput();
         this.keyInput.init();

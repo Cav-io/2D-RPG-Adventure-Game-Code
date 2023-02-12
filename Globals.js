@@ -23,7 +23,7 @@ window.player = new Player({
       name: "GoldRacoon",
       type: "monster"
     },
-    x: 21, y:17,
+    //x: 21, y:17,
     hud: playerHUD,
     fx: playerEffects
 });
@@ -137,8 +137,7 @@ window.Maps = {
     entities: { 
       master: new Obj({
         name: "OldMan3",
-        x: 8, y: 5,
-        TilesLeft: 1*16
+        x: 8, y: 5
       }),
       npc1: new Obj({
         name: "BlueSamurai",
