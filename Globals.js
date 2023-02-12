@@ -39,7 +39,8 @@ window.Maps = {
         behaviourLoop: [
           {behaviour: "walking", direction: "down", tiles: 2},
           {behaviour: "standing", direction: "down", time: 800},
-          {behaviour: "walking", direction: "up", tiles: 2}
+          {behaviour: "walking", direction: "up", tiles: 2},
+          {behaviour: "standing", direction: "up", time: 800},
         ]
       })
     },
