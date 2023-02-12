@@ -23,7 +23,6 @@ window.player = new Player({
       name: "GoldRacoon",
       type: "monster"
     },
-    x: 23, y:17,
     hud: playerHUD,
     fx: playerEffects
 });
@@ -36,7 +35,7 @@ window.Maps = {
     entities: { //Collection of entities of StartingHouse map
       npc1: new Obj({
         name: "Boy",
-        x: 9, y: 3,
+        x: 9, y: 4,
         behaviourLoop: [
           {behaviour: "walking", direction: "down", tiles: 2},
           {behaviour: "standing", direction: "down", time: 800},
