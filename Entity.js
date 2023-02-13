@@ -138,7 +138,8 @@ class Obj { //A blueprint for an object in the game
         if(this.TilesLeft > 0){
           this.behaviour = "walking"
         } 
-        
+
+
         if(Number.isInteger(this.x/16) && Number.isInteger(this.y/16) && this.TilesLeft > 0 ){
         if(state.map.checkCollision(this)){
             this.behaviour = "standing"
@@ -146,9 +147,10 @@ class Obj { //A blueprint for an object in the game
         }
 
         if (this.time > 0) {
-          setTimeout(() => {
-            this.time = 0;
-          }, this.time);
+          this.time -= 60
+        }
+        if(this.time < 0){
+          this.time = 0
         }
 
         this.updatePos()
@@ -168,6 +170,7 @@ class Obj { //A blueprint for an object in the game
         this.direction = this.behaviourLoop[this.currentBehaviour].direction;
         if(this.behaviour === "standing"){
           this.time = this.behaviourLoop[this.currentBehaviour].time
+          console.log(this.time)
           this.TilesLeft = 0
         } else {
           this.TilesLeft = this.behaviourLoop[this.currentBehaviour].tiles * 16;

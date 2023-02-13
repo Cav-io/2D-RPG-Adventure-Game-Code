@@ -58,20 +58,24 @@ window.Maps = {
         x: 25, y: 10,
         speed: 1,
         behaviourLoop: [
-          {behaviour: "walking", direction: "down", tiles: 8},
-          {behaviour: "standing", direction: "down", time: 800},  
-          {behaviour: "walking", direction: "right", tiles: 8},
-          {behaviour: "standing", direction: "right", time: 800},
-          {behaviour: "walking", direction: "left", tiles: 8},
-          {behaviour: "standing", direction: "left", time: 800},
-          {behaviour: "walking", direction: "up", tiles: 8},
-          {behaviour: "standing", direction: "up", time: 800},
+          {behaviour: "walking", direction: "down", tiles: 1},  
+          {behaviour: "standing", direction: "down", time: 1000},
+          {behaviour: "walking", direction: "down", tiles: 1},  
+          {behaviour: "standing", direction: "down", time: 1000},
+          {behaviour: "walking", direction: "down", tiles: 1},  
+          {behaviour: "standing", direction: "down", time: 1000},
+          {behaviour: "walking", direction: "down", tiles: 1},  
+          {behaviour: "standing", direction: "down", time: 5000},
+          {behaviour: "walking", direction: "up", tiles: 4},
         ]
       }),
       npc2: new Obj({
         name: "MaskFrog",
         x: 16, y: 11,
-        direction: "up"
+        behaviourLoop:[
+          {behaviour: "standing", direction: "up", time: 3000},
+          {behaviour: "standing", direction: "right", time: 1000 },
+        ]
       }),
       npc3: new Obj({
         name: "OldMan",
@@ -88,13 +92,22 @@ window.Maps = {
       npc6: new Obj({
         name: "Princess",
         x: 19, y: 18,
-        direction: "right"
+        direction: "right",
+        behaviourLoop: [
+          {behaviour: "standing", direction: "down", time: 5000}, 
+          {behaviour: "standing", direction: "right", time: 5000}, 
+          {behaviour: "standing", direction: "up", time: 5000}, 
+          {behaviour: "standing", direction: "left", time: 5000}, 
+          
+        ]
       }),
       npc7: new Obj({
         name: "Villager",
         x: 31, y: 8,
-        direction: "left",
-        speed: 2
+        speed: 2,
+        behaviourLoop: [
+          {behaviour: "walking", direction: "left", tiles: 1}, 
+        ]
       }),
       npc8: new Obj({
         name: "RedNinja",
