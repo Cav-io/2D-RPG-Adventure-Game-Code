@@ -35,7 +35,7 @@ window.Maps = {
     name: 'StartingHouse',
     entities: { //Collection of entities of StartingHouse map
       npc1: new Obj({
-        name: "Boy",
+        name: "OldWoman",
         x: 9, y: 4,
 
       })
@@ -194,13 +194,24 @@ window.Maps = {
       npc4: new Obj({
         name: "Monk2",
         x: 13, y: 6,
-        animationSet:"idle-left",
+        behaviourLoop: [
+          {behaviour: "walking", direction: "up", tiles: 1},
+          {behaviour: "standing", direction: "up", time: 5000}, 
+          {behaviour: "standing", direction: "down", time: 5000},
+          {behaviour: "standing", direction: "left", time: 5000},
+          {behaviour: "walking", direction: "down", tiles: 2},
+          {behaviour: "standing", direction: "down", time: 9000},
+          {behaviour: "standing", direction: "left", time: 5000},
+          {behaviour: "walking", direction: "up", tiles: 1},
+        ]
       }),
       npc5: new Obj({
         name: "Lion",
         x: 12, y: 2,
-        animationSet:"walk-up",
-        speed: 2
+        speed: 2,
+        behaviourLoop:[
+          {behaviour: "walking", direction: "up", tiles: 1},
+        ]
       }),
       npc6: new Obj({
         name: "Villager4",
@@ -209,12 +220,25 @@ window.Maps = {
       npc7: new Obj({
         name: "Monk",
         x: 11, y: 12,
-        animationSet:"idle-down",
+        behaviourLoop: [
+          {behaviour: "walking", direction: "down", tiles: 1},  
+          {behaviour: "standing", direction: "down", time: 1000},
+          {behaviour: "walking", direction: "down", tiles: 1},  
+          {behaviour: "standing", direction: "down", time: 1000},
+          {behaviour: "walking", direction: "down", tiles: 1},  
+          {behaviour: "standing", direction: "down", time: 1000},
+          {behaviour: "walking", direction: "down", tiles: 1},  
+          {behaviour: "standing", direction: "down", time: 5000},
+          {behaviour: "walking", direction: "up", tiles: 2},
+          {behaviour: "standing", direction: "up", time: 5000},
+          {behaviour: "walking", direction: "up", tiles: 2},
+          {behaviour: "standing", direction: "up", time: 5000},
+        ]
       }),
       npc8: new Obj({
         name: "Knight",
         x: 14, y: 4,
-        animationSet:"walk-right",
+        direction:"left",
         speed: 2
       }),
     },
