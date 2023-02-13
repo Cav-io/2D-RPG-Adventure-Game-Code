@@ -33,11 +33,11 @@ class Player extends Obj { //GameObj that can be controlled by the user
   //Updates the character in each loop
   update(state) {
     state.map.playerInteraction(state)
-    this.updatePos(state);
     if(this.freeze){
       return;
     }
     
+    this.updatePos(state);
     this.updateSprite(state)
 
     //If there are no more tiles left to travel...
