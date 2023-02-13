@@ -59,6 +59,7 @@ window.Maps = {
         speed: 1,
         behaviourLoop: [
           {behaviour: "walking", direction: "down", tiles: 8},
+          {behaviour: "standing", direction: "down", time: 800},  
           {behaviour: "walking", direction: "right", tiles: 8},
           {behaviour: "walking", direction: "left", tiles: 8},
           {behaviour: "walking", direction: "up", tiles: 8},
@@ -146,19 +147,30 @@ window.Maps = {
       npc1: new Obj({
         name: "BlueSamurai",
         x: 2, y: 8,
-        direction: "left",
-        speed: 2
+        speed: 2,
+        behaviourLoop: [
+          {behaviour: "walking", direction:"left", tiles:1}
+        ]
       }),
       npc2: new Obj({
         name: "Master",
-        x: 5, y: 4,
-        animationSet:"walk-right"
+        x: 4, y: 5,
+        behaviourLoop:[
+          {behaviour: "walking", direction:"up", tiles: 2},
+          {behaviour: "walking", direction:"right", tiles: 1},
+          {behaviour: "walking", direction:"left", tiles: 1},
+          {behaviour: "walking", direction:"down", tiles: 2}
+        ]
       }),
       npc3: new Obj({
         name: "Monk",
-        x: 6, y: 4,
-        animationSet:"walk-left",
-        speed:2
+        x: 6, y: 5,
+        behaviourLoop:[
+          {behaviour: "walking", direction:"left", tiles: 1},
+          {behaviour: "walking", direction:"right", tiles: 1},
+          {behaviour: "walking", direction:"up", tiles: 2},
+          {behaviour: "walking", direction:"down", tiles: 2}
+        ],
       }),
       npc4: new Obj({
         name: "Monk2",

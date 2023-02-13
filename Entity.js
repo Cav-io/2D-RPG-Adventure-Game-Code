@@ -109,6 +109,7 @@ class Obj { //A blueprint for an object in the game
     this.type = config.type || "character"
     this.behaviourLoop = config.behaviourLoop
     this.currentBehaviour = -1;
+    this.time = 0
     
     if (this.TilesLeft > 0){
       this.behaviour = "walking"
@@ -144,11 +145,15 @@ class Obj { //A blueprint for an object in the game
           } 
         }
 
+        if (this.time > 0) {
+          setTimeout(() => {
+            this.time = 0;
+          }, this.time);
+        }
+
         this.updatePos()
         this.updateSprite()
-        
-        if(this.TilesLeft === 0){
-          this.behaviour = "standing"
+        if(this.TilesLeft === 0 && this.time === 0){
           this.currentBehaviour++;
           this.startBehaviourLoop()
         }
@@ -161,7 +166,13 @@ class Obj { //A blueprint for an object in the game
         }
         this.behaviour = this.behaviourLoop[this.currentBehaviour].behaviour;
         this.direction = this.behaviourLoop[this.currentBehaviour].direction;
-        this.TilesLeft = this.behaviourLoop[this.currentBehaviour].tiles * 16;
+        if(this.behaviour === "standing"){
+          this.time = this.behaviourLoop[this.currentBehaviour].time
+          this.TilesLeft = 0
+        } else {
+          this.TilesLeft = this.behaviourLoop[this.currentBehaviour].tiles * 16;
+          this.time = 0
+        }
     }
   }
 
