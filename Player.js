@@ -32,6 +32,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
   update(state) {
     this.updateSprite(state)
     this.updatePos(state);
+    state.map.playerInteraction(state)
 
     //If there are no more tiles left to travel...
     if (this.TilesLeft === 0) {
@@ -64,6 +65,11 @@ class Player extends Obj { //GameObj that can be controlled by the user
         this.TilesLeft = this.speed * 16;
         this.behviour = "walking";
       }
+    }
+
+    if(state.enterBool){
+      console.log(state.enterBool)
+      state.enterBool = false;
     }
 
 

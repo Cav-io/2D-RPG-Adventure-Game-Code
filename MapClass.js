@@ -33,6 +33,26 @@ class Map {
   drawUpper(context, camera){
     context.drawImage(this.upperLayer, 9*16 - camera.x, 4*16 - camera.y); 
   }
+
+  playerInteraction(state){
+    let directionDict = {
+      "up": [0, -1], "down": [0, 1],
+      "right": [1, 0], "left": [-1, 0]
+    };
+    
+    const newPlayerX = Math.round(player.x/16 + directionDict[player.direction][0])
+    const newPlayerY = Math.round(player.y/16 + directionDict[player.direction][1])
+    
+    Object.values(this.entities).forEach(entity => {
+      if(entity.x/16 === newPlayerX && entity.y/16 === newPlayerY){
+        if(state.enterBool){
+          entity.interacting = true;
+        } else {
+        entity.interacting = false;
+        }
+      } 
+    })
+  }
     
   checkCollision(obj){
     // Set initial value of collision as false
@@ -98,9 +118,9 @@ class Map {
       if ( x == newPlayerX && y == newPlayerY) {
         // If so, set the collide flag to true
         collide = true;
-        
       }
     }
+
     return collide;
   }  
 

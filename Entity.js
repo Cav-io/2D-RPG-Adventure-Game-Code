@@ -110,6 +110,8 @@ class Obj { //A blueprint for an object in the game
     this.behaviourLoop = config.behaviourLoop
     this.currentBehaviour = -1;
     this.time = 0
+
+    this.interacting = false;
     
     if (this.TilesLeft > 0){
       this.behaviour = "walking"
@@ -135,6 +137,10 @@ class Obj { //A blueprint for an object in the game
 
   //The Update method will commit changes to the object 
   update(state) {
+
+    if(this.interacting){
+      return
+    }
     // Check if there are tiles left to walk
     if (this.TilesLeft > 0) {
       this.behaviour = "walking"

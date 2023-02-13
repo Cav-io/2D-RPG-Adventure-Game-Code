@@ -5,6 +5,7 @@ class keyInput{
     this.keysHeld = [];
 
     this.speedBoolean = false;
+    this.selectBoolean = false;
 
     // Define a map that associates key codes with directions
     this.keyDirectionMap = {
@@ -39,9 +40,12 @@ class keyInput{
         this.keysHeld.unshift(direction);
       }
       //If the held key is a Shift button and the speedBoolean is false...
-      if(event.code === 'ShiftLeft' && this.speedBoolean === false){
+      if(event.code === 'ShiftLeft'){
           //... Then set the speedBoolean as true
           this.speedBoolean = true;
+        }
+      if(event.code === 'Enter'){
+          this.selectBoolean = true;
         }
     } 
     //Checks if the user releases a key
@@ -56,6 +60,9 @@ class keyInput{
           //... Then set the speedBoolean as false
           this.speedBoolean = false;
         }
+        if(event.code === 'Enter' && this.selectBoolean === true){
+            this.selectBoolean = false;
+        }
     }
   }
   
@@ -67,6 +74,10 @@ class keyInput{
   //This function fetches whether the player is running or not
   get speedBoost(){
     return this.speedBoolean;
+  }
+
+  get select(){
+    return this.selectBoolean
   }
 }
 
