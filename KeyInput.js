@@ -44,7 +44,7 @@ class keyInput{
           //... Then set the speedBoolean as true
           this.speedBoolean = true;
         }
-      if(event.code === 'Enter'){
+      if(event.code === 'Enter' && this.speedBoolean === false){
           this.selectBoolean = true;
         }
     } 
