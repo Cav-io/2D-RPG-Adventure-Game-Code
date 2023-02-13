@@ -61,8 +61,11 @@ window.Maps = {
           {behaviour: "walking", direction: "down", tiles: 8},
           {behaviour: "standing", direction: "down", time: 800},  
           {behaviour: "walking", direction: "right", tiles: 8},
+          {behaviour: "standing", direction: "right", time: 800},
           {behaviour: "walking", direction: "left", tiles: 8},
+          {behaviour: "standing", direction: "left", time: 800},
           {behaviour: "walking", direction: "up", tiles: 8},
+          {behaviour: "standing", direction: "up", time: 800},
         ]
       }),
       npc2: new Obj({
