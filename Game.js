@@ -61,6 +61,11 @@ class Game {
         Object.values(player.hud).forEach(hud => {
           hud.drawHUD(this.context)
         })
+        Object.values(entities).forEach(entity => {
+          if(entity.interacting){
+          entity.drawDialogue(this.context); 
+          }
+        })
 
         // Check for player exiting or entering a new map
         Object.entries(this.map.exits).forEach(([key, exit]) => {

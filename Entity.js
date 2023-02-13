@@ -13,6 +13,20 @@ class Sprite {
     this.skin.onload = () => {//When the skin is loaded
       this.isLoaded = true; //Mark as loaded
     }
+    
+    if(this.Obj.type !== "monster"){ 
+      this.faceset = new Image();
+      this.faceset.src = "Characters/" + this.Obj.name + "/Faceset.png"
+      this.faceset.onload = () => {
+        this.facesetIsLoaded = true;
+      }
+    }
+
+    this.dialogue = new Image();
+    this.dialogue.src = "HUD/Dialog/DialogBoxFaceset.png"
+    this.dialogue.onload = () => {
+        this.dialogueIsLoaded = true;
+      }
 
     //Player movement animation
     this.animationsMap = config.animationsMap || {
@@ -72,7 +86,7 @@ class Sprite {
     //const {x, y} = this.Obj; //Destructuring
     const x = this.Obj.x + 9 * 16 - camera.x
     const y = this.Obj.y + 4 * 16 - camera.y
-    if (this.isLoaded) {  //If the sprite is loaded
+    if (this.isLoaded && this.facesetIsLoaded && this.dialogueIsLoaded) {  //If the sprite is loaded
       const fx = this.animationsMap[this.animationSet][this.currentSpriteFrame][0] * 16
       const fy = this.animationsMap[this.animationSet][this.currentSpriteFrame][1] * 16
       //then draw the sprite on the game canvas 
@@ -220,6 +234,14 @@ class Obj { //A blueprint for an object in the game
       }
     }
   }
+
+  drawDialogue(context){
+    if(this.type !== "monster" ){ 
+      context.drawImage(this.sprite.dialogue, 0, 90);
+      context.drawImage(this.sprite.faceset, 6, 103)
+    }
+  }
+
 }
 
 
