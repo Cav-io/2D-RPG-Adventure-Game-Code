@@ -56,9 +56,12 @@ window.Maps = {
         //sets NPC1 properties
         name: "Boy",
         x: 25, y: 10,
+        speed: 1,
         behaviourLoop: [
-          {behaviour: "walking", direction: "down", tiles: 9},
-          {behaviour: "walking", direction: "up", tiles: 9},
+          {behaviour: "walking", direction: "down", tiles: 8},
+          {behaviour: "walking", direction: "right", tiles: 8},
+          {behaviour: "walking", direction: "left", tiles: 8},
+          {behaviour: "walking", direction: "up", tiles: 8},
         ]
       }),
       npc2: new Obj({
@@ -96,18 +99,21 @@ window.Maps = {
       }),
       monster1: new Obj({
         name: "Racoon",
-        x: 27, y: 16,
+        x: 23, y: 16,
         type: "monster",
-        direction: "down",
-        behaviour: "walking",
-        speed: 2
+        speed: 2,
+        behaviourLoop: [
+          {behaviour: "walking", direction: "right", tiles: 8},
+          {behaviour: "walking", direction: "down", tiles: 6},
+          {behaviour: "walking", direction: "left", tiles: 8},
+          {behaviour: "walking", direction: "up", tiles: 6},
+        ]
       }),
       monster2: new Obj({
         name: "Dragon",
         x: 27, y: 21,
         type: "monster",
         direction: "down",
-        behaviour: "walking",
         speed: 2
       }),
     },

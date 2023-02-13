@@ -151,15 +151,8 @@ class Obj { //A blueprint for an object in the game
           this.behaviour = "standing"
           this.currentBehaviour++;
           this.startBehaviourLoop()
-        } 
-  
-         console.log("TilesLeft:", this.TilesLeft,
-                     "\nindex:",this.currentBehaviour,
-                     "\nBehaviour:",this.behaviour) 
-    
-
-      }
-    
+        }
+  }
 
   startBehaviourLoop(){
     if(this.behaviourLoop){
@@ -169,7 +162,6 @@ class Obj { //A blueprint for an object in the game
         this.behaviour = this.behaviourLoop[this.currentBehaviour].behaviour;
         this.direction = this.behaviourLoop[this.currentBehaviour].direction;
         this.TilesLeft = this.behaviourLoop[this.currentBehaviour].tiles * 16;
-        console.log("Running")
     }
   }
 
