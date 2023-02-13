@@ -73,13 +73,19 @@ window.Maps = {
         name: "MaskFrog",
         x: 16, y: 11,
         behaviourLoop:[
-          {behaviour: "standing", direction: "up", time: 3000},
-          {behaviour: "standing", direction: "right", time: 1000 },
+          {behaviour: "standing", direction: "up", time: 8000},
+          {behaviour: "standing", direction: "right", time: 3000 },
         ]
       }),
       npc3: new Obj({
         name: "OldMan",
-        x:34, y: 11.5
+        x:34, y: 11.5,
+        behaviourLoop:[
+          {behaviour: "standing", direction: "down", time: 9000},
+          {behaviour: "standing", direction: "right", time: 9000},
+          {behaviour: "standing", direction: "up", time: 9000},
+          {behaviour: "standing", direction: "left", time: 9000}
+        ]
       }),
       npc4: new Obj({
         name: "Monk2",
@@ -94,11 +100,13 @@ window.Maps = {
         x: 19, y: 18,
         direction: "right",
         behaviourLoop: [
+          {behaviour: "walking", direction: "up", tiles: 1},
+          {behaviour: "standing", direction: "up", time: 9000}, 
           {behaviour: "standing", direction: "down", time: 5000}, 
-          {behaviour: "standing", direction: "right", time: 5000}, 
-          {behaviour: "standing", direction: "up", time: 5000}, 
-          {behaviour: "standing", direction: "left", time: 5000}, 
-          
+          {behaviour: "walking", direction: "down", tiles: 2},
+          {behaviour: "standing", direction: "down", time: 9000},
+          {behaviour: "standing", direction: "up", time: 5000},
+          {behaviour: "walking", direction: "up", tiles: 1},
         ]
       }),
       npc7: new Obj({
@@ -108,11 +116,6 @@ window.Maps = {
         behaviourLoop: [
           {behaviour: "walking", direction: "left", tiles: 1}, 
         ]
-      }),
-      npc8: new Obj({
-        name: "RedNinja",
-        x: 25, y: 20,
-        direction: "left"
       }),
       monster1: new Obj({
         name: "Racoon",

@@ -135,47 +135,55 @@ class Obj { //A blueprint for an object in the game
 
   //The Update method will commit changes to the object 
   update(state) {
-        if(this.TilesLeft > 0){
-          this.behaviour = "walking"
-        } 
-
-
-        if(Number.isInteger(this.x/16) && Number.isInteger(this.y/16) && this.TilesLeft > 0 ){
-        if(state.map.checkCollision(this)){
-            this.behaviour = "standing"
-          } 
-        }
-
-        if (this.time > 0) {
-          this.time -= 60
-        }
-        if(this.time < 0){
-          this.time = 0
-        }
-
-        this.updatePos()
-        this.updateSprite()
-        if(this.TilesLeft === 0 && this.time === 0){
-          this.currentBehaviour++;
-          this.startBehaviourLoop()
-        }
+    // Check if there are tiles left to walk
+    if (this.TilesLeft > 0) {
+      this.behaviour = "walking"
+    }
+  
+    // Check if the object is on a tile and there are tiles left to walk
+    if (Number.isInteger(this.x / 16) && Number.isInteger(this.y / 16) && this.TilesLeft > 0) {
+      // Check for collision
+      if (state.map.checkCollision(this)) {
+        this.behaviour = "standing"
+      }
+    }
+  
+    // Decrement the time
+    if (this.time > 0) {
+      this.time -= 60
+    }
+    this.time = Math.max(this.time, 0)
+  
+    // Update the position and sprite
+    this.updatePos()
+    this.updateSprite()
+  
+    // If there are no tiles left to walk and the time is 0, advance to the next behavior
+    if (this.TilesLeft === 0 && this.time === 0) {
+      this.currentBehaviour++
+      this.startBehaviourLoop()
+    }
   }
 
-  startBehaviourLoop(){
-    if(this.behaviourLoop){
-        if (this.currentBehaviour >= this.behaviourLoop.length) {
-          this.currentBehaviour = 0;
-        }
-        this.behaviour = this.behaviourLoop[this.currentBehaviour].behaviour;
-        this.direction = this.behaviourLoop[this.currentBehaviour].direction;
-        if(this.behaviour === "standing"){
-          this.time = this.behaviourLoop[this.currentBehaviour].time
-          console.log(this.time)
-          this.TilesLeft = 0
-        } else {
-          this.TilesLeft = this.behaviourLoop[this.currentBehaviour].tiles * 16;
-          this.time = 0
-        }
+  startBehaviourLoop() {
+    // Check if there is a behavior loop
+    if (this.behaviourLoop) {
+      // Reset the current behavior if it has exceeded the behavior loop length
+      this.currentBehaviour = this.currentBehaviour % this.behaviourLoop.length
+  
+      // Set the behavior and direction
+      const { behaviour, direction, time, tiles } = this.behaviourLoop[this.currentBehaviour]
+      this.behaviour = behaviour
+      this.direction = direction
+  
+      // Update TilesLeft and time based on the behavior
+      if (behaviour === "standing") {
+        this.time = time
+        this.TilesLeft = 0
+      } else {
+        this.TilesLeft = tiles * 16
+        this.time = 0
+      }
     }
   }
 
