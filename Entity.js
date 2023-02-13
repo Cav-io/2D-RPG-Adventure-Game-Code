@@ -137,15 +137,18 @@ class Obj { //A blueprint for an object in the game
 
   //The Update method will commit changes to the object 
   update(state) {
-
+    const oppositeDirection = {
+      "up":"down", "down":"up",
+      "left":"right", "right":"left"
+    }
     if(this.interacting){
+      this.sprite.updateSpriteSet("idle-"+oppositeDirection[player.direction])
       return
     }
     // Check if there are tiles left to walk
     if (this.TilesLeft > 0) {
       this.behaviour = "walking"
     }
-  
     // Check if the object is on a tile and there are tiles left to walk
     if (Number.isInteger(this.x / 16) && Number.isInteger(this.y / 16) && this.TilesLeft > 0) {
       // Check for collision
