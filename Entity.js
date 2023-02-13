@@ -101,13 +101,14 @@ class Obj { //A blueprint for an object in the game
   constructor(config) {
 
     this.isPlayer = false;
-    this.TilesLeft = config.TilesLeft * 16 || 0;
+    this.TilesLeft = config.TilesLeft * 16 || 0*16;
     this.speed = config.speed || 1;
     this.x = config.x * 16;
     this.y = config.y * 16;
     this.name = config.name
     this.type = config.type || "character"
     this.behaviourLoop = config.behaviourLoop
+    this.currentBehaviour = -1;
     
     if (this.TilesLeft > 0){
       this.behaviour = "walking"
@@ -133,19 +134,45 @@ class Obj { //A blueprint for an object in the game
 
   //The Update method will commit changes to the object 
   update(state) {
-    if(Number.isInteger(this.x/16) && Number.isInteger(this.y/16) && this.TilesLeft > 0 ){
-    if(state.map.checkCollision(this)){
-        this.behaviour = "standing"
-      } 
+        if(this.TilesLeft > 0){
+          this.behaviour = "walking"
+        } 
+        
+        if(Number.isInteger(this.x/16) && Number.isInteger(this.y/16) && this.TilesLeft > 0 ){
+        if(state.map.checkCollision(this)){
+            this.behaviour = "standing"
+          } 
+        }
+
+        this.updatePos()
+        this.updateSprite()
+        
+        if(this.TilesLeft === 0){
+          this.behaviour = "standing"
+          this.currentBehaviour++;
+          this.startBehaviourLoop()
+        } 
+  
+         console.log("TilesLeft:", this.TilesLeft,
+                     "\nindex:",this.currentBehaviour,
+                     "\nBehaviour:",this.behaviour) 
+    
+
+      }
+    
+
+  startBehaviourLoop(){
+    if(this.behaviourLoop){
+        if (this.currentBehaviour >= this.behaviourLoop.length) {
+          this.currentBehaviour = 0;
+        }
+        this.behaviour = this.behaviourLoop[this.currentBehaviour].behaviour;
+        this.direction = this.behaviourLoop[this.currentBehaviour].direction;
+        this.TilesLeft = this.behaviourLoop[this.currentBehaviour].tiles * 16;
+        console.log("Running")
     }
-    if(this.TilesLeft === 0){
-      this.behaviour = "standing"
-      
-    }
-    this.updatePos()
-    this.updateSprite()
-    //this.startBehaviourLoop()
   }
+
 
   updatePos() {
     if (this.behaviour === "walking") { //If the player has to move  

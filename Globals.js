@@ -23,7 +23,7 @@ window.player = new Player({
       name: "GoldRacoon",
       type: "monster"
     },
-    //x: 21, y:17,
+    x: 22, y:12,
     hud: playerHUD,
     fx: playerEffects
 });
@@ -37,12 +37,7 @@ window.Maps = {
       npc1: new Obj({
         name: "Boy",
         x: 9, y: 4,
-        behaviourLoop: [
-          {behaviour: "walking", direction: "down", tiles: 2},
-          {behaviour: "standing", direction: "down", time: 800},
-          {behaviour: "walking", direction: "up", tiles: 2},
-          {behaviour: "standing", direction: "up", time: 800},
-        ]
+
       })
     },
     exits:{
@@ -61,7 +56,10 @@ window.Maps = {
         //sets NPC1 properties
         name: "Boy",
         x: 25, y: 10,
-        TilesLeft: 1
+        behaviourLoop: [
+          {behaviour: "walking", direction: "down", tiles: 9},
+          {behaviour: "walking", direction: "up", tiles: 9},
+        ]
       }),
       npc2: new Obj({
         name: "MaskFrog",
