@@ -40,20 +40,21 @@ class Map {
       "right": [1, 0], "left": [-1, 0]
     };
     
-    const newPlayerX = Math.round(player.x/16 + directionDict[player.direction][0])
-    const newPlayerY = Math.round(player.y/16 + directionDict[player.direction][1])
-    
-    Object.values(this.entities).forEach(entity => {
-      if(entity.x/16 === newPlayerX && entity.y/16 === newPlayerY){
-        if(state.enterBool){
-          entity.interacting = true;
-          player.freeze = true
-        } else {
-          entity.interacting = false;
-          player.freeze = false
-        }
-      } 
-    })
+    const newPlayerX = player.x/16 + directionDict[player.direction][0]
+    const newPlayerY = player.y/16 + directionDict[player.direction][1]
+    if(Number.isInteger(newPlayerX) && Number.isInteger(newPlayerY)){
+      Object.values(this.entities).forEach(entity => {
+        if(entity.x/16 === newPlayerX && entity.y/16 === newPlayerY){
+          if(state.enterBool){
+            entity.interacting = true;
+            player.freeze = true
+          } else {
+            entity.interacting = false;
+            player.freeze = false
+          }
+        } 
+      })
+    }
   }
     
   checkCollision(obj){
