@@ -47,8 +47,10 @@ class Map {
       if(entity.x/16 === newPlayerX && entity.y/16 === newPlayerY){
         if(state.enterBool){
           entity.interacting = true;
+          player.freeze = true
         } else {
-        entity.interacting = false;
+          entity.interacting = false;
+          player.freeze = false
         }
       } 
     })

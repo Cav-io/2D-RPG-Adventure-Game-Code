@@ -25,17 +25,20 @@ class Player extends Obj { //GameObj that can be controlled by the user
       "up": ["y", -1], "down": ["y", 1],
       "right": ["x", 1], "left": ["x", -1]
     }
+
+    this.freeze = false;
   }
 
 
   //Updates the character in each loop
   update(state) {
     state.map.playerInteraction(state)
-    if(state.enterBool){
+    this.updatePos(state);
+    if(this.freeze){
       return;
     }
+    
     this.updateSprite(state)
-    this.updatePos(state);
 
     //If there are no more tiles left to travel...
     if (this.TilesLeft === 0) {
@@ -71,11 +74,8 @@ class Player extends Obj { //GameObj that can be controlled by the user
     }
 
     if(state.enterBool){
-      console.log(state.enterBool)
       state.enterBool = false;
     }
-
-
   }
 
   updatePos(state) {
