@@ -86,7 +86,7 @@ class Sprite {
     //const {x, y} = this.Obj; //Destructuring
     const x = this.Obj.x + 9 * 16 - camera.x
     const y = this.Obj.y + 4 * 16 - camera.y
-    if (this.isLoaded && this.facesetIsLoaded && this.dialogueIsLoaded) {  //If the sprite is loaded
+    if (this.isLoaded) {  //If the sprite is loaded
       const fx = this.animationsMap[this.animationSet][this.currentSpriteFrame][0] * 16
       const fy = this.animationsMap[this.animationSet][this.currentSpriteFrame][1] * 16
       //then draw the sprite on the game canvas 

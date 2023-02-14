@@ -44,13 +44,15 @@ class Map {
     const newPlayerY = player.y/16 + directionDict[player.direction][1]
     if(Number.isInteger(newPlayerX) && Number.isInteger(newPlayerY)){
       Object.values(this.entities).forEach(entity => {
-        if(entity.x/16 === newPlayerX && entity.y/16 === newPlayerY){
-          if(state.enterBool){
-            entity.interacting = true;
-            player.freeze = true
-          } else {
-            entity.interacting = false;
-            player.freeze = false
+        if(entity.type !== "monster"){ 
+          if(entity.x/16 === newPlayerX && entity.y/16 === newPlayerY){
+            if(state.enterBool){
+              entity.interacting = true;
+              player.freeze = true
+            } else {
+              entity.interacting = false;
+              player.freeze = false
+            }
           }
         } 
       })
