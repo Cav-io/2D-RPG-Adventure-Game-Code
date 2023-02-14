@@ -33,11 +33,11 @@ class Player extends Obj { //GameObj that can be controlled by the user
   //Updates the character in each loop
   update(state) {
     state.map.playerInteraction(state)
-    if(this.freeze){
+    if (this.freeze) {
       this.sprite.updateSpriteSet("idle-" + this.direction)
       return;
     }
-    
+
     this.updateSprite(state)
     this.updatePos(state);
 
@@ -74,7 +74,7 @@ class Player extends Obj { //GameObj that can be controlled by the user
       }
     }
 
-    if(state.enterBool){
+    if (state.enterBool) {
       state.enterBool = false;
     }
   }

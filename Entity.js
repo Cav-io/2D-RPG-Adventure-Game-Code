@@ -7,14 +7,14 @@ class Sprite {
     this.skin = new Image(); //Creates a new image attribute for the sprite
     this.name = this.Obj.name
     this.skin.src = "Characters/" + this.Obj.name + "/SpriteSheet.png"
-    if(this.Obj.type === "monster"){ 
-     this.skin.src = "Monsters/" + this.Obj.name + "/SpriteSheet.png"
+    if (this.Obj.type === "monster") {
+      this.skin.src = "Monsters/" + this.Obj.name + "/SpriteSheet.png"
     }
     this.skin.onload = () => {//When the skin is loaded
       this.isLoaded = true; //Mark as loaded
     }
-    
-    if(this.Obj.type !== "monster"){ 
+
+    if (this.Obj.type !== "monster") {
       this.faceset = new Image();
       this.faceset.src = "Characters/" + this.Obj.name + "/Faceset.png"
       this.faceset.onload = () => {
@@ -25,8 +25,8 @@ class Sprite {
     this.dialogue = new Image();
     this.dialogue.src = "HUD/Dialog/DialogBoxFaceset.png"
     this.dialogue.onload = () => {
-        this.dialogueIsLoaded = true;
-      }
+      this.dialogueIsLoaded = true;
+    }
 
     //Player movement animation
     this.animationsMap = config.animationsMap || {
@@ -96,17 +96,17 @@ class Sprite {
   }
 
   set obj(obj) {
-  this._obj = obj;
-  this.skin.src = "Characters/" + this._obj.name + "/SpriteSheet.png";
-  if(this._obj.type === "monster"){ 
-    this.skin.src = "Monsters/" + this._obj.name + "/SpriteSheet.png";
+    this._obj = obj;
+    this.skin.src = "Characters/" + this._obj.name + "/SpriteSheet.png";
+    if (this._obj.type === "monster") {
+      this.skin.src = "Monsters/" + this._obj.name + "/SpriteSheet.png";
     }
   }
 
   get obj() {
     return this._obj;
   }
-  
+
 }
 
 
@@ -115,7 +115,7 @@ class Obj { //A blueprint for an object in the game
   constructor(config) {
 
     this.isPlayer = false;
-    this.TilesLeft = config.TilesLeft * 16 || 0*16;
+    this.TilesLeft = config.TilesLeft * 16 || 0 * 16;
     this.speed = config.speed || 1;
     this.x = config.x * 16;
     this.y = config.y * 16;
@@ -126,18 +126,18 @@ class Obj { //A blueprint for an object in the game
     this.time = 0
 
     this.interacting = false;
-    
-    if (this.TilesLeft > 0){
+
+    if (this.TilesLeft > 0) {
       this.behaviour = "walking"
-    } else {  
+    } else {
       this.behaviour = "standing";
     }
-    if(this.speed === 2){
-      this.TilesLeft = this.TilesLeft *2;
+    if (this.speed === 2) {
+      this.TilesLeft = this.TilesLeft * 2;
     }
 
     //Creates an attribute for the sprite or skin of the game object   
-    this.sprite = new Sprite({ Obj: this, animationSet: config.animationSet});
+    this.sprite = new Sprite({ Obj: this, animationSet: config.animationSet });
 
     //The direction that the object faces
     this.direction = config.direction || "down";
@@ -152,11 +152,11 @@ class Obj { //A blueprint for an object in the game
   //The Update method will commit changes to the object 
   update(state) {
     const oppositeDirection = {
-      "up":"down", "down":"up",
-      "left":"right", "right":"left"
+      "up": "down", "down": "up",
+      "left": "right", "right": "left"
     }
-    if(this.interacting){
-      this.sprite.updateSpriteSet("idle-"+oppositeDirection[player.direction])
+    if (this.interacting) {
+      this.sprite.updateSpriteSet("idle-" + oppositeDirection[player.direction])
       return
     }
     // Check if there are tiles left to walk
@@ -170,17 +170,17 @@ class Obj { //A blueprint for an object in the game
         this.behaviour = "standing"
       }
     }
-  
+
     // Decrement the time
     if (this.time > 0) {
       this.time -= 60
     }
     this.time = Math.max(this.time, 0)
-  
+
     // Update the position and sprite
     this.updatePos()
     this.updateSprite()
-  
+
     // If there are no tiles left to walk and the time is 0, advance to the next behavior
     if (this.TilesLeft === 0 && this.time === 0) {
       this.currentBehaviour++
@@ -193,12 +193,12 @@ class Obj { //A blueprint for an object in the game
     if (this.behaviourLoop) {
       // Reset the current behavior if it has exceeded the behavior loop length
       this.currentBehaviour = this.currentBehaviour % this.behaviourLoop.length
-  
+
       // Set the behavior and direction
       const { behaviour, direction, time, tiles } = this.behaviourLoop[this.currentBehaviour]
       this.behaviour = behaviour
       this.direction = direction
-  
+
       // Update TilesLeft and time based on the behavior
       if (behaviour === "standing") {
         this.time = time
@@ -228,15 +228,15 @@ class Obj { //A blueprint for an object in the game
       //...Then set the player's sprite animation to 'idle' + direction
       this.sprite.updateSpriteSet("idle-" + this.direction)
     } else {
-    if (this.behaviour = "walking") {
-      //...Otherwise, set the player's sprite animation to 'walk' + direction
-      this.sprite.updateSpriteSet("walk-" + this.direction)
+      if (this.behaviour = "walking") {
+        //...Otherwise, set the player's sprite animation to 'walk' + direction
+        this.sprite.updateSpriteSet("walk-" + this.direction)
       }
     }
   }
 
-  drawDialogue(context){
-    if(this.type !== "monster" ){ 
+  drawDialogue(context) {
+    if (this.type !== "monster") {
       context.drawImage(this.sprite.dialogue, 0, 90);
       context.drawImage(this.sprite.faceset, 6, 103)
     }

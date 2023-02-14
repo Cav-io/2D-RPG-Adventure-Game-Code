@@ -1,6 +1,6 @@
 // A game parent class which include every component of the game 
 class Game {
-  constructor(config){
+  constructor(config) {
     //HTML tag where it will display the game
     this.element = config.element;
     //Reference to the HTMl canvas
@@ -11,25 +11,25 @@ class Game {
     this.map = null;
   }
 
- Loop() {
+  Loop() {
     let fadeIn = false;
     let fadeInOpacity = 0;
-    
+
     const gameLoop = () => {
       if (!fadeIn) {
         // Clears the canvas
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        
+
         // Create a list of entities from the values of the entities in the map object
         const entities = Object.values(this.map.entities);
         entities.push(player);
-        
+
         // Iterate through each entity in the list
         entities.forEach(entity => {
           // Initial state
           const state = { map: this.map };
-        
+
           // add the player's direction and speedBoost to the state
           if (entity.isPlayer) {
             state.direction = this.keyInput.direction;
@@ -43,7 +43,7 @@ class Game {
         //Draw lower and collision layers
         this.map.drawLower(this.context, player);
         this.map.drawCollision(this.context, player);
-        
+
 
         //Draws every single entity 
         Object.values(entities).forEach(entity => {
@@ -54,7 +54,7 @@ class Game {
         Object.values(player.fx).forEach(effect => {
           effect.drawFX(this.context, player)
         })
-        
+
         //Draw Upper Layer
         this.map.drawUpper(this.context, player);
         //Draw player HUD
@@ -62,8 +62,8 @@ class Game {
           hud.drawHUD(this.context)
         })
         Object.values(entities).forEach(entity => {
-          if(entity.interacting){
-          entity.drawDialogue(this.context); 
+          if (entity.interacting) {
+            entity.drawDialogue(this.context);
           }
         })
 
@@ -80,13 +80,13 @@ class Game {
           }
         });
       }
-      
+
       // If fade in is true
       if (fadeIn) {
         //The fade-in transition colour
-        this.context.fillStyle = "black"; 
+        this.context.fillStyle = "black";
         //The level of opacity
-        this.context.globalAlpha = fadeInOpacity; 
+        this.context.globalAlpha = fadeInOpacity;
         //Make sures it covers the whole canvas 
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
 
@@ -95,23 +95,23 @@ class Game {
         if (fadeInOpacity >= 0.6) {
           // If opacity has reached the opacity limit, stop the fade in
           fadeIn = false;
-          
+
           this.context.globalAlpha = 1;
         }
       }
 
       requestAnimationFrame(gameLoop);
     };
-      gameLoop();
+    gameLoop();
   }
 
-  
-init() {
+
+  init() {
     this.map = mapDict.StartingTown;
     this.map.fetchCoordinates().then(() => {
-        this.keyInput = new keyInput();
-        this.keyInput.init();
-        this.Loop();
+      this.keyInput = new keyInput();
+      this.keyInput.init();
+      this.Loop();
     });
   }
 }

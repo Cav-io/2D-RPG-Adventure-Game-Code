@@ -36,7 +36,8 @@ window.Maps = {
     entities: { //Collection of entities of StartingHouse map
       npc1: new Obj({
         name: "OldWoman",
-        x: 9, y: 4,
+        x: 9, y: 3,
+        direction: "left"
 
       })
     },
