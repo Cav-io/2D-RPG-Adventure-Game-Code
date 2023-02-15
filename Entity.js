@@ -126,6 +126,7 @@ class Obj { //A blueprint for an object in the game
     this.time = 0
 
     this.interacting = false;
+    this.text  = config.text
 
     if (this.TilesLeft > 0) {
       this.behaviour = "walking"
@@ -235,12 +236,20 @@ class Obj { //A blueprint for an object in the game
     }
   }
 
-  drawDialogue(context) {
-    if (this.type !== "monster") {
-      context.drawImage(this.sprite.dialogue, 0, 90);
-      context.drawImage(this.sprite.faceset, 6, 103)
+drawDialogue(context) {
+  if (this.type !== "monster") {
+    context.drawImage(this.sprite.dialogue, 0, 90);
+    if (this.text) {
+      const fontSize = 12; // Adjust this to match the pixel scale of your canvas
+      const font = `${fontSize}px NormalFont`; // Use the name of your custom font file
+
+      context.font = font;
+      context.fillStyle = 'black'; // Set the text color
+      context.fillText(this.text, 55, 120);
     }
+    context.drawImage(this.sprite.faceset, 6, 103)
   }
+}
 
 }
 

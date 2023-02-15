@@ -9,6 +9,11 @@ body {
   overflow: hidden; /*Ignores scroll responses to arrow keys*/
 }
 
+@font-face {
+  font-family: 'NormalFont';
+  src: url('NormalFont.ttf') format('truetype');
+}
+
 .game {
   position: relative; /*Canvas is relative to the parent element*/
   width: 1280px; height: 700px; /*Aspect ratio for the game canvas*/

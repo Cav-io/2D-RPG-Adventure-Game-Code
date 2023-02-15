@@ -161,8 +161,6 @@ class Map {
     return Object.keys(window.mapDict).
       find(k => window.mapDict[k].name === exit.name)
   }
-
-
 }
 
 

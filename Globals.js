@@ -29,6 +29,7 @@ window.player = new Player({
 });
 
 window.selectBoolean = false
+
 //Creates global Maps object 
 window.Maps = {
   //creates StartingHouse map 
@@ -38,7 +39,8 @@ window.Maps = {
       npc1: new Obj({
         name: "OldWoman",
         x: 9, y: 3,
-        direction: "left"
+        direction: "left",
+        text: "Good  morning  son"
 
       })
     },
@@ -69,7 +71,8 @@ window.Maps = {
           { behaviour: "walking", direction: "down", tiles: 1 },
           { behaviour: "standing", direction: "down", time: 5000 },
           { behaviour: "walking", direction: "up", tiles: 4 },
-        ]
+        ],
+        text: "Hello!"
       }),
       npc2: new Obj({
         name: "MaskFrog",
