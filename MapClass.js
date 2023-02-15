@@ -34,30 +34,45 @@ class Map {
     context.drawImage(this.upperLayer, 9 * 16 - camera.x, 4 * 16 - camera.y);
   }
 
+  
   playerInteraction(state) {
+    // Define a dictionary that maps the direction string to the corresponding x and y offsets
     let directionDict = {
       "up": [0, -1], "down": [0, 1],
       "right": [1, 0], "left": [-1, 0]
     };
-
-    const newPlayerX = player.x / 16 + directionDict[player.direction][0]
-    const newPlayerY = player.y / 16 + directionDict[player.direction][1]
-    if (Number.isInteger(newPlayerX) && Number.isInteger(newPlayerY)) {
-      Object.values(this.entities).forEach(entity => {
-        if (entity.type !== "monster") {
-          if (entity.x / 16 === newPlayerX && entity.y / 16 === newPlayerY) {
-            if (state.enterBool) {
-              entity.interacting = true;
-              player.freeze = true
-            } else {
-              entity.interacting = false;
-              player.freeze = false
-            }
+    
+    //New x and y coordinates of the next tile in front of the player
+    const newPlayerX = player.x / 16 + directionDict[player.direction][0];
+    const newPlayerY = player.y / 16 + directionDict[player.direction][1];
+    
+    // Initialize a flag to indicate whether the player is facing an entity that is not a monster
+    let isFacingPlayer = false;
+    // Iterate over all the entities
+    Object.values(this.entities).forEach(entity => {
+      // Check if the entity is not a monster
+      if (entity.type !== "monster") {
+        // Check if the entity is located in front of the player
+        if (entity.x / 16 === newPlayerX && entity.y / 16 === newPlayerY) {
+          //If the player has inputed enter...
+          if (selectBoolean) {
+            //... Then set the entity as interacting and freeze the player
+            entity.interacting = true;
+            player.freeze = true;
+          } else {
+            //Otherwise set them to false and unfreeze the player
+            entity.interacting = false;
+            player.freeze = false;
           }
+          // Set the flag to indicate that the player is facing an entity
+          isFacingPlayer = true;
         }
-      })
-    }
+      }
+    });
+    // Return whether the player is facing an entity that is not a monster
+    return isFacingPlayer;
   }
+
 
   checkCollision(obj) {
     // Set initial value of collision as false

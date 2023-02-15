@@ -5,7 +5,7 @@ class keyInput {
     this.keysHeld = [];
 
     this.speedBoolean = false;
-    this.selectBoolean = false;
+
 
     // Define a map that associates key codes with directions
     this.keyDirectionMap = {
@@ -45,9 +45,9 @@ class keyInput {
         this.speedBoolean = true;
       }
       if (event.code === 'Enter') {
-        if (this.selectBoolean) {
-          this.selectBoolean = false
-        } else {this.selectBoolean = true}
+        if (selectBoolean) {
+          selectBoolean = false
+        } else {selectBoolean = true}
       }
     }
     //Checks if the user releases a key

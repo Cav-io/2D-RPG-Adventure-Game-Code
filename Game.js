@@ -34,7 +34,7 @@ class Game {
           if (entity.isPlayer) {
             state.direction = this.keyInput.direction;
             state.speedBoost = this.keyInput.speedBoost;
-            state.enterBool = this.keyInput.select;
+            //state.enterBool = this.keyInput.select;
           }
           // passing in the state for every other entity
           entity.update(state);

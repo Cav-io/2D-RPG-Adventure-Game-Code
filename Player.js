@@ -32,9 +32,21 @@ class Player extends Obj { //GameObj that can be controlled by the user
 
   //Updates the character in each loop
   update(state) {
-    state.map.playerInteraction(state)
+    // If the player has pressed 'enter' key
+    if (selectBoolean) {
+      // ... Then check if the player is facing an entity that is not a monster
+      if (!state.map.playerInteraction(state)) {
+        // If not, then set selectBoolean to false
+        selectBoolean = false;
+      }
+    }
+
+    // Call the playerInteraction function with the state parameter
+    state.map.playerInteraction(state);
+
+    // If the player is frozen, update the sprite and return
     if (this.freeze) {
-      this.sprite.updateSpriteSet("idle-" + this.direction)
+      this.sprite.updateSpriteSet("idle-" + this.direction);
       return;
     }
 
@@ -74,9 +86,6 @@ class Player extends Obj { //GameObj that can be controlled by the user
       }
     }
 
-    if (state.enterBool) {
-      state.enterBool = false;
-    }
   }
 
   updatePos(state) {
