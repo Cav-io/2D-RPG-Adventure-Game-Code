@@ -20,6 +20,13 @@ class Game {
         // Clears the canvas
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+              // Check if the dialogue container exists
+      const dialogueContainer = document.querySelector('.dialogue-container');
+      if (dialogueContainer) {
+        // If it exists, remove it from the DOM
+        dialogueContainer.remove();
+      }
+
 
         // Create a list of entities from the values of the entities in the map object
         const entities = Object.values(this.map.entities);

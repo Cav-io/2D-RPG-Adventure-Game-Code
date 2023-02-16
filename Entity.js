@@ -240,7 +240,19 @@ drawDialogue(context) {
   if (this.type !== "monster") {
     context.drawImage(this.sprite.dialogue, 0, 90);
     context.drawImage(this.sprite.faceset, 6, 103);
-    //ADD TEXT HERE
+
+    //From Here
+    const dialogueContainer = document.createElement('div');
+    dialogueContainer.className = 'dialogue-container';
+  
+    const textElement = document.createElement('p');
+    textElement.innerText = this.text;
+    textElement.className = 'dialogue-text';
+  
+    dialogueContainer.appendChild(textElement);
+  
+    document.body.appendChild(dialogueContainer);
+    //To here
   }
 }
 

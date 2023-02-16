@@ -72,7 +72,7 @@ window.Maps = {
           { behaviour: "standing", direction: "down", time: 5000 },
           { behaviour: "walking", direction: "up", tiles: 4 },
         ],
-        text: "Hello!"
+        text: "HELLO THERE! YOU SEEM A BIT PECKISH TODAY"
       }),
       npc2: new Obj({
         name: "MaskFrog",
@@ -80,7 +80,8 @@ window.Maps = {
         behaviourLoop: [
           { behaviour: "standing", direction: "up", time: 8000 },
           { behaviour: "standing", direction: "right", time: 3000 },
-        ]
+        ],
+        text: "I am just slacking about mate"
       }),
       npc3: new Obj({
         name: "OldMan",
