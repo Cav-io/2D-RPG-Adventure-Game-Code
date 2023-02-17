@@ -40,7 +40,7 @@ window.Maps = {
         name: "OldWoman",
         x: 9, y: 3,
         direction: "left",
-        text: "Good  morning  son"
+        text:"When are you going to stop playing around with your toys and get a real job?"
 
       })
     },
@@ -72,7 +72,7 @@ window.Maps = {
           { behaviour: "standing", direction: "down", time: 5000 },
           { behaviour: "walking", direction: "up", tiles: 4 },
         ],
-        text: "Hello!"
+        text:"Hey, you look like you could use a good time - I know all the best spots in this town, if you're interested."
       }),
       npc2: new Obj({
         name: "MaskFrog",
@@ -81,7 +81,7 @@ window.Maps = {
           { behaviour: "standing", direction: "up", time: 8000 },
           { behaviour: "standing", direction: "right", time: 3000 },
         ],
-        text: "I am just slacking about mate"
+        text: "Ribbit, ribbit, just taking a break from being a ninja, nothing to see here."
       }),
       npc3: new Obj({
         name: "OldMan",
@@ -98,8 +98,9 @@ window.Maps = {
         x: 39, y: 15,
       }),
       npc5: new Obj({
-        name: "OldWoman",
+        name: "EskimoNinja",
         x: 33, y: 7,
+        text: "Oi, bruv, you better not be stepping in my turf fam."
       }),
       npc6: new Obj({
         name: "Princess",
@@ -113,7 +114,8 @@ window.Maps = {
           { behaviour: "standing", direction: "down", time: 9000 },
           { behaviour: "standing", direction: "up", time: 5000 },
           { behaviour: "walking", direction: "up", tiles: 1 },
-        ]
+        ],
+        text: "Good day to you, may your endeavors be blessed with success and prosperity."
       }),
       npc7: new Obj({
         name: "Villager",
@@ -127,12 +129,12 @@ window.Maps = {
         name: "Racoon",
         x: 23, y: 16,
         type: "monster",
-        speed: 2,
+        speed: 1,
         behaviourLoop: [
-          { behaviour: "walking", direction: "right", tiles: 8 },
-          { behaviour: "walking", direction: "down", tiles: 6 },
-          { behaviour: "walking", direction: "left", tiles: 8 },
-          { behaviour: "walking", direction: "up", tiles: 6 },
+          { behaviour: "walking", direction: "right", tiles: 4 },
+          { behaviour: "walking", direction: "down", tiles: 3 },
+          { behaviour: "walking", direction: "left", tiles: 4 },
+          { behaviour: "walking", direction: "up", tiles: 3 },
         ]
       }),
       monster2: new Obj({
@@ -176,7 +178,8 @@ window.Maps = {
         speed: 2,
         behaviourLoop: [
           { behaviour: "walking", direction: "left", tiles: 1 }
-        ]
+        ],
+        text: "Training like this is the only way to keep my fists sharp and ready for anything."
       }),
       npc2: new Obj({
         name: "Master",
@@ -186,7 +189,8 @@ window.Maps = {
           { behaviour: "walking", direction: "right", tiles: 1 },
           { behaviour: "walking", direction: "left", tiles: 1 },
           { behaviour: "walking", direction: "down", tiles: 2 }
-        ]
+        ],
+        text: "I don't have time for idle chitchat, my training demands my full attention."
       }),
       npc3: new Obj({
         name: "Monk",
@@ -197,6 +201,7 @@ window.Maps = {
           { behaviour: "walking", direction: "up", tiles: 2 },
           { behaviour: "walking", direction: "down", tiles: 2 }
         ],
+        text: "I must train harder to sharpen my skills and become one with the shadows."
       }),
       npc4: new Obj({
         name: "Monk2",
@@ -210,7 +215,8 @@ window.Maps = {
           { behaviour: "standing", direction: "down", time: 9000 },
           { behaviour: "standing", direction: "left", time: 5000 },
           { behaviour: "walking", direction: "up", tiles: 1 },
-        ]
+        ],
+        text: " the path to inner peace begins with quieting the mind and finding stillness within yourself. "
       }),
       npc5: new Obj({
         name: "Lion",
@@ -218,11 +224,13 @@ window.Maps = {
         speed: 2,
         behaviourLoop: [
           { behaviour: "walking", direction: "up", tiles: 1 },
-        ]
+        ],
+        text: "ROAR! STOP DISTRACTING ME FROM MY TRAINING!"
       }),
       npc6: new Obj({
         name: "Villager4",
         x: 3, y: 2,
+        text: "I'm struggling with these techniques, but I'm determined to improve and become a skilled ninja."
       }),
       npc7: new Obj({
         name: "Monk",
@@ -240,13 +248,15 @@ window.Maps = {
           { behaviour: "standing", direction: "up", time: 5000 },
           { behaviour: "walking", direction: "up", tiles: 2 },
           { behaviour: "standing", direction: "up", time: 5000 },
-        ]
+        ],
+        text: "This is a sacred temple, a place of meditation and learning the arts of combat"
       }),
       npc8: new Obj({
         name: "Knight",
         x: 14, y: 4,
         direction: "left",
-        speed: 2
+        speed: 2,
+        text: "I may be a knight, but sometimes it takes more than a sword to defeat your foes."
       }),
     },
     exits: {
@@ -268,37 +278,62 @@ window.Maps = {
       npc2: new Obj({
         name: "Boy",
         x: 4, y: 30,
+        behaviourLoop: [
+          { behaviour: "walking", direction: "up", tiles: 1 },
+          { behaviour: "standing", direction: "up", time: 5000 },
+          { behaviour: "standing", direction: "down", time: 5000 },
+          { behaviour: "standing", direction: "left", time: 5000 },
+          { behaviour: "walking", direction: "down", tiles: 2 },
+          { behaviour: "standing", direction: "down", time: 9000 },
+          { behaviour: "standing", direction: "left", time: 5000 },
+          { behaviour: "walking", direction: "up", tiles: 1 },
+        ],
+        text: "Welcome to our harbor, feel free to explore and enjoy the salty breeze!"
+        
       }),
       npc3: new Obj({
         name: "OldMan",
         x: 11, y: 19,
-        direction: "left"
+        behaviourLoop: [
+          { behaviour: "walking", direction: "up", tiles: 1 },
+          { behaviour: "standing", direction: "up", time: 5000 },
+          { behaviour: "standing", direction: "down", time: 5000 },
+          { behaviour: "standing", direction: "left", time: 5000 },
+          { behaviour: "walking", direction: "down", tiles: 1 },
+          { behaviour: "standing", direction: "down", time: 9000 },
+          { behaviour: "standing", direction: "left", time: 5000 },
+        ],
       }),
       npc4: new Obj({
         name: "Villager2",
         x: 13, y: 26,
-        animationSet: "walk-right",
-        speed: 2
       }),
       npc5: new Obj({
         name: "Villager",
         x: 2, y: 23,
-        animationSet: "walk-up",
-
+        behaviourLoop:[
+          {type:"walking", direction:"up", tiles:1}
+        ],
+        text: "I may be small, but I work hard to earn my keep around here."
       }),
       npc6: new Obj({
         name: "Inspector",
         x: 13, y: 18,
-        direction: "right"
+        direction: "right",
+        text:"I'm sorry, I cannot disclose any information, I'm on a confidential mission."
       }),
       npc7: new Obj({
         name: "OldMan2",
         x: 8, y: 13,
+
+        text: "Be careful not to step on the ropes there, mate, wouldn't want to send you for an unexpected swim in the harbor."
       }),
+      
       npc8: new Obj({
         name: "Monk",
         x: 12, y: 12,
-        direction: "up"
+        direction: "up",
+        text:"Hey there, want to help me load these crates onto the ship?"
       }),
 
     },
@@ -329,5 +364,6 @@ window.greetings=
     "Greetings! It's always nice to meet new people. What brings you to our town?",
     "Salutations! I hope you're finding everything you need here.",
     "Hello, hello! I hope you're enjoying your stay in our lovely town.",
-    "Hey, stranger! Anything I can do to make your visit more pleasant?"
+    "Hey, stranger! Anything I can do to make your visit more pleasant?",
+    "Great weather, isn't it?",
   ];
