@@ -11,7 +11,7 @@ body {
 
 @font-face {
   font-family: 'NormalFont';
-  src: url('NormalFont.ttf') format('truetype');
+  src: url('HUD/Font/NormalFont.ttf') format('truetype');
 }
 
 .game {
@@ -32,10 +32,6 @@ body {
   width: 1280px; height: 700px;
 }
 
-@font-face {
-  font-family: 'NormalFont';
-  src: url('path/to/NormalFont.ttf') format('truetype');
-}
 
 .dialogue-container {
   position: absolute;
@@ -48,5 +44,5 @@ body {
   margin: 0;
   font-size: 40px;
   word-spacing: 10px;
-  font-family: 'NormalFont';
+  font-family: 'NormalFont'
 }
