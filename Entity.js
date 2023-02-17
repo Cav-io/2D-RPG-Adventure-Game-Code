@@ -124,6 +124,7 @@ class Obj { //A blueprint for an object in the game
 
     this.interacting = false;
     this.text  = config.text
+    this.greetings = null
 
     if (this.TilesLeft > 0) {
       this.behaviour = "walking"
@@ -233,24 +234,46 @@ class Obj { //A blueprint for an object in the game
     }
   }
 
-drawDialogue(context, element) {
-  if (this.type !== "monster") {
-    context.drawImage(this.sprite.dialogueBox, 0, 90);
-    context.drawImage(this.sprite.faceset, 6, 103);
-
-    const dialogueContainer = document.createElement('div');
-    dialogueContainer.className = 'dialogue-container';
+  // The drawDialogue method displays text on the canvas
+  drawDialogue(context, element) {
+    // Check if the entity is not a monster
+    if (this.type !== "monster") {
+      // Draw the dialogue box and face graphic
+      context.drawImage(this.sprite.dialogueBox, 0, 90);
+      context.drawImage(this.sprite.faceset, 6, 103);
   
-    const textElement = document.createElement('p');
-    textElement.innerText = this.text;
-    textElement.className = 'dialogue-text';
+      // Create a container for the text
+      const dialogueContainer = document.createElement('div');
+      dialogueContainer.className = 'dialogue-container';
   
-    dialogueContainer.appendChild(textElement);
+      // Create a text element for the dialogue
+      const textElement = document.createElement('p');
   
-    // Use the parent element of the game canvas as the container
-    element.appendChild(dialogueContainer);
+      // Check if there is already text to display
+      if (this.text) {
+        textElement.innerText = this.text;
+      } else {
+        // If there is no text, display a greeting
+        if (this.greeting) {
+          // If a greeting has already been chosen, use it again
+          textElement.innerText = this.greeting;
+        } else {
+          // Otherwise, choose a new greeting at random and store it in the entity object
+          const randomIndex = Math.floor(Math.random() * greetings.length);
+          this.greeting = greetings[randomIndex];
+          textElement.innerText = this.greeting;
+        }
+      }
+      textElement.className = 'dialogue-text';
+  
+      // Add the text element to the dialogue container
+      dialogueContainer.appendChild(textElement);
+  
+      // Use the parent element of the game canvas as the container for the dialogue
+      element.appendChild(dialogueContainer);
+    }
   }
-}
+
 
 }
 

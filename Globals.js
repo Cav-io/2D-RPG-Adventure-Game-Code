@@ -72,7 +72,7 @@ window.Maps = {
           { behaviour: "standing", direction: "down", time: 5000 },
           { behaviour: "walking", direction: "up", tiles: 4 },
         ],
-        text: "HELLO THERE! YOU SEEM A BIT PECKISH TODAY"
+        text: "Hello!"
       }),
       npc2: new Obj({
         name: "MaskFrog",
@@ -167,7 +167,8 @@ window.Maps = {
     entities: {
       master: new Obj({
         name: "OldMan3",
-        x: 8, y: 5
+        x: 8, y: 5,
+        text: "Greetings young warrior, welcome to my DOJO! Where I teach people how to fight!"
       }),
       npc1: new Obj({
         name: "BlueSamurai",
@@ -317,3 +318,16 @@ window.mapDict = {
   StartingHouse: new Map(window.Maps.StartingHouse),
   FishingHut: new Map(window.Maps.FishingHut)
 };
+
+window.greetings= 
+  ["Hello there! Welcome to our town!",
+    "Greetings, traveler! How may I assist you today?",
+    "Hi! I hope you're having a great day so far.",
+    "Welcome to our humble abode! How can we make your visit more enjoyable?",
+    "Hey there! Is there anything I can help you with?",
+    "Good day, adventurer! Welcome to our lovely town",
+    "Greetings! It's always nice to meet new people. What brings you to our town?",
+    "Salutations! I hope you're finding everything you need here.",
+    "Hello, hello! I hope you're enjoying your stay in our lovely town.",
+    "Hey, stranger! Anything I can do to make your visit more pleasant?"
+  ];
