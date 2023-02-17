@@ -22,11 +22,8 @@ class Sprite {
       }
     }
 
-    this.dialogue = new Image();
-    this.dialogue.src = "HUD/Dialog/DialogBoxFaceset.png"
-    this.dialogue.onload = () => {
-      this.dialogueIsLoaded = true;
-    }
+    this.dialogueBox = new Image();
+    this.dialogueBox.src = "HUD/Dialog/DialogBoxFaceset.png"
 
     //Player movement animation
     this.animationsMap = config.animationsMap || {
@@ -236,12 +233,11 @@ class Obj { //A blueprint for an object in the game
     }
   }
 
-drawDialogue(context) {
+drawDialogue(context, element) {
   if (this.type !== "monster") {
-    context.drawImage(this.sprite.dialogue, 0, 90);
+    context.drawImage(this.sprite.dialogueBox, 0, 90);
     context.drawImage(this.sprite.faceset, 6, 103);
 
-    //From Here
     const dialogueContainer = document.createElement('div');
     dialogueContainer.className = 'dialogue-container';
   
@@ -251,8 +247,8 @@ drawDialogue(context) {
   
     dialogueContainer.appendChild(textElement);
   
-    document.body.appendChild(dialogueContainer);
-    //To here
+    // Use the parent element of the game canvas as the container
+    element.appendChild(dialogueContainer);
   }
 }
 

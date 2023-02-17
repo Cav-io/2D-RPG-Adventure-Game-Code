@@ -70,7 +70,7 @@ class Game {
         })
         Object.values(entities).forEach(entity => {
           if (entity.interacting) {
-            entity.drawDialogue(this.context);
+            entity.drawDialogue(this.context, this.element);
           }
         })
 
