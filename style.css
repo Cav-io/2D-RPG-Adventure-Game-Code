@@ -40,7 +40,8 @@ body {
 .dialogue-container {
   position: absolute;
   top: 70%;
-  left: 20%;
+  left: 18%;
+  margin-right: 50px;
 }
 
 .dialogue-text {
