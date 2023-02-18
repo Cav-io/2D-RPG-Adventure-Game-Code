@@ -1,7 +1,5 @@
 class HUD {
-  constructor(config){
-    this.image = new Image();
-    this.image.src = config.src
+  constructor(config) {
     this.name = config.name
     this.type = config.type
     this.x = config.x;
@@ -13,11 +11,12 @@ class HUD {
 
   }
 
-  drawHUD(context){
-    if(this.type === "transform"){
+  drawHUD(context) {
+    if (this.type === "transform") {
       this.transformHUD = new Image();
       this.transformHUD.src = "HUD/NinePathRect/DialogueBubble2.png"
-      this.image.src = "Monsters/"+this.name+"/SpriteSheet.png"
+      this.image = new Image();
+      this.image.src = "Monsters/" + this.name + "/SpriteSheet.png"
       context.globalAlpha = this.opacity; // set the global alpha value
       context.drawImage(this.transformHUD, 8, 8)
       context.drawImage(this.image, 0, 0, 16, 16, 16, 16, 16, 16)
@@ -27,9 +26,9 @@ class HUD {
 }
 
 
-class FX{
-  constructor(config){    
-    this.skin = new Image(); 
+class FX {
+  constructor(config) {
+    this.skin = new Image();
     this.name = config.name
     this.skin.src = "FX/" + config.name + "/SpriteSheet.png"
     this.isFinished = config.isFinished || false; // New property to control the animation loop
@@ -51,7 +50,7 @@ class FX{
   }
 
   updateFramesLeft() {
-    
+
     if (this.framesLeft > 0) {
       this.framesLeft--;
       return;
@@ -59,7 +58,7 @@ class FX{
 
     this.framesLeft = this.framesLimit;
     this.currentSpriteFrame += 1;
-    
+
 
     if (this.animationsMap[this.animationSet][this.currentSpriteFrame] === undefined) {
       this.currentSpriteFrame = 0;
@@ -67,7 +66,7 @@ class FX{
       return;
     }
   }
-  
+
   drawFX(context, camera) {
     const x = player.x + 9 * 16 - camera.x
     const y = player.y + 4 * 16 - camera.y

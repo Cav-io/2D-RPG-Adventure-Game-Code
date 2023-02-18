@@ -7,12 +7,23 @@ class Sprite {
     this.skin = new Image(); //Creates a new image attribute for the sprite
     this.name = this.Obj.name
     this.skin.src = "Characters/" + this.Obj.name + "/SpriteSheet.png"
-    if(this.Obj.type === "monster"){ 
-     this.skin.src = "Monsters/" + this.Obj.name + "/SpriteSheet.png"
+    if (this.Obj.type === "monster") {
+      this.skin.src = "Monsters/" + this.Obj.name + "/SpriteSheet.png"
     }
     this.skin.onload = () => {//When the skin is loaded
       this.isLoaded = true; //Mark as loaded
     }
+
+    if (this.Obj.type !== "monster") {
+      this.faceset = new Image();
+      this.faceset.src = "Characters/" + this.Obj.name + "/Faceset.png"
+      this.faceset.onload = () => {
+        this.facesetIsLoaded = true;
+      }
+    }
+
+    this.dialogueBox = new Image();
+    this.dialogueBox.src = "HUD/Dialog/DialogBoxFaceset.png"
 
     //Player movement animation
     this.animationsMap = config.animationsMap || {
@@ -25,6 +36,7 @@ class Sprite {
       "walk-left": [[2, 1], [2, 2], [2, 3], [2, 0]],
       "walk-right": [[3, 1], [3, 2], [3, 3], [3, 0]]
     }
+
 
     this.animationSet = config.animationSet || "idle-down";
     this.currentSpriteFrame = 0;
@@ -81,17 +93,17 @@ class Sprite {
   }
 
   set obj(obj) {
-  this._obj = obj;
-  this.skin.src = "Characters/" + this._obj.name + "/SpriteSheet.png";
-  if(this._obj.type === "monster"){ 
-    this.skin.src = "Monsters/" + this._obj.name + "/SpriteSheet.png";
+    this._obj = obj;
+    this.skin.src = "Characters/" + this._obj.name + "/SpriteSheet.png";
+    if (this._obj.type === "monster") {
+      this.skin.src = "Monsters/" + this._obj.name + "/SpriteSheet.png";
     }
   }
 
   get obj() {
     return this._obj;
   }
-  
+
 }
 
 
@@ -100,46 +112,35 @@ class Obj { //A blueprint for an object in the game
   constructor(config) {
 
     this.isPlayer = false;
+    this.TilesLeft = config.TilesLeft * 16 || 0 * 16;
+    this.speed = config.speed || 1;
     this.x = config.x * 16;
     this.y = config.y * 16;
-    this.speed = config.speed || 1;
     this.name = config.name
     this.type = config.type || "character"
+    this.behaviourLoop = config.behaviourLoop
+    this.currentBehaviour = -1;
+    this.time = 0
+
+    this.interacting = false;
+    this.text  = config.text
+    this.greetings = null
+
+    if (this.TilesLeft > 0) {
+      this.behaviour = "walking"
+    } else {
+      this.behaviour = "standing";
+    }
+    if (this.speed === 2) {
+      this.TilesLeft = this.TilesLeft * 2;
+    }
 
     //Creates an attribute for the sprite or skin of the game object   
-    this.sprite = new Sprite({ Obj: this, animationSet: config.animationSet});
+    this.sprite = new Sprite({ Obj: this, animationSet: config.animationSet });
 
     //The direction that the object faces
     this.direction = config.direction || "down";
-  }
 
-  //The Update method will commit changes to the object 
-  update() { }
-}
-
-
-
-class Player extends Obj { //GameObj that can be controlled by the user
-  constructor(config) {
-    super(config); //Inherits methods and attributes from Obj
-
-
-    //How many grids the player has left to travel
-    this.TilesLeft = config.TilesLeft * 16 || 0;
-    this.behaviour = "standing";
-    this.isPlayer = true;
-    this.fx = config.fx
-
-    this.originalSprite = {
-      name: this.name,
-      type: this.type
-    }
-    this.transform = config.transform
-
-    //Assigns the HUD dictionary
-    this.hud = config.hud
-    this.hud.transformHUD.name = this.transform.name
-    
     //Assigns the axis and the value for the correspoding direction
     this.directionDict = {
       "up": ["y", -1], "down": ["y", 1],
@@ -147,50 +148,70 @@ class Player extends Obj { //GameObj that can be controlled by the user
     }
   }
 
-    
-  //Updates the character in each loop
+  //The Update method will commit changes to the object 
   update(state) {
-    this.updateSprite(state)
-    this.updatePos(state);
-    
-    //If there are no more tiles left to travel...
-    if (this.TilesLeft === 0) {
-      //if speedBoost is true and the player's speed is default
-      if (state.speedBoost && this.speed === 1) {
-        //...Then give the player a speed boost
-        this.speed = 2;
-        this.sprite.obj= this.transform //Switch to transformed entity 
-        this.hud.transformHUD.opacity = 0.8 //Increase the opacity of transformHUD
-        this.fx.transformFX.isFinished = false //Activate the transform effect
-        console.log("Speed boost is on!")
-        //Otherwise, if speedBoost is false and the player's speed is boosted 
-      } else if (state.speedBoost === false && this.speed === 2) {
-        //...Then return player speed to default
-        this.speed = 1;
-        this.sprite.obj= this.originalSprite //Return to original entity
-        this.hud.transformHUD.opacity = 0.3 //Reduce the opacity of transformHUD
-        this.fx.transformFX.isFinished = false //Activate the transform effect
-        console.log("Speed boost is off!")
+    const oppositeDirection = {
+      "up": "down", "down": "up",
+      "left": "right", "right": "left"
+    }
+    if (this.interacting) {
+      this.sprite.updateSpriteSet("idle-" + oppositeDirection[player.direction])
+      return
+    }
+    // Check if there are tiles left to walk
+    if (this.TilesLeft > 0) {
+      this.behaviour = "walking"
+    }
+    // Check if the object is on a tile and there are tiles left to walk
+    if (Number.isInteger(this.x / 16) && Number.isInteger(this.y / 16) && this.TilesLeft > 0) {
+      // Check for collision
+      if (state.map.checkCollision(this)) {
+        this.behaviour = "standing"
       }
     }
-    
-    //Updates player's direction when TilesLeft is 0
-    if (this.TilesLeft === 0 && state.direction) {
-      this.direction = state.direction;
-      if(state.map.checkCollision(this.x/16, this.y/16, this.direction)){
-        this.TilesLeft = 0;
-        this.behaviour = "standing"
-      } else{
-        this.TilesLeft = this.speed * 16;
-        this.behviour = "walking";
-        }
-      }
-    
-    
+
+    // Decrement the time
+    if (this.time > 0) {
+      this.time -= 60
+    }
+    this.time = Math.max(this.time, 0)
+
+    // Update the position and sprite
+    this.updatePos()
+    this.updateSprite()
+
+    // If there are no tiles left to walk and the time is 0, advance to the next behavior
+    if (this.TilesLeft === 0 && this.time === 0) {
+      this.currentBehaviour++
+      this.startBehaviourLoop()
+    }
   }
 
-  updatePos(state) {
-    if (this.TilesLeft > 0) { //If the player has to move  
+  startBehaviourLoop() {
+    // Check if there is a behavior loop
+    if (this.behaviourLoop) {
+      // Reset the current behavior if it has exceeded the behavior loop length
+      this.currentBehaviour = this.currentBehaviour % this.behaviourLoop.length
+
+      // Set the behavior and direction
+      const { behaviour, direction, time, tiles } = this.behaviourLoop[this.currentBehaviour]
+      this.behaviour = behaviour
+      this.direction = direction
+
+      // Update TilesLeft and time based on the behavior
+      if (behaviour === "standing") {
+        this.time = time
+        this.TilesLeft = 0
+      } else {
+        this.TilesLeft = tiles * 16
+        this.time = 0
+      }
+    }
+  }
+
+
+  updatePos() {
+    if (this.behaviour === "walking") { //If the player has to move  
       //Checks which direction it needs to move to
       const [axis, value] = this.directionDict[this.direction]
       //Changes their position value on the correct axis
@@ -201,16 +222,60 @@ class Player extends Obj { //GameObj that can be controlled by the user
   }
 
   //Updates the player's sprite
-  updateSprite(state) {
-    if (this.TilesLeft === 0 && !state.direction) {
+  updateSprite() {
+    if (this.TilesLeft === 0) {
       //...Then set the player's sprite animation to 'idle' + direction
       this.sprite.updateSpriteSet("idle-" + this.direction)
-      this.behaviour = "standing";
     } else {
-    if (this.behaviour = "walking") {
-      //...Otherwise, set the player's sprite animation to 'walk' + direction
-      this.sprite.updateSpriteSet("walk-" + this.direction)
+      if (this.behaviour = "walking") {
+        //...Otherwise, set the player's sprite animation to 'walk' + direction
+        this.sprite.updateSpriteSet("walk-" + this.direction)
       }
     }
   }
+
+  // The drawDialogue method displays text on the canvas
+  drawDialogue(context, element) {
+    // Check if the entity is not a monster
+    if (this.type !== "monster") {
+      // Draw the dialogue box and face graphic
+      context.drawImage(this.sprite.dialogueBox, 0, 90);
+      context.drawImage(this.sprite.faceset, 6, 103);
+  
+      // Create a container for the text
+      const dialogueContainer = document.createElement('div');
+      dialogueContainer.className = 'dialogue-container';
+  
+      // Create a text element for the dialogue
+      const textElement = document.createElement('p');
+  
+      // Check if there is already text to display
+      if (this.text) {
+        textElement.innerText = this.text;
+      } else {
+        // If there is no text, display a greeting
+        if (this.greeting) {
+          // If a greeting has already been chosen, use it again
+          textElement.innerText = this.greeting;
+        } else {
+          // Otherwise, choose a new greeting at random and store it in the entity object
+          const randomIndex = Math.floor(Math.random() * greetings.length);
+          this.greeting = greetings[randomIndex];
+          textElement.innerText = this.greeting;
+        }
+      }
+      textElement.className = 'dialogue-text';
+  
+      // Add the text element to the dialogue container
+      dialogueContainer.appendChild(textElement);
+  
+      // Use the parent element of the game canvas as the container for the dialogue
+      element.appendChild(dialogueContainer);
+    }
+  }
+
+
 }
+
+
+
