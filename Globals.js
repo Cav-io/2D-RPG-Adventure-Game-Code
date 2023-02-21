@@ -20,7 +20,7 @@ const playerEffects = {
 window.player = new Player({
   name: "GreenNinja",
   transform: {
-    name: "GoldRacoon",
+    name: "Beast",
     type: "monster"
   },
   x: 22, y: 12,
