@@ -20,7 +20,7 @@ const playerEffects = {
 window.player = new Player({
   name: "GreenNinja",
   transform: {
-    name: "Beast",
+    name: "GoldRacoon",
     type: "monster"
   },
   x: 22, y: 12,
@@ -38,6 +38,7 @@ window.Maps = {
     entities: { //Collection of entities of StartingHouse map
       npc1: new Obj({
         name: "OldWoman",
+        displayName: "Mum",
         x: 9, y: 3,
         direction: "left",
         text:"When are you going to stop playing around with your toys and get a real job?"
@@ -169,11 +170,13 @@ window.Maps = {
     entities: {
       master: new Obj({
         name: "OldMan3",
+        displayName: "Master Shi Fu",
         x: 8, y: 5,
         text: "Greetings young warrior, welcome to my DOJO! Where I teach people how to fight!"
       }),
       npc1: new Obj({
         name: "BlueSamurai",
+        displayName: "Samurai",
         x: 2, y: 8,
         speed: 2,
         behaviourLoop: [
@@ -205,6 +208,7 @@ window.Maps = {
       }),
       npc4: new Obj({
         name: "Monk2",
+        displayName: "Tibetan Monk",
         x: 13, y: 6,
         behaviourLoop: [
           { behaviour: "walking", direction: "up", tiles: 1 },
@@ -220,6 +224,7 @@ window.Maps = {
       }),
       npc5: new Obj({
         name: "Lion",
+        displayName: "Lion Warrior",
         x: 12, y: 2,
         speed: 2,
         behaviourLoop: [
@@ -253,6 +258,7 @@ window.Maps = {
       }),
       npc8: new Obj({
         name: "Knight",
+        displayName: "Knight",
         x: 14, y: 4,
         direction: "left",
         speed: 2,
@@ -273,6 +279,7 @@ window.Maps = {
     entities: {
       npc1: new Obj({
         name: "MaskFrog",
+        displayName: "Frog Ninja",
         x: 6, y: 17,
       }),
       npc2: new Obj({
@@ -318,6 +325,7 @@ window.Maps = {
       }),
       npc6: new Obj({
         name: "Inspector",
+        displayName: "???",
         x: 13, y: 18,
         direction: "right",
         text:"I'm sorry, I cannot disclose any information, I'm on a confidential mission."

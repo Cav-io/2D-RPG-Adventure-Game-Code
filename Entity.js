@@ -64,15 +64,21 @@ class Sprite {
       this.framesLimit = 8;
     }
 
+    //If player frames left to display
     if (this.framesLeft > 0) {
+      //... Then decrement by one
       this.framesLeft--;
       return;
     }
 
+    //Set the framesLeft to the framesLimit
     this.framesLeft = this.framesLimit;
+    //Go to the next sprite frame
     this.currentSpriteFrame += 1;
 
+    //Following the increment, there is no sprite frame afterwards
     if (this.animationsMap[this.animationSet][this.currentSpriteFrame] === undefined) {
+      //... Then set the sprite frame back to 0.
       this.currentSpriteFrame = 0;
     }
 
@@ -125,6 +131,7 @@ class Obj { //A blueprint for an object in the game
     this.interacting = false;
     this.text  = config.text
     this.greetings = null
+    this.displayName = config.displayName || "Villager"
 
     if (this.TilesLeft > 0) {
       this.behaviour = "walking"
@@ -248,6 +255,16 @@ class Obj { //A blueprint for an object in the game
   
       // Create a text element for the dialogue
       const textElement = document.createElement('p');
+
+
+      // Create a container for the text
+      const nameContainer = document.createElement('div');
+      nameContainer.className = 'name-container';
+  
+      // Create a text element for the dialogue
+      const nameElement = document.createElement('p');
+      nameElement.innerText = this.displayName;
+      nameElement.className = 'name-text';
   
       // Check if there is already text to display
       if (this.text) {
@@ -264,13 +281,16 @@ class Obj { //A blueprint for an object in the game
           textElement.innerText = this.greeting;
         }
       }
+
       textElement.className = 'dialogue-text';
   
       // Add the text element to the dialogue container
       dialogueContainer.appendChild(textElement);
+      nameContainer.appendChild(nameElement);
   
       // Use the parent element of the game canvas as the container for the dialogue
       element.appendChild(dialogueContainer);
+      element.appendChild(nameContainer);
     }
   }
 

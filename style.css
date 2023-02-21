@@ -21,7 +21,7 @@ body {
   automatically based on the browser*/
   margin-top: 2%; /*Descends the canvas downward by a few pixels*/
   outline: 3px solid red; /*Outline of the game canvas*/
-  filter: saturate(1.5) brightness(0.75);
+  filter: saturate(1.75) brightness(0.75);
 }                  
 
 .game canvas {
@@ -44,5 +44,21 @@ body {
   margin: 0;
   font-size: 40px;
   word-spacing: 10px;
-  font-family: 'NormalFont'
+  font-family: 'NormalFont';
+}
+
+
+.name-container{
+  color: "green";
+  position: absolute;
+  top: 60%;
+  left: 3%;
+}
+
+.name-text {
+  color: "green";
+  margin: 0;
+  font-size: 30px;
+  word-spacing: 10px;
+  font-family: 'NormalFont';
 }
