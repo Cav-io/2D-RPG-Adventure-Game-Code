@@ -41,7 +41,7 @@ window.Maps = {
         displayName: "Mum",
         x: 9, y: 3,
         direction: "left",
-        text:"When are you going to stop playing around with your toys and get a real job?"
+        text:"When are you going to stop playing around and get a real job?"
 
       })
     },
@@ -270,6 +270,11 @@ window.Maps = {
         name: "StartingTown",
         x: 8, y: 17,
         newX: 36, newY: 16
+      },
+      map2: {
+        name: "Test",
+        x: 15, y: 7,
+        newX: 1, newY:5,
       }
     }
   },
@@ -352,6 +357,24 @@ window.Maps = {
         newX: 35, newY: 7
       }
     }
+  },
+  Test: {
+    name: 'Test',
+    entities: {
+      npc1: new Obj({
+        name: "test",
+        x: 12, y: 4,
+        displayName: "Holy Gentleman",
+        text: "Welcome to my private class! I am about.com"
+      })
+    },
+    exits: {
+      map1: {
+        name: "Dojo",
+        x: 0, y: 5,
+        newX: 15, newY:7,
+      }
+    }
   }
 }
 
@@ -359,7 +382,8 @@ window.mapDict = {
   StartingTown: new Map(window.Maps.StartingTown),
   Dojo: new Map(window.Maps.Dojo),
   StartingHouse: new Map(window.Maps.StartingHouse),
-  FishingHut: new Map(window.Maps.FishingHut)
+  FishingHut: new Map(window.Maps.FishingHut),
+  Test: new Map(window.Maps.Test)
 };
 
 window.greetings= 
