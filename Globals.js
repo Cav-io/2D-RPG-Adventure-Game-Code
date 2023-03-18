@@ -18,12 +18,11 @@ const playerEffects = {
 }
 
 window.player = new Player({
-  name: "GreenNinja",
+  name: "RedSamurai",
   transform: {
     name: "GoldRacoon",
     type: "monster"
   },
-  x: 22, y: 12,
   hud: playerHUD,
   fx: playerEffects
 });

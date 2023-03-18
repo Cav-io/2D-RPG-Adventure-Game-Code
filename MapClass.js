@@ -153,8 +153,6 @@ class Map {
     this.walls = json.layers[0];
   }
 
-
-
   update(key, exit) {
     player.x = exit.newX * 16;
     player.y = exit.newY * 16;

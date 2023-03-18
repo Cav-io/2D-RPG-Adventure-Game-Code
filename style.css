@@ -21,7 +21,7 @@ body {
   automatically based on the browser*/
   margin-top: 2%; /*Descends the canvas downward by a few pixels*/
   outline: 3px solid red; /*Outline of the game canvas*/
-  filter: saturate(1.75) brightness(0.75);
+  filter: saturate(1.75) brightness(0.85);
 }                  
 
 .game canvas {
