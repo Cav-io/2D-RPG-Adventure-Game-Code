@@ -218,7 +218,7 @@ class Obj { //A blueprint for an object in the game
 
 
   updatePos() {
-    if (this.behaviour === "walking") { //If the player has to move  
+    if (this.behaviour === "walking") { //If the user has to move  
       //Checks which direction it needs to move to
       const [axis, value] = this.directionDict[this.direction]
       //Changes their position value on the correct axis

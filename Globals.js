@@ -18,7 +18,7 @@ const playerEffects = {
 }
 
 window.player = new Player({
-  name: "RedSamurai",
+  name: "GreenNinja",
   transform: {
     name: "GoldRacoon",
     type: "monster"
@@ -364,7 +364,7 @@ window.Maps = {
         name: "test",
         x: 12, y: 4,
         displayName: "Holy Gentleman",
-        text: "Welcome to my private class! I am about.com"
+        text: "Hello there mate"
       })
     },
     exits: {

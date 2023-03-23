@@ -98,20 +98,6 @@ class Player extends Obj { //GameObj that can be controlled by the user
       this.TilesLeft -= this.speed * this.speed;
     }
   }
-
-  //Updates the player's sprite
-  updateSprite(state) {
-    if (this.TilesLeft === 0 && !state.direction) {
-      //...Then set the player's sprite animation to 'idle' + direction
-      this.sprite.updateSpriteSet("idle-" + this.direction)
-      this.behaviour = "standing";
-    } else {
-      if (this.behaviour = "walking") {
-        //...Otherwise, set the player's sprite animation to 'walk' + direction
-        this.sprite.updateSpriteSet("walk-" + this.direction)
-      }
-    }
-  }
 }
 
 
