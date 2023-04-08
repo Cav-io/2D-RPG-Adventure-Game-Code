@@ -65,16 +65,17 @@ class keyInput {
     }
   }
 
-  //This function fetches the latest pressed key
+  //This getter fetches the latest pressed key
   get direction() {
     return this.keysHeld[0];
   }
 
-  //This function fetches whether the player is running or not
+  //This getter fetches whether the player is running or not
   get speedBoost() {
     return this.speedBoolean;
   }
 
+  //This getter fetches whether the player has pressed 'enter' or not
   get select() {
     return this.selectBoolean
   }

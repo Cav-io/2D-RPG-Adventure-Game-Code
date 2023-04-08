@@ -7,24 +7,25 @@ class Map {
     this.exits = config.exits || {};
 
     //Creates layer instances and assigns layer sources
-    this.lowerLayer = new Image();
+    this.lowerLayer = new Image(); //Lower Layer
     this.lowerLayer.src = "/Maps/" + this.name + "/lower layer.png";
 
-    this.collisionLayer = new Image();
+    this.collisionLayer = new Image(); //Collision Layer
     this.collisionLayer.src = "/Maps/" + this.name + "/collision layer.png";
 
-    this.upperLayer = new Image();
+    this.upperLayer = new Image(); //Upper Layer
     this.upperLayer.src = "/Maps/" + this.name + "/upper layer.png";
 
-
+    //Stores all the entity instances of the map
     this.entities = config.entities;
   }
-
+  //draw lower layer image
   drawLower(context, camera) {
-    context.drawImage(this.lowerLayer, 9 * 16 - camera.x, 4 * 16 - camera.y); //draw lower layer image 
+    //Each layer image instance is drawn and taking into accoun the camera and player's position
+    context.drawImage(this.lowerLayer, 9 * 16 - camera.x, 4 * 16 - camera.y); 
   }
 
-  //draw lower layer image 
+  //draw collision layer image 
   drawCollision(context, camera) {
     context.drawImage(this.collisionLayer, 9 * 16 - camera.x, 4 * 16 - camera.y);
   }
@@ -34,7 +35,7 @@ class Map {
     context.drawImage(this.upperLayer, 9 * 16 - camera.x, 4 * 16 - camera.y);
   }
 
-  
+  //Method for executing interactions between the player and the NPCs
   playerInteraction(state) {
     // Define a dictionary that maps the direction string to the corresponding x and y offsets
     let directionDict = {

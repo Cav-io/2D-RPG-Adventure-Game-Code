@@ -1,4 +1,5 @@
-const playerHUD = {
+//Creates a global object for storing all the HUD
+const playerHUD = { 
   transformHUD: new HUD({
     type: "transform",
     opacity: 0.5,
@@ -9,24 +10,26 @@ const playerHUD = {
     opacity: 1
   })
 }
-
+//Creates a global object for storing all the effects
 const playerEffects = {
   transformFX: new FX({
     name: 'Shield',
     isFinished: true
   })
 }
-
+//Creates a global object for initialising the player instance 
 window.player = new Player({
-  name: "GreenNinja",
-  transform: {
-    name: "GoldRacoon",
-    type: "monster"
+  x: 25, y: 15, //Initial position coordinates
+  //Sets the name for filepath of spritesheets and faceset
+  name: "GreenNinja", 
+  transform: { //Creates the transform entity object
+    name: "GoldRacoon", //Sets the name for filepath of spritsheet
+    type: "monster" // Sets the type of the entity for initialising the monster
   },
-  hud: playerHUD,
-  fx: playerEffects
+  hud: playerHUD, //Sets the hud attribute as the global playerHUD object
+  fx: playerEffects //Sets the effecs attribute as the global playerHUD object
 });
-
+//Sets the initial selectBoolean to false
 window.selectBoolean = false
 
 //Creates global Maps object 
@@ -35,20 +38,23 @@ window.Maps = {
   StartingHouse: {
     name: 'StartingHouse',
     entities: { //Collection of entities of StartingHouse map
+      //Creates new entity instances for the map 
       npc1: new Obj({
+        //Sets the name for filepath of spritesheets and faceset
         name: "OldWoman",
-        displayName: "Mum",
-        x: 9, y: 3,
-        direction: "left",
-        text:"When are you going to stop playing around and get a real job?"
-
+        displayName: "Mum", //Sets the name for dialogue system
+        x: 9, y: 3, //Sets the coordinates in for this entity in the StartingHouse map
+        direction: "left", //Sets the direction it is facing
+        //Sets the dialogue text to display
+        text:"When are you going to stop playing around and get a real job?"  
       })
     },
+    //Stores all the possible ways to exit and enter the map
     exits: {
       StartingTown: {
-        name: "StartingTown",
-        x: 7, y: 7,
-        newX: 28, newY: 9
+        name: "StartingTown", //Stores name of the exit map
+        x: 7, y: 7, //Stores the coordinates from StartingHouse to enter StartingTown
+        newX: 28, newY: 9 //Stores the coordinates from StartingTown to enter StartingHouse
       },
     },
   },
@@ -270,11 +276,6 @@ window.Maps = {
         x: 8, y: 17,
         newX: 36, newY: 16
       },
-      map2: {
-        name: "Test",
-        x: 15, y: 7,
-        newX: 1, newY:5,
-      }
     }
   },
 
@@ -356,24 +357,6 @@ window.Maps = {
         newX: 35, newY: 7
       }
     }
-  },
-  Test: {
-    name: 'Test',
-    entities: {
-      npc1: new Obj({
-        name: "test",
-        x: 12, y: 4,
-        displayName: "Holy Gentleman",
-        text: "Hello there mate"
-      })
-    },
-    exits: {
-      map1: {
-        name: "Dojo",
-        x: 0, y: 5,
-        newX: 15, newY:7,
-      }
-    }
   }
 }
 
@@ -382,7 +365,6 @@ window.mapDict = {
   Dojo: new Map(window.Maps.Dojo),
   StartingHouse: new Map(window.Maps.StartingHouse),
   FishingHut: new Map(window.Maps.FishingHut),
-  Test: new Map(window.Maps.Test)
 };
 
 window.greetings= 

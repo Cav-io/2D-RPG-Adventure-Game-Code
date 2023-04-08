@@ -9,7 +9,7 @@ body {
   overflow: hidden; /*Ignores scroll responses to arrow keys*/
 }
 
-@font-face {
+@font-face { /*Sets the custom font*/
   font-family: 'NormalFont';
   src: url('HUD/Font/NormalFont.ttf') format('truetype');
 }
@@ -33,32 +33,32 @@ body {
 }
 
 
+/* Dialogue container for displaying dialogue text */
 .dialogue-container {
-  position: absolute;
-  top: 70%;
-  left: 18%;
-  margin-right: 50px;
+  position: absolute; /* Positioning type */
+  top: 70%; /* Distance from top of the screen */
+  left: 18%; /* Distance from left of the screen */
+  margin-right: 50px; /* Margin on the right side */
 }
-
+/* Styling for the dialogue text */
 .dialogue-text {
-  margin: 0;
-  font-size: 40px;
-  word-spacing: 10px;
-  font-family: 'NormalFont';
+  margin: 0; /* Remove default margin */
+  font-size: 40px; /* Set font size */
+  word-spacing: 10px; /* Spacing between words */
+  font-family: 'NormalFont'; /* Font family */
 }
-
-
+/* Container for displaying character name */
 .name-container{
-  color: "green";
-  position: absolute;
-  top: 60%;
-  left: 3%;
+  color: "green"; /* Text color */
+  position: absolute; /* Positioning type */
+  top: 60%; /* Distance from top of the screen */
+  left: 3%; /* Distance from left of the screen */
 }
-
+/* Styling for the character name text */
 .name-text {
-  color: "green";
-  margin: 0;
-  font-size: 30px;
-  word-spacing: 10px;
-  font-family: 'NormalFont';
-}
+  color: "green"; /* Text color */
+  margin: 0; /* Remove default margin */
+  font-size: 30px; /* Set font size */
+  word-spacing: 10px; /* Spacing between words */
+  font-family: 'NormalFont'; /* Font family */
+}	

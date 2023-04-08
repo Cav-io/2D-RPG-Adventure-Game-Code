@@ -5,28 +5,32 @@ class Sprite {
     this.Obj = config.Obj;
 
     this.skin = new Image(); //Creates a new image attribute for the sprite
-    this.name = this.Obj.name
+    this.name = this.Obj.name //Creates a new name attribute used for filepath
     this.skin.src = "Characters/" + this.Obj.name + "/SpriteSheet.png"
-    if (this.Obj.type === "monster") {
+    if (this.Obj.type === "monster") { //If the entity is a monster entity
+      //Change the file path template
       this.skin.src = "Monsters/" + this.Obj.name + "/SpriteSheet.png"
     }
     this.skin.onload = () => {//When the skin is loaded
       this.isLoaded = true; //Mark as loaded
     }
 
-    if (this.Obj.type !== "monster") {
-      this.faceset = new Image();
+    if (this.Obj.type !== "monster") { //If the entity is not a monster entity
+      this.faceset = new Image(); // Create new image instance for the faceset
+      // Fetch the filepath for the faceset
       this.faceset.src = "Characters/" + this.Obj.name + "/Faceset.png"
-      this.faceset.onload = () => {
-        this.facesetIsLoaded = true;
+      this.faceset.onload = () => { //If faceset is loaded
+        this.facesetIsLoaded = true; // Set the loaded flag as true
       }
     }
 
-    this.dialogueBox = new Image();
-    this.dialogueBox.src = "HUD/Dialog/DialogBoxFaceset.png"
+    this.dialogueBox = new Image(); //Create an image instance for dialogue box
+    // Set the filepath for dialogue box image
+    this.dialogueBox.src = "HUD/Dialog/DialogBoxFaceset.png" 
 
-    //Player movement animation
+    //Player movement animation for spritesheet 
     this.animationsMap = config.animationsMap || {
+       // Each value contains the coordinates of the sprite in the spritesheet
       "idle-down": [[0, 0]],
       "idle-up": [[1, 0]],
       "idle-left": [[2, 0]],
@@ -37,19 +41,20 @@ class Sprite {
       "walk-right": [[3, 1], [3, 2], [3, 3], [3, 0]]
     }
 
-
+    //Set the initlial animation set
     this.animationSet = config.animationSet || "idle-down";
-    this.currentSpriteFrame = 0;
-    this.framesLimit = 8;
-    this.framesLeft = this.framesLimit;
+    this.currentSpriteFrame = 0; // Set the current sprite frame to 0 initially
+    this.framesLimit = 8; // Set the initial frames limit to 8
+    this.framesLeft = this.framesLimit; // Frames left to draw same as frames limit intially
   }
 
   //updates the current sprite set if there is a change to their direction
   updateSpriteSet(walkingDir) {
-    if (this.animationSet !== walkingDir) {
-      this.framesLeft = this.framesLimit;
-      this.currentSpriteFrame = 0;
-      this.animationSet = walkingDir
+    if (this.animationSet !== walkingDir) { //If it is a new direction 
+      //Reset the current animation progress 
+      this.framesLeft = this.framesLimit; //Reset frames left to draw
+      this.currentSpriteFrame = 0; //Reset the current sprit frame back to 0
+      this.animationSet = walkingDir // Set the new animation set
     }
   }
 
@@ -97,16 +102,19 @@ class Sprite {
       this.updateFramesLeft();
     }
   }
-
+  //Setter method for setting the obj entity to the sprite class
   set obj(obj) {
-    this._obj = obj;
+    this._obj = obj; //Set the new attribute for obj as the parameter
+    //Set the file path using the name attribute
     this.skin.src = "Characters/" + this._obj.name + "/SpriteSheet.png";
-    if (this._obj.type === "monster") {
+    if (this._obj.type === "monster") { //If entity is monster
+      //Overrite the filepath to fetch the monster spriteheet instead
       this.skin.src = "Monsters/" + this._obj.name + "/SpriteSheet.png";
     }
   }
-
+  //Getter method for getting the obj entity out of the sprite class
   get obj() {
+    //Return the entity object
     return this._obj;
   }
 
@@ -116,30 +124,41 @@ class Sprite {
 // OBJECT CLASS
 class Obj { //A blueprint for an object in the game
   constructor(config) {
-
-    this.isPlayer = false;
+    //Whether is or not controlled by the player
+    this.isPlayer = false; 
+    // the distance left to travel in tiles
     this.TilesLeft = config.TilesLeft * 16 || 0 * 16;
-    this.speed = config.speed || 1;
+    // the speed at which this entity moves
+    this.speed = config.speed || 1; 
+    //Initial coordinates in terms of pixels
     this.x = config.x * 16;
     this.y = config.y * 16;
-    this.name = config.name
-    this.type = config.type || "character"
-    this.behaviourLoop = config.behaviourLoop
-    this.currentBehaviour = -1;
+    this.name = config.name //The name used for the filepath
+    //Checks whether its an character or monster
+    this.type = config.type || "character" //If not specified, default to character
+    this.behaviourLoop = config.behaviourLoop //Array of behaviours
+    // the index of the current behavior in the behaviour loop
+    this.currentBehaviour = -1; 
+    // the amount of time this entity has been in its current standing behavior
     this.time = 0
 
+    //Checks whether its interacting or not
     this.interacting = false;
+    //Dialogue Text to display
     this.text  = config.text
-    this.greetings = null
+    //If specific text is not provided, then it will use a random greeting
+    this.greetings = null //Its initally empty
+    //The name used for displaying the character in the dialogue system
     this.displayName = config.displayName || "Villager"
 
-    if (this.TilesLeft > 0) {
-      this.behaviour = "walking"
-    } else {
-      this.behaviour = "standing";
+    if (this.TilesLeft > 0) { //If it needs to travel initially
+      this.behaviour = "walking" //Set behaviour to walking
+    } else { //If it does not need to travel initally
+      this.behaviour = "standing"; //Set behaviour to standing
     }
-    if (this.speed === 2) {
-      this.TilesLeft = this.TilesLeft * 2;
+    
+    if (this.speed === 2) {//If the speed is set to 2 initially
+      this.TilesLeft = this.TilesLeft * 2; //Then multiply the tiles need to travel
     }
 
     //Creates an attribute for the sprite or skin of the game object   
@@ -157,40 +176,43 @@ class Obj { //A blueprint for an object in the game
 
   //The Update method will commit changes to the object 
   update(state) {
+    //This dictionary allows the NPC to know which direction to face when interating
     const oppositeDirection = {
       "up": "down", "down": "up",
       "left": "right", "right": "left"
     }
+    //If its interating...
     if (this.interacting) {
+      //Set sprite direction to the opposite direction of the player
       this.sprite.updateSpriteSet("idle-" + oppositeDirection[player.direction])
-      return
+      return //Return the method preventing the NPC to execute the rest of the update method
     }
     // Check if there are tiles left to walk
     if (this.TilesLeft > 0) {
-      this.behaviour = "walking"
+      this.behaviour = "walking" // Set behaviour to walking
     }
     // Check if the object is on a tile and there are tiles left to walk
     if (Number.isInteger(this.x / 16) && Number.isInteger(this.y / 16) && this.TilesLeft > 0) {
       // Check for collision
-      if (state.map.checkCollision(this)) {
-        this.behaviour = "standing"
+      if (state.map.checkCollision(this)) { //If its colliding
+        this.behaviour = "standing" //Set behaviour to standing
       }
     }
 
-    // Decrement the time
+    // If the time attribute is greater than 0
     if (this.time > 0) {
-      this.time -= 60
+      this.time -= 60 //Decrease by 60 in each iteration
     }
-    this.time = Math.max(this.time, 0)
+    this.time = Math.max(this.time, 0) //Prevents from decreasing below 0
 
     // Update the position and sprite
     this.updatePos()
     this.updateSprite()
 
-    // If there are no tiles left to walk and the time is 0, advance to the next behavior
+    // If there are no tiles left to walk and the time is 0.... 
     if (this.TilesLeft === 0 && this.time === 0) {
-      this.currentBehaviour++
-      this.startBehaviourLoop()
+      this.currentBehaviour++ //advance to the next behavior
+      this.startBehaviourLoop() // Call the behaviour loop
     }
   }
 
@@ -200,18 +222,20 @@ class Obj { //A blueprint for an object in the game
       // Reset the current behavior if it has exceeded the behavior loop length
       this.currentBehaviour = this.currentBehaviour % this.behaviourLoop.length
 
-      // Set the behavior and direction
+     
+      // Destructure the behaviourLoop dictionary and fetching the data from the current behaviour
       const { behaviour, direction, time, tiles } = this.behaviourLoop[this.currentBehaviour]
+      // Set the behavior and direction
       this.behaviour = behaviour
       this.direction = direction
 
       // Update TilesLeft and time based on the behavior
       if (behaviour === "standing") {
-        this.time = time
-        this.TilesLeft = 0
-      } else {
-        this.TilesLeft = tiles * 16
-        this.time = 0
+        this.time = time //Set the time 
+        this.TilesLeft = 0 //Prevent the NPC from moving
+      } else { //Otherwise if the behaviour is not standing...
+        this.TilesLeft = tiles * 16 //Allow the player to move 
+        this.time = 0 // Set the time to 0 so there's no delay involved
       }
     }
   }
