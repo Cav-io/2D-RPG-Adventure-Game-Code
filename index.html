@@ -1,34 +1,31 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>2D RPG</title>
-  <link rel="stylesheet" href="./style.css" type="text/css" />
-  <link rel="preload" href="./HUD/Font/NormalFont.ttf" as="font" type="font/ttf" crossorigin>
+
+  <!-- Makes all paths relative to this folder -->
+  <base href="./">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" type="text/css" />
+  <link rel="preload" href="HUD/Font/NormalFont.ttf" as="font" type="font/ttf" crossorigin />
 </head>
 
+<body style="background-color: black; color: white; margin: 0;">
+  <!-- Game container -->
+  <div class="game">
+    <canvas class="canvas"></canvas>
+  </div>
 
-<body>
-    <!-- The game div is going to contain the display of the game -->
-    <div class="game">
-      <!-- The game cavas -->
-      <canvas class="canvas"></canvas>
-    </div>
-
- <!-- Scripts -->
- <!-- Links all the scripts back to the HTML file-->
-  <script src="./Game.js"></script>
-  <script src="./MapClass.js"></script>
-  <script src="./Entity.js"></script>
-  <script src="./HUD.js"></script>
-  <script src="./Globals.js"></script>
-  <script src="./KeyInput.js"></script>
-  <script src="./init.js"></script>
-    
-  
-  
+  <!-- JS files -->
+  <script src="Game.js"></script>
+  <script src="MapClass.js"></script>
+  <script src="Entity.js"></script>
+  <script src="HUD.js"></script>
+  <script src="Globals.js"></script>
+  <script src="KeyInput.js"></script>
+  <script src="init.js"></script>
 </body>
-
 </html>
