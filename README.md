@@ -22,3 +22,9 @@ The goal was to demonstrate key principles of software development including pla
 - 🌐 Built to run in modern web browsers
 - 💾 Designed to be lightweight and easily testable
 
+## 📄 Full NEA Documentation
+
+You can find the complete 300-page project write-up here:
+
+👉 [View NEA_Documentation.pdf](docs/NEA_documentation.pdf)
+
