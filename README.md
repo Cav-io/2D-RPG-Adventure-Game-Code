@@ -22,6 +22,43 @@ The goal was to demonstrate key principles of software development including pla
 - 🌐 Built to run in modern web browsers
 - 💾 Designed to be lightweight and easily testable
 
+## ▶️ How to Run
+
+You no longer need the VS Code "Live Server" extension. Pick any one option:
+
+**Option 1 – Just open it (easiest)**
+Double-click `index.html` (or drag it into Chrome / Edge / Firefox). That's it.
+
+**Option 2 – Node.js** (if you have Node installed)
+```bash
+npm start
+```
+Then open http://localhost:8000
+
+**Option 3 – Python** (if you have Python installed)
+```bash
+python -m http.server 8000
+```
+Then open http://localhost:8000
+
+**Option 4 – Play online with GitHub Pages**
+On GitHub go to *Settings → Pages*, set the source to the `main` branch (root folder) and save. The game will be live at `https://<your-username>.github.io/<repo-name>/`.
+
+### Controls
+| Key | Action |
+| --- | --- |
+| Arrow keys / WASD | Move |
+| Left Shift (hold) | Run |
+| Enter | Talk to the NPC you are facing |
+
+### Editing maps
+The collision data and font are bundled into `Maps/collisionData.js` and `fonts.css` so the game works when opened directly from a file. If you change a `Maps/*/collision.json` file (or the font), regenerate them with:
+```bash
+npm run build
+```
+
+---
+
 ## 📄 Full NEA Documentation
 
 You can find the complete 300-page project write-up here:

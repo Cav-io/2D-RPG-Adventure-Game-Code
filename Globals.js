@@ -361,10 +361,10 @@ window.Maps = {
 }
 
 window.mapDict = {
-  StartingTown: new Map(window.Maps.StartingTown),
-  Dojo: new Map(window.Maps.Dojo),
-  StartingHouse: new Map(window.Maps.StartingHouse),
-  FishingHut: new Map(window.Maps.FishingHut),
+  StartingTown: new GameMap(window.Maps.StartingTown),
+  Dojo: new GameMap(window.Maps.Dojo),
+  StartingHouse: new GameMap(window.Maps.StartingHouse),
+  FishingHut: new GameMap(window.Maps.FishingHut),
 };
 
 window.greetings= 

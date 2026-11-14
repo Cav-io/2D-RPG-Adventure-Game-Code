@@ -4,15 +4,14 @@
 
 body {
   /*Declares the background image for the website*/
-  background-image: url('https://allfreedesigns.com/wp-content/uploads/2015/06/black-patterns-11.jpg'); 
+  /* (Built with CSS instead of an external image link, so it always loads, even offline) */
+  background-color: #111;
+  background-image: repeating-linear-gradient(45deg, #1a1a1a 0 10px, #111 10px 20px);
   padding: 0; margin: 0;
   overflow: hidden; /*Ignores scroll responses to arrow keys*/
 }
 
-@font-face { /*Sets the custom font*/
-  font-family: 'NormalFont';
-  src: url('HUD/Font/NormalFont.ttf') format('truetype');
-}
+/* The custom 'NormalFont' font is declared in fonts.css */
 
 .game {
   position: relative; /*Canvas is relative to the parent element*/
@@ -49,14 +48,14 @@ body {
 }
 /* Container for displaying character name */
 .name-container{
-  color: "green"; /* Text color */
+  color: green; /* Text color */
   position: absolute; /* Positioning type */
   top: 60%; /* Distance from top of the screen */
   left: 3%; /* Distance from left of the screen */
 }
 /* Styling for the character name text */
 .name-text {
-  color: "green"; /* Text color */
+  color: green; /* Text color */
   margin: 0; /* Remove default margin */
   font-size: 30px; /* Set font size */
   word-spacing: 10px; /* Spacing between words */
