@@ -1,5 +1,5 @@
-//declare class Map with constructor and drawLayers method 
-class Map {
+//declare class GameMap with constructor and drawLayers method 
+class GameMap {
   constructor(config) {
     //Assigns a name for the map
     this.name = config.name;
@@ -8,13 +8,13 @@ class Map {
 
     //Creates layer instances and assigns layer sources
     this.lowerLayer = new Image(); //Lower Layer
-    this.lowerLayer.src = "/Maps/" + this.name + "/lower layer.png";
+    this.lowerLayer.src = "Maps/" + this.name + "/lower layer.png";
 
     this.collisionLayer = new Image(); //Collision Layer
-    this.collisionLayer.src = "/Maps/" + this.name + "/collision layer.png";
+    this.collisionLayer.src = "Maps/" + this.name + "/collision layer.png";
 
     this.upperLayer = new Image(); //Upper Layer
-    this.upperLayer.src = "/Maps/" + this.name + "/upper layer.png";
+    this.upperLayer.src = "Maps/" + this.name + "/upper layer.png";
 
     //Stores all the entity instances of the map
     this.entities = config.entities;
@@ -146,8 +146,15 @@ class Map {
   }
 
   async fetchCoordinates() {
-    // Make a fetch request to retrieve collision data for the map
-    const response = await fetch(`/Maps/${this.name}/collision.json`);
+    // Use the bundled collision data (Maps/collisionData.js) when available.
+    // This lets the game run by opening index.html directly, because
+    // browsers block fetch() on file:// pages.
+    if (window.collisionData && window.collisionData[this.name]) {
+      this.walls = window.collisionData[this.name];
+      return;
+    }
+    // Otherwise make a fetch request to retrieve collision data for the map
+    const response = await fetch(`Maps/${this.name}/collision.json`);
     // Parse the response as a JSON object
     const json = await response.json();
     // Assign the first layer of the JSON object to the "walls" property

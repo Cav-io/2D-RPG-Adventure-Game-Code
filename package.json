@@ -1,0 +1,10 @@
+{
+  "name": "2d-rpg-adventure-game",
+  "version": "1.0.0",
+  "private": true,
+  "description": "2D browser RPG (A-Level NEA project)",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node tools/build-assets.js"
+  }
+}
