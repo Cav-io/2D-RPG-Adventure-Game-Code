@@ -30,6 +30,9 @@ class Player extends Obj { //GameObj that can be controlled by the user
     }
     //Determines whether the player is able to move or not
     this.freeze = false; //Initally, don't freeze the player
+    //How many movement steps the player takes each frame (applies to both
+    //the human and animal forms). Increase to make the player move faster.
+    this.moveSteps = 2;
   }
 
 
@@ -93,13 +96,16 @@ class Player extends Obj { //GameObj that can be controlled by the user
   }
 
   updatePos(state) {
-    if (this.TilesLeft > 0) { //If the player has to move  
-      //Checks which direction it needs to move to
-      const [axis, value] = this.directionDict[this.direction]
-      //Changes their position value on the correct axis
-      this[axis] += value * this.speed
-      // If this method continues to run, the method will stop when the TilesLeft is 0
-      this.TilesLeft -= this.speed * this.speed;
+    //Repeat the movement step moveSteps times per frame to move faster
+    for (let step = 0; step < this.moveSteps; step++) {
+      if (this.TilesLeft > 0) { //If the player has to move  
+        //Checks which direction it needs to move to
+        const [axis, value] = this.directionDict[this.direction]
+        //Changes their position value on the correct axis
+        this[axis] += value * this.speed
+        // If this method continues to run, the method will stop when the TilesLeft is 0
+        this.TilesLeft -= this.speed * this.speed;
+      }
     }
   }
 }
